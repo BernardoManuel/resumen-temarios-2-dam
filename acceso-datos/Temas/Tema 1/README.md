@@ -170,3 +170,56 @@ Todas estas interfaces derivan de la interfaz **Node**, por lo que heredarán su
     </modulo>
 </curso>
 ```
+
+```java
+NodeList modulos = raiz.getElementsByTagName("modulo");
+
+for (int i = 0; i < modulos.getLength(); i++) {
+    Element el = (Element) modulos.item(i);
+
+    System.out.println(el.getNodeName() + " " + (i + 1));
+    
+    System.out.println("Nombre: " + el.getElementsByTagName("nombre").item(0).getFirstChild().getNodeValue());
+    System.out.println("Horas: " + el.getElementsByTagName("horas").item(0).getFirstChild().getNodeValue());
+    System.out.println("Nota: " + el.getElementsByTagName("nota").item(0).getTextContent());
+    System.out.println();    
+}
+```
+
+#### Escritura de documentos XML
+
+El bloque de a continuación crea un **Document**, y le añade una raíz <curso> con dos pare de atributos <nivel> y <ciclo>.
+
+```java
+Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+document.setXmlVersion("1.0");
+Element root = document.createElement("curso");
+
+root.setAttribute("nivel", "2");
+root.setAttribute("ciclo", "DAM");
+document.appendChild(root);
+```
+
+Ahora deberemos ir añadiendo más nodos, pero los añadiremos al **root** en vez de al **Document**.
+
+```java
+Element modulo = document.createElement("modulo");
+root.appendChild(modulo);
+
+Element nombre = document.createElement("nombre");
+nombre.appendChild(document.createTextNode("Acceso a datos"));
+nombre.setAttribute("curso", "2");
+modulo.appendChild(nombre);
+```
+
+La clase **Transformer** tabaja con dos tipos de adaptadores. Los adaptadores son clases que hacen compatibles jerarquías diferentes. Estos adaptadores son **Source** y **Result**. Las clases que implementan estos adaptadores se encargarán de hacer compatibles los diferentes tipos de contenedores al que requiera la clase **Transformer**.
+
+Para nuestro caso, como tenemos un DOM y lo queremos convertir a **Stream (fichero)**, necesitaremos un **DomSource** y un **StreamResult**.
+
+```java
+Transformer trans = TransormerFactory.newInstance().newTransformer();
+DOMSource soruce = new DOMSource(document);
+StreamResult result = new StreamResult(new FileOutputStream(nombreFichero + ".xml"));
+
+trans.transform(source, result);
+```
