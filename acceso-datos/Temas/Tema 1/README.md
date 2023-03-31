@@ -121,5 +121,5 @@ ObjectOutputStream oos
 
 ## 4. Almacenamiento con documentos XML
 ### 4.1. Analizadores XML
-- Analizadores secuenciales o sintácticos: Van extrayendo el contenido según se van descubriendo los hashtags de apertura y cierre.
-- Analizadores jerárquicos: Suelen ser los más utilizados, ya que guardan todos los datos del documento XML en memoria, en forma estructura jerarquizada; son los preferidos para aplicaciones que tengan que leer los datos de forma continua.
+- **Analizadores secuenciales o sintácticos:** Van extrayendo el contenido según se van descubriendo los hashtags de apertura y cierre.
+- **Analizadores jerárquicos:** Suelen ser los más utilizados, ya que guardan todos los datos del documento XML en memoria, en forma estructura jerarquizada; son los preferidos para aplicaciones que tengan que leer los datos de forma continua.
