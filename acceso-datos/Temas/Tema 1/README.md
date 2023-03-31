@@ -38,3 +38,15 @@ boolean delete() // Elimina el elemento.
 ```
 
 ### 1.3. Propiedades de los elementos
+
+Para consultar ciertas propiedades de los focheros, se utilizan los siguientes métodos de la clase **File**:
+
+```java
+boolean canRead()
+boolean canWrite()
+boolean canExecute() // Informa de los permisos de usuario para cada fichero.
+
+long length() // Devuelve el tamaño en bytes del fichero. Para los directorios, esta información no es representativa.
+
+String[] list() // Devuelve un vector de String con los elementos que contiene el directorio actual.
+```
