@@ -118,3 +118,7 @@ ObjectOutputStream oos
 // Esta clase permite leer y escribir objetos directamente. Se requiere que los objetos tengan implementado la interfaz Serializable.
 
 ```
+
+## 4. Almacenamiento con documentos XML
+
+### 4.1. Analizadores XML
