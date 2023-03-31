@@ -123,3 +123,25 @@ ObjectOutputStream oos
 ### 4.1. Analizadores XML
 - **Analizadores secuenciales o sintácticos:** Van extrayendo el contenido según se van descubriendo los hashtags de apertura y cierre.
 - **Analizadores jerárquicos:** Suelen ser los más utilizados, ya que guardan todos los datos del documento XML en memoria, en forma estructura jerarquizada; son los preferidos para aplicaciones que tengan que leer los datos de forma continua.
+
+### 4.2. El modelo de objetos del documento (DOM)
+El **DOM** es la estructura especificada por el W3C donde se almacena la información de los documentos XML. En **Java**, el DOM se implementa haciendo uso de interfaces.
+
+La interfaz principal del DOM en Java es **Document**.
+
+Además de Document, el W3C también define la clase abstracta **DocumentBuilder**, que permite crear el DOM a partir del XML.
+
+La manera de recuperar el DOM de un XML sería:
+
+```java
+public Document ObreXML(String nombreArchivoXML) throws IOException, SAXExceptiom, ParserConfigurationException, FileNotFoundException {
+    DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+
+    DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+
+    Document doc = dBuilder.parse(new File(nombreArchivoXML));
+
+    return doc;
+}
+
+```
