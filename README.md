@@ -1,2 +1,2 @@
-# Resumen Temarios 2º DAM - Diego Gómez Moreno
+# Resumen Temarios 2º DAM
 test
