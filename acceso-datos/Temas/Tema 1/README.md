@@ -50,3 +50,15 @@ long length() // Devuelve el tamaño en bytes del fichero. Para los directorios,
 
 String[] list() // Devuelve un vector de String con los elementos que contiene el directorio actual.
 ```
+
+## 2. Ficheros de texto
+
+Las clases que posee Java para la gestión de ficheros de texto son las siguientes:
+
+```java
+FileWriter fw
+FileReader fr // Nos premite gestionar ficheros de texto, aunque solo mediante lecturas/escrituras carácter a carácter o en bloque de longitud constante.
+
+BufferedWriter bw
+BufferedReader br // Creados a partir de los anteriores, permiten el tratamiento de los ficheros de texto más cercano al ser humano, ya que el tratamiento de sus datos puede realizarse linea a linea.
+```
