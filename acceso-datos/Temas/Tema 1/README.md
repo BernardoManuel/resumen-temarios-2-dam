@@ -62,3 +62,34 @@ FileReader fr // Nos premite gestionar ficheros de texto, aunque solo mediante l
 BufferedWriter bw
 BufferedReader br // Creados a partir de los anteriores, permiten el tratamiento de los ficheros de texto más cercano al ser humano, ya que el tratamiento de sus datos puede realizarse linea a linea.
 ```
+
+### 2.1. Procesado carácter a carácter
+Los objetos **FileWriter/FileReader** suelen ser adecuado para tratamientos generales de ficheros.
+
+Estas clases poseen como métodos generales:
+
+```java
+int read() // Lee un solo carácter, aunque devuelve un entero, por lo que habría que hacer un casting a char. 
+
+int read(char[], offset, max) // Lee un bloque de caracteres de una longitud máxima determinada.
+
+void write(int c) // Escribe el carácter como argumento.
+
+void write(char[]) // Escribe el conjunto de caracteres pasados dentro del vector.
+
+```
+
+### 2.2. Procesado línea a línea
+Los objetos **BufferedWriter/BufferedReader** se utilizan para leer un texto hasta encontrar el separador de la linea (\n).
+
+Para leer archivos línea a línea deberemos crear la referencia a un fichero y crear el objeto File. Leeremos posteriormente con el método **String readLine()**, guardando el contenido de dicha lectura en una variable **String**. Este método devolverá **null** cuando no se ha podido efectuar la lectura porque se ha llegado al fianl del fichero.
+
+Para la escritura por bloques o líneas, utilizaremos el objeto tipo **BufferedWriter**. El método que permite la escritura es **void write(String s)**, que envía al fichero el texto pasado.
+
+```java
+String texto = "Esto es una línea.";
+fw.write(texto);
+fw.newLine();
+```
+
+### 2.3. Archivos CSV
