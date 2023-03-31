@@ -145,3 +145,28 @@ public Document ObreXML(String nombreArchivoXML) throws IOException, SAXExceptio
 }
 
 ```
+
+### 4.3. Clases y métodos del DOM
+- **Document**
+- **Element**
+- **TextElement**
+- **Attribute**
+
+Todas estas interfaces derivan de la interfaz **Node**, por lo que heredarán sus atributos y métodos, y además, aportarán atributos y métodos propios.
+
+#### Lectura de documentos XML
+
+```xml
+<curso>
+    <modulo>
+        <nombre>Acceso a Datos</nombre>
+        <horas>6</horas>
+        <nota>8.45</nota>
+    </modulo>
+    <modulo>
+        <nombre>Programación de servicios y procesos</nombre>
+        <horas>3</horas>
+        <nota>9.0</nota>
+    </modulo>
+</curso>
+```
