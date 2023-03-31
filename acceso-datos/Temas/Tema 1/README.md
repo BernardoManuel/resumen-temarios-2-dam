@@ -93,3 +93,28 @@ fw.newLine();
 ```
 
 ### 2.3. Archivos CSV
+
+Los archivos CSV son ficheros de texto plano que contienen información respecto a una entidad.
+
+## 3. Ficheros binarios. Ficheros de objetos.
+
+### 3.1. Clases Java para los ficheros binarios.
+Para tratar los ficheros binarios en Java tenemos las siguiente clases:
+
+```java
+FileInputStream fis
+FileOutputStream fos
+// Son clases generales de acceso a ficheros binarios. Sus métodos genéricos read() y write() permiten leer o escibir bytes adhoc.
+
+DataInputStream dis
+DataOutputStream dos
+// La gran ventaja de estas clases son los métodos readTIPO() y writeTIPO(). Ejemplos, readInt(), writeInt(), readUTF() o writeUTF().
+
+RandomAccessFile raf
+// Esta clase permite tanto leer como escribir los tipos adecuados.
+
+ObjectInputStream ois
+ObjectOutputStream oos
+// Esta clase permite leer y escribir objetos directamente. Se requiere que los objetos tengan implementado la interfaz Serializable.
+
+```
