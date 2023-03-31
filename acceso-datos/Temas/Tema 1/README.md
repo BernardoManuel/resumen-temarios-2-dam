@@ -223,3 +223,65 @@ StreamResult result = new StreamResult(new FileOutputStream(nombreFichero + ".xm
 
 trans.transform(source, result);
 ```
+
+## 5. Almacenamiento con archivos JSON
+JSON es otro formato de texto ligero para el intercambio de datos.
+
+### 5.1. El formato JSON
+La sintaxis básica, junto con los tipos de datos, que podemos representar en JSON es:
+
+- **Números**
+- **Cadenas**
+- **Booleanos**
+- **Null**
+- **Array**
+- **Objetos**
+
+### 5.2. JSON y Java. Librería org.JSON
+
+La librería ofrece un conjunto de clases para procesar JSON para Java, además de conversores entre JSON y XML. De entra las clases que ofrece, podríamos destacar:
+
+- **org.json.JSONObject**
+- **org.json.JSONTokener**
+- **org.json.JSONArray**
+- **org.json.JSONWriter**
+
+
+### 5.3. Creación de un objeto JSON a partir de un objeto Java
+
+```java
+public JSONObject getAsJSON() {
+    JSONObject modulo = new JSONObject();
+
+    modulo.put("nombre", this.nombre);
+    modulo.put("horas", this.horas);
+    modulo.put("nota", this.nota);
+
+    return modulo;
+};
+```
+
+```java
+JSONObject curso = new JSONObject();
+
+JSONArray jsarray = new JSONArray();
+
+for (Modulo m : this.Curso) {
+    JSONObject modulo_json = m.getAsJSON();
+    jsarray.put(modulo_json);
+}
+
+curso.put("curso", jsarray);
+```
+
+```java
+try {
+    FileWriter file = new FileWriter("curso.json");
+    file.write(curso.toString(4));
+    file.close();
+} catch (IOException e) {
+    System.out.println("Error en la creación del fichero json.")
+}
+```
+
+### 5.4. Lectura de ficheros JSON
