@@ -12,4 +12,4 @@
 - [ ] a. Son aquellas que se almacenan en el PATH.
 - [ ] b. Se refieren a rutas respecto al directorio de ejecución del programa.
 - [ ] c. Se refieren a la ruta desde la carpeta de usuario.
-- [X] **d. Se refieren a la ruta desde la raíz del sistema operativo.**
+- [O] **d. Se refieren a la ruta desde la raíz del sistema operativo.**
