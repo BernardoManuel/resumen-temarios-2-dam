@@ -17,3 +17,9 @@ File f = new File("/home/dgomezm/main.java") // Linux
 
 File f = new File("C:\\Usuarios\\dgomezm\\Escritorio\\main.java") // Windows
 ```
+
+Una vez ya se ha obtenido la referencia al elemento del sistema de ficheros, se podrían hacer una serie de comprobaciones utilizando los métodos de la clase File:
+
+```java
+boolean exists() // Devuelve **true** si el objeto al que apuntamos existe.
+```
