@@ -327,3 +327,7 @@ for (int i = 0; i < losModulos.length(); i++) {
 - [Repositorio del Maven central con la dependencia JSON](https://mvnrepository.com/artifact/org.json/json)
 - [Información de la sintaxis estándar JSON](http://www.json.org/)
 - [API rest que provee de información de las películas de ‘Star Wars’, como personajes, planetas, naves, etc. Responde a las peticiones con archivos JSON](https://swapi.dev/)
+
+## 7. Respuestas cuestionario
+
+- [Cuestionario](./CUESTIONARIO.md)
