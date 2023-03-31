@@ -285,3 +285,43 @@ try {
 ```
 
 ### 5.4. Lectura de ficheros JSON
+
+La lectura de ficheros JSON es muy sencilla, ya que el propio constructo de **JSONObject** permite crearlos a partir de un **String**.
+
+```java
+try {
+    FileReader file = new FileReader("fichero.JSON");
+    String myJson = "";
+
+    int i;
+    while ((i = file.read()) != -1) {
+        myJson = myJson + ((char) i);
+    } 
+    file.close();
+
+    JSONObject modulos = new JSONObject(myJson);
+
+}  catch (Exception e) {
+    System.out.println("Error cargando el fichero.");
+}
+```
+
+Ahora, lo que necesitamos es recoger el contenido a partir de dicho objeto.
+
+```java
+JSONArray losModulos = modulos.getJSONArray("curso");
+
+for (int i = 0; i < losModulos.length(); i++) {
+    JSONObject modulo = (JSONObject) losModulos.get(i);
+
+    String nombre = modulo.get("nombre");
+    int horas = modulo.getInt("horas");
+    double nota = modulo.getDouble("nota");
+
+    Modulo m = new Modulo(nombre, horas, nota);
+}
+```
+
+## 6. Enlaces Web
+
+- [Repositorio del Maven central con la dependencia JSON][https://mvnrepository.com/artifact/org.json/json]
