@@ -47,7 +47,7 @@ Los controladores pueden ser de diferentes tipos:
 ### 2.3. Base de datos embebidas
 Se conocen como bases de datos en un único fichero, que almacenan tanto la estructura de la información como la propia información.
 
-##### Ejemplos de bases de datos embebidas
+#### Ejemplos de bases de datos embebidas
 - **SQLite**
 - **H2**
 - **ObjectDB**
