@@ -161,7 +161,35 @@ ResultSet getTables(String catalogo, String esquema, String nombreTabla, String[
 ResultSet getColumns(String catalogo, String esquema, String nombreTabla, String nombreColumna)
 ```
 ## 5. Consultas a la base de datos
+### 5.1. Operaciones sobre la base de datos
+Para crear las sentencias, tenemos las interfaces **Statement** y **PreparedStatement**, obtenidas a partid de los objetos **Connection**. Posteriormente, las ejecutaremos con **execute()** o **executeQuery()**.
 
+### 5.2. Tipos de sentencias
+##### Sentencias fijas
+Son consultas que son "constantes", es decir, que no dependen de ningún argumento. Son las más simples. Se crea el **Statement** y se lanza la consulta
+```java
+String sql = "select * from Persona;";
+Statement stm = conn.createStatement();
+
+ResultSet rst = stm.executeQuery(sql);
+while (rst.next()) {
+    System.out.println(rst.getString("nombre") + " " + rst.getString("apellidos") + " " + rst.getInt("edad"));
+}
+```
+Otra consulta podría ser una actualización o inserción:
+
+```java
+String sql = "insert into Persona(nombre, apellidos, edad) values ('Diego', 'Gómez Moreno', 23);";
+Statement stm = conn.createStatement();
+
+int filas = stm.executeUpdate(sql);
+if (filas == 1) {
+    System.out.println("Inserción realizada con éxito.");
+} else {
+    System.out.println("Error en la inserción.");
+}
+```
+##### Sentencias variables
 
 ## 6. Enlaces Web
 - [Información de los métodos y propiedades del objeto ResultSet.](https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
