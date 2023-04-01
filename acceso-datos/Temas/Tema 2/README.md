@@ -53,6 +53,62 @@ Se conocen como bases de datos en un único fichero, que almacenan tanto la estr
 - **ObjectDB**
 
 ## 3. Conexión a la base de datos
+### 3.1. Establecimiento de la conexión
+Para crear una conexión a la base de datos, una vez cargado el driver, deberemos especificar dos conceptos básicos, junto con algunas opciones más:
+- **Host**
+- **Puerto**
+
+Toda esta información la recogeremos en lo que se denomina **"cadena de conexión"**.
+
+En Java, la clase necesaria para gestionar el driver es **java.sql.DriverManager**. Los drivers intentan cargar del sistema al leer la propiedad **jdbc.drivers**, pero podemos indicar que está cargado mediante la instrucción:
+```java
+Class.forName("com.mysql.cj.jdbc.Driver");
+```
+
+La clase que centralizará todas la operaciones con la base de datos es **java.sql.Connection**, y la debemos obtener del **DriverManager** con cualquiera de los tres métodos estáticos que tiene:
+```java
+static Connection getConnection(String url)
+
+static Connection getConnection(String url, Properties info)
+
+static Connection getConnection(String url, String user, String password)
+
+```
+### 3.2. Parámetros de la conexión
+En la cadena de conexión, de manera obligatoria tenemos que indicar el host y el puerto, como hemos visto.
+
+```java
+String connectionUrl = "jdbc:mysql://localhost:3308/BDJuegos";
+Connection conn = DriverManager.getConnection(connectionUrl, "root", "toor");
+```
+Permite conectarse al servidore de la máquina local en el puerto 3308 y marcar como activa la base de datos denominada **BDJuegos**.
+
+### 3.3. Organizar y centralizar la conexión
+Nuestra apliación va a conectarse a una base de datos. A dicha base de datos podemos hacerle muchas peticiones, y, si estamos implementando una aplicación multihilo, este número de peticiones puede incrementarse mucho. Por este motivo, debemos tener controlado dónde y cuándo se crean y se cierran las conexiones. Una buena idea es crear una cñase que encapsule todos estos procesos. El esqueleto de dicha clase sería el siguiente:
+
+```java
+public class ConexionBD {
+    private Connection conn = null;
+    
+    private void connect() {
+        // Realizar la conexión.
+    }
+
+    public void disconnect() {
+        if (conn != null) {
+            conn.close();
+        }
+    }
+
+    public Connection getConexion() {
+        if (conn == null) {
+            this.connect();
+        }
+
+        return this.conn;
+    }
+}
+```
 
 ## 4. Metainformación de la base de datos
 ### 4.1. El objeto ResultSet
@@ -104,3 +160,15 @@ ResultSet getTables(String catalogo, String esquema, String nombreTabla, String[
 
 ResultSet getColumns(String catalogo, String esquema, String nombreTabla, String nombreColumna)
 ```
+## 5. Consultas a la base de datos
+
+
+## 6. Enlaces Web
+
+- [Información de los métodos y propiedades del objeto ResultSet.](https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
+- [Consulta sobre el objeto DataBaseMetadata, sobre todo con la información de los ResultSet y los campos que contiene al consultar la información de tablas, campos y claves.](https://docs.oracle.com/javase/7/docs/api/java/sql/DatabaseMetaData.html)
+- [Ejemplos prácticos para patrones de diseño Java.](https://refactoring.guru/es/design-patterns/singleton)
+
+## 7. Respuestas cuestionario
+
+- [Cuestionario](./CUESTIONARIO.md)
