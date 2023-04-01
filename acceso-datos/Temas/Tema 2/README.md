@@ -190,6 +190,24 @@ if (filas == 1) {
 }
 ```
 #### Sentencias variables
+Los valores deben estar en variables; por lo tanto, podríamos mejorar esta consulta reescribiendo el **query** de esta manera:
+```java
+String nombre = Leer.leerTexto("Dime el nombre: ");
+String apellidos = Leer.leerTexto("Dime los apellidos: ");
+int edad = Leer.leerEntero("Dime la edad: ");
+
+String sql = "insert into Persona(nombre, apellidos, edad) values ('" + nombre + "', '" + apellidos + "', " + edad + ");";
+```
+Fíjate en que los textos deben estar entre comillas y los número no, lo que hace muy probable la equivocacion al programar. Además, este tipo de código puede incurrir en problemas de inyección SQL, como vemos en el siguiente ejemplo:
+```java
+String idPersona = Leer.leerTexto("Dime el id que quieres consultar: ");
+
+String sql = "select * from Persona where idPersona=" + idPersona + ";";
+```
+Si el usario introduce **4**: mostrará la persona de **idPersona 4**.
+Si el usuario introduce **4 or 1=1**: mostrará todas las personas.
+
+#### Sentencias variables
 
 ## 6. Enlaces Web
 - [Información de los métodos y propiedades del objeto ResultSet.](https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
