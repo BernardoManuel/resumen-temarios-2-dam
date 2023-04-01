@@ -252,6 +252,44 @@ Cada ejecución sobre la conexón genera una transacción sobre sí misma. Si qu
 
 Para aceptar definitivamente la transacción, lo realizaremos mediante **conn.commit();** y para cancelar la transacción, **conn.rollback();**.
 
+### 5.5. ResultSet actualizables
+Los **Resultset** que obtenemos de las consultas, por lo general, nos servirán para cargar datos que mostrar en nuestro programas. Muchas veces, dichos datos serán modificados, y, por lo tanto, aparte de cargar los datos, deberemos guardar la información. Ahí es donde aparecen los **ResultSet** actualizables, que dependerán del modo que se creó la sentencia, con la sintaxis:
+
+```java
+public abstract Statement createStatement(
+    int arg0, // resultSetType
+    int arg1, // resultSetConcurrency
+    int arg2 // resultSetHoldability
+) throws SQLException
+```
+Donde **ResultSetType**:
+- **TYPE_FORWARD_ONLY**: Un solo recorrido.
+- **TYPE_SCROLL_INSENSITIVE**: Permite *scroll* o rebobinado a posición absoluta o relativa. Los datos son los que se cargan en la apertura.
+- **TYPE_SCROLL_SENSITIVE**: Permiten *scroll*, y, si hay modificacioens en la base de datos, los cambios son visibles en el **ResultSet**.
+
+Donde **ResultSetConcurrency**:
+- **CONCUR_READ_ONLY**: Solo se soporta lectura. Cambios solo con update.
+- **CONCUR_UPDATABLE**: Permite actualizar el **ResultSet**.
+
+Donde **ResultSetHoldability** determina el comportamiento cuando se cierra una transacción con un **commit**:
+- **HOLD_CURSORS_OVER_COMMIT**: El **ResultSet** no se cierra al finalizar la transacción.
+- **CLOSE_CURSORS_AT_COMMIT**: El **ResultSet** se cierra. Mejora el rendimiento.
+
+Como hemos visto, el cursor no solo admite avanzar.
+- **Next, previous, first, last**: devuelven **true** si se ha posicionado sobre una fila y **false** sis se ha salido del **ResultSet**
+- **beforeFirst** y **afterLast**: se sitúan antes del primero o después del último.
+- **relative(int n)**: se desplaza n filas hacia adelante.
+- **absolute(int n)**: se sitúa en la fila n.
+
+#### Borrados
+Después de situar el cursor sobre la fila que vamos a eliminar, podemos eliminarla del **ResultSet** con el método **.deleteRow()**. Al borrar una fila, el cursor quedará apuntando a la fila anterior a la borrada.
+
+#### Actualizaciones
+Mediante el método **updateTIPO(int, nuevoValor)**, donde se asigna a la columna **i-ésima** el valor nuevo valor del tipo **TIPO**. Modificadas todas las columnas, se guardan los cambios con **updateRow()**.
+
+#### Inserciones
+Si queremos insertar una nueva fila en un **ResultSet**, primero debemos generarla en blanco, y esto se consigue con el método **rst.moveToInsertRow()**, que crea una fila virtual en blanco. Sobre esta fila le aplicamos los métodos **updateTIPO(int, nuevoValor)**, y finalmente procederemos a insertar la nueva fila con **rst.insertRow()**.
+
 ## 6. Enlaces Web
 - [Información de los métodos y propiedades del objeto ResultSet.](https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
 - [Consulta sobre el objeto DataBaseMetadata, sobre todo con la información de los ResultSet y los campos que contiene al consultar la información de tablas, campos y claves.](https://docs.oracle.com/javase/7/docs/api/java/sql/DatabaseMetaData.html)
