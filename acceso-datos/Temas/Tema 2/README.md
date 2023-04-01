@@ -165,7 +165,7 @@ ResultSet getColumns(String catalogo, String esquema, String nombreTabla, String
 Para crear las sentencias, tenemos las interfaces **Statement** y **PreparedStatement**, obtenidas a partid de los objetos **Connection**. Posteriormente, las ejecutaremos con **execute()** o **executeQuery()**.
 
 ### 5.2. Tipos de sentencias
-##### Sentencias fijas
+#### Sentencias fijas
 Son consultas que son "constantes", es decir, que no dependen de ningún argumento. Son las más simples. Se crea el **Statement** y se lanza la consulta
 ```java
 String sql = "select * from Persona;";
@@ -189,7 +189,7 @@ if (filas == 1) {
     System.out.println("Error en la inserción.");
 }
 ```
-##### Sentencias variables
+#### Sentencias variables
 
 ## 6. Enlaces Web
 - [Información de los métodos y propiedades del objeto ResultSet.](https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
