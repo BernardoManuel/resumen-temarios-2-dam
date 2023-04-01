@@ -164,11 +164,9 @@ ResultSet getColumns(String catalogo, String esquema, String nombreTabla, String
 
 
 ## 6. Enlaces Web
-
 - [Información de los métodos y propiedades del objeto ResultSet.](https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
 - [Consulta sobre el objeto DataBaseMetadata, sobre todo con la información de los ResultSet y los campos que contiene al consultar la información de tablas, campos y claves.](https://docs.oracle.com/javase/7/docs/api/java/sql/DatabaseMetaData.html)
 - [Ejemplos prácticos para patrones de diseño Java.](https://refactoring.guru/es/design-patterns/singleton)
 
 ## 7. Respuestas cuestionario
-
 - [Cuestionario](./CUESTIONARIO.md)
