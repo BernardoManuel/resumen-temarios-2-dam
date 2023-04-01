@@ -204,10 +204,31 @@ String idPersona = Leer.leerTexto("Dime el id que quieres consultar: ");
 
 String sql = "select * from Persona where idPersona=" + idPersona + ";";
 ```
-Si el usario introduce **4**: mostrará la persona de **idPersona 4**.
-Si el usuario introduce **4 or 1=1**: mostrará todas las personas.
+- Si el usario introduce **4**: mostrará la persona de **idPersona 4**.
+- Si el usuario introduce **4 or 1=1**: mostrará todas las personas.
 
-#### Sentencias variables
+#### Sentencias preparadas
+Para evitar el problema de la **inyección SQL**, siempre que tengamos parámetros en nuestra consulta haremos uso de las sentencias preparadas. En las sentencias preparas, donde tengamos que hacer uso de una variable, en vez de componerla con concatenaciones dentro del **String**, le indicaremos con un interrogante **(?)**, carácter que se denomina **placeholder**.
+
+Debermos asignar valores a dichos **placeholder**, mediante métodos **setTIPO(int pos)**, donde **TIPO** es el tipo de datos que vamos a asignar y **pos** la posición del **placeholder**, empezando por el 1.
+```java
+String sql = "insert into Persona(nombre, apellidos, edad) values (?,?,?)";
+
+PreparedStatement pstm = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+pstm.setString(1, nombre);
+pstm.setString(2, apellidos);
+pstm.setInt(3, edad);
+
+int filas = pstm.executeUpdate();
+ResultSet rs = pstm.getGeneratedKeys();
+```
+Es importante que en este ejemplo revises lo siguiente:
+- Al crear la sentencia preparada ya indicaremos el **String sql** que contiene **placeholders**.
+- El segundo argumento es opcional; en este caso, el **RETURN_GENERATED_KEYS** nos viene bien porque nos devuelve un **Resultset** con las claves generadas de manera autmática por el SGBD.
+- El **ExecuteUpdate** retorna el número de filas insertado.
+- El método **getGeneratedKeys** devuelve un **Resultset** con las claves principales generadas.
+
+#### Metadatos de las consultas
 
 ## 6. Enlaces Web
 - [Información de los métodos y propiedades del objeto ResultSet.](https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
