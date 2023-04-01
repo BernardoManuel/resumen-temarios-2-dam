@@ -229,6 +229,28 @@ Es importante que en este ejemplo revises lo siguiente:
 - El método **getGeneratedKeys** devuelve un **Resultset** con las claves principales generadas.
 
 #### Metadatos de las consultas
+Siempre que realicemos una consulta (**executeQuery()**) el resultado es un **ResultSet**. Podemos consultar metainformación de esa tabla retornada por la **Select**, mediante un objeto que podemos extraer del ResultSet, que es el **ResultSetMetaData**. Dicho objeto contiene:
+```java
+int getColumnCount()
+String getColumnName(int index)
+String getColumnTypoeName(int index)
+```
+
+### 5.3. Scripts
+Un script, que habitualmente tenemos creado en un fichero externo, no es más que un conjunto de **sentencias SQL** ejecutadas en un orden de arriba abajo. Podríamos coger como estrategia ir leyendo línea a línea el fichero e ir ejecutando, pero JDBC permite ejecutar un conjunto de instrucciones en bloque. Para ello, lo primero que debemos hacer es habilkitar la ejecución múltiple, añádiendo un parámetro a la conexión, que es **allowMultipleQueries=true**.
+
+Deberemos cargar el fichero y componer un **String** con todo el script.
+
+Para ello podemos ir leyendo línea a línea y guardándolo en un **StringBuilder**, añadiendo como separadores el **System.getProperty("line.separator")**.
+
+Después, solo necesitaremos crear una sentencia con dicho **String** y ejecutarla con un **executeUpdate()**.
+
+### 5.4. Transacciones
+Una transacción define un entorno de ejecución en el que las operaciones de guardado se quedan almacenadas en memoria hasta que finalice esta. Si en un determinado momento algo falla, se devuelve el estado al punto inicial de la misma, o algún punto de marcado intermedio. **Por defectom, al abrir una conexión se inicia una transacción**.
+
+Cada ejecución sobre la conexón genera una transacción sobre sí misma. Si queremos deshabilitar esta opción para que la transacción engloble varias ejecuciones, deberemos marcarlo mediante **conn.setAutoCommit(false);**.
+
+Para aceptar definitivamente la transacción, lo realizaremos mediante **conn.commit();** y para cancelar la transacción, **conn.rollback();**.
 
 ## 6. Enlaces Web
 - [Información de los métodos y propiedades del objeto ResultSet.](https://docs.oracle.com/javase/7/docs/api/java/sql/ResultSet.html)
