@@ -241,3 +241,36 @@ public class Peli_Anotada implements Serializable{
     
 . . . . //  Obviamos el resto de la clase
 ```
+
+### 3.3. Componentes (@Embedded)
+Un componente se da cuando en Java tenemos una clase como tal, pero dicha clase solo tiene existencia o sentido dentro de otra clase, sin tener sentido en ninguna otra clase. Un ejemplo podría ser la puntuación en IMDB de una película, que solo tiene sentido que se guarde para dicha película.
+
+Así pues, mediante anotaciones crearemos una clase y la marcaremos como **@Embeddable** y, dentro de nuestra clase **Peli**, marcamos dicho campo componente como **@Embedded**:
+
+- **Clase IMDB**
+```java
+Embeddable
+public class IMDB implements Serializable {
+    @Column
+    private String url;
+
+    @Column
+    private double nota;
+
+    @Column
+    private long votos;
+}
+```
+
+- **Dentro de la clase Peli**
+```java
+ @Embedded
+private IMDB imdb;
+
+public Peli_Anotada(String titulo, int anyo, String elDirector, IMDB imdb) {
+    this.titulo = titulo;
+    this.anyo = anyo;
+    this.elDirector = elDirector;
+    this.imdb = imdb;
+}
+```
