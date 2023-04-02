@@ -60,3 +60,184 @@ dependencies {
 }
 ```
 ### 2.2. Estructura de un proyecto de Hibernate
+#### Bean (Clases)
+Estas clases se denominaban **POJO (plain old Java object)**. Los POJO son objetos comunes, que no pueden heredar ni implementar clases ni interfaces preestablecidas de Java ni tener anotaciones.
+
+Como una extensión de los POJO aparecen los **beans**, cápsula o granos, que son más restrictivos, y tienen las siguietes características:
+- Hacer sus atributos privados.
+- Implementar las interfaz **serializable**.
+- Acceder a los campos mediante **getters** y **setters** públicos.
+- Implementar un constuctor por defecto.
+
+#### Fichero de mapeado
+Una vez definidas las entidades, necesitaremos el fichero de mapeado para cada **bean**. En dicho mapeado se indica a qué tabla de la base de datos se guardará dicho **bean**, así como con qué columna y tipo de datos debe coincidir cada atributa de este.
+
+Deberá existir pues un fichero de mapeado por cada **bean**. Si el **bean** se llama, por ejemplo, **Empleado.java**, el **bean** asociado se llamará **Empleado.hbm.xml** (**hbm** por **Hibernate mapping**).
+
+### 2.3. Configuración del proyecto
+Básicamente, tenemos que realizar dos operaciones, configurar el proyecto y cargar dicha configuración al ejecutarlo, configuración que pasamos a desarrollar.
+
+#### Fichero Hibernate.cfg.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+ <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+ <hibernate-configuration>
+    <session-factory>
+        
+    <!-- Propiedades de la conexión -->
+
+	<!-- Driver JDBC -->
+    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+
+    <!-- Conexión. Añadir ?createDatabaseIfNotExist=true para crear la BBDD  -->
+    <property name="connection.url">jdbc:mysql://localhost:3308/nombreBBDD</property>
+
+    <!-- Usuario y password de la BBDD -->
+    <property name="connection.username">root</property>
+    <property name="connection.password">root</property>
+
+    <!--  dialecto dentro del conector. Importante para claves ajenas-->
+    <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+    
+    <!-- Configuraciones adicionales -->
+
+    <!-- JDBC connection pool Conexiones concurrentes -->
+    <property name="connection.pool_size">5</property>
+
+    <!-- Una sesion de trabajo por Thread-->
+    <property name="current_session_context_class">thread</property>
+
+
+    <!-- Informa de las operaciones "reales" SQL. Interesante en desarrollo -->
+    <property name="show_sql">true</property>
+    
+    <!-- Mantenimiento de la BBDD -->
+
+    <property name="hbm2ddl.auto">update</property>
+    
+    <!-- opciones de hbm2dll:
+    create : Borra y crea SIEMPRE la base de datos
+    update : Mantiene los datos, actulizando la estructura de la BBDD. Util en     producción.
+    create-drop : Crea todo, y al finalizar el programa lo borra
+    validate: comprueba que las especificaciones del mapeo son validas con el diseño relacional de la BBDD
+    -->
+    
+    <!-- Ficheros de mapeo. Pueden combinarse-->
+
+    <!-- Mapeo DENTRO DE LA CLASE -->
+    <mapping class="paquete.clase1" />
+    <mapping class="paquete.clase2" />
+
+    <!-- Mapeo EN FICHERO EXTERNO -->
+    <mapping resource="clase1.hbm.xml" />
+    <mapping resource="clase2.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>
+```
+Hay que tener en cuenta las partes del fichero:
+- Configuración de la base de datos.
+- Para mostrar las consultas SQL se recomienda tenerla a **true** para ver como se produce en realidad el mapeo de los objetos a consultas SQL.
+- La opción **hbm2ddl** es muy potente, ya que, si partimos solo del modelo orientado a objetos, Hibernate creará la base de datos por nosotros.
+- Los ficheros de mapeo XML deben estar junto a las clases Java, en el mismo paquete.
+- Los mapeos dentro de las clases hacen referencia a los propios beans.
+
+#### Carga de la sesión y la configuración. Clase HibernateUtil.java
+Para cargar la configuración y obtener un objeto de tipo **Session**, deberemos crear una clase que realice esta tarea. Esta clase habitualmente se llama **HibernateUtil.java**, y el código es el siguiente:
+
+```java
+public class HibernateUtil {
+
+    private static final SessionFactory sessionFactory;
+
+    // Código estático. Sólo se ejecuta una vez, como un Singleton
+    static {
+        try {
+            // Creamos es SessionFactory desde el fichero hibernate.cfg.xml 
+            sessionFactory = new Configuration()
+                .configure(new File("hibernate.cfg.xml")).buildSessionFactory();    
+        } catch (Throwable ex) {
+            System.err.println("Error en la inicialización.  " + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
+    }
+
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
+    }
+}
+```
+
+En dicha clase se crea una instancia única **(Singleton)** de la factoria de sesiones, a partir del fichero de configuración indicado. A partir del **SessionFactory** ya podemos empezar a crear sesiones, y transacciones en ellas.
+
+## 3. Mapeo de objetos. JPA
+Ahora tenemso que empezar a mapear entidades, y necesitamos tener el modelo relacional que vamos a mapear. Partiremos del siguiente ejemplo con la entidad *"Pelis"* en una base de datos *"Cine"*.
+```sql
+CREATE TABLE 'Peli' {
+    'idPeli' int(11) NOT NULL AUTO_INCREMENT,
+    'titulo' varchar(45) NOT NULL,
+    'anyo' varchar(45) NOT NULL,
+    'director' varchar(45) NOT NULL,
+    PRIMARY KEY ('idPeli')
+} ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+A continuación, vamos a crear el bean que contendrá las Pelis. Lo crearemos en un nuevo paquete al que llamaremos **Model**, ya que contendrá los beans que conforman el modelo de datos. Dicha clase quedará:
+```java
+package Model;
+import java.io.Serializable;
+
+public class Peli implements Serializable {
+    private Long idPeli;
+    private String titulo;
+    private int anyo;
+    private String elDirector;
+
+    public Peli() {
+    }
+
+    public Peli(String titulo, int anyo, String elDirector) {
+        this.titulo = titulo;
+        this.anyo = anyo;
+        this.elDirector = elDirector;
+    }
+}
+```
+### 3.1. Mapeo de entidades. Archivo de mapeo
+Para poder persistir este tipo de objeto, debemos crear un archivo externo a la clase, de extensión **.hbm.xml** y con el mismop nombre de la clase. La localización del archivo ni importa a priori, aunque es buena idea tener las clases del modelo por un lado y los archivos de mapeo por otro. Así pues, crearemos un paquete **ORM** y dentro de él crearemos el archivo **Peli.hbm.xml**.
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="Model.Peli" table="Peli" >
+        <id column="idPeli" name="idPeli" type="long">
+            <generator class="native"></generator>
+         </id>
+        <property name="titulo" type="string"/>
+        <property name="anyo" />
+        <property column="director" name="elDirector" />
+    </class>
+</hibernate-mapping>
+```
+
+### 3.2. Mapeo de entidades. Anotaciones
+Podemos realizar dentro de la clase Java las anotaciones pertinentens, mediante el estándar **JPA (Java persistence API)**. La ventaja es clara: solo manipularemos un fichero, aunque, por el contrario si deseamos dejar de persistir una clase, nos quedará "emborronada" con las anotaciones.
+```java
+@Entity
+@Table(name="Peli")
+public class Peli_Anotada implements Serializable{
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long idPeli;
+    
+    @Column
+    private String titulo;
+    
+    @Column
+    private int anyo;
+    
+    @Column(name="director")
+    private String elDirector;
+    
+. . . . //  Obviamos el resto de la clase
+```
