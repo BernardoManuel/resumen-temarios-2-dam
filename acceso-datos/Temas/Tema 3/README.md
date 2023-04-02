@@ -264,7 +264,7 @@ public class IMDB implements Serializable {
 
 - **Dentro de la clase Peli**
 ```java
- @Embedded
+@Embedded
 private IMDB imdb;
 
 public Peli_Anotada(String titulo, int anyo, String elDirector, IMDB imdb) {
@@ -274,3 +274,126 @@ public Peli_Anotada(String titulo, int anyo, String elDirector, IMDB imdb) {
     this.imdb = imdb;
 }
 ```
+
+## 4. Mapeo de relaciones en Hibernate
+El concepto de direccionalidad de las relaciones pueden ser:
+- **Unidireccional**: Una relación es unidireccional cuando accederemos al objeto relacionado a partir de otro objeto.
+- **Bidireccional**: Cuando los elementos relacionados suelen tener la misma "ponderación" o entidad.
+
+### 4.1. Relaciones uno a uno (@OneToOne)
+#### Relación 1:1 Unidireccional
+En la tabla de Grupo existe un campo "tutor", del que parte una FK a Profesor. La anotación **referencedColumnName** es opcional.
+- **Tabla Grupo**
+```java
+@Entity
+@Table(name="Grupo")
+public class Grupo {
+    @Id
+    @GeneratedValue(statregy = GenerationType.IDENTITY)
+    @Column(name="idGrupo")
+    private Long idGrupo;
+    ...
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "tutor", referencedColumnName = "idProfe")
+    private Profesor elTutor;
+    ...
+}
+```
+- **Tabla Profesor**
+```java
+@Entity
+@Table(name="Profesor")
+public class Profesor {
+    @Id
+    @GeneratedValue(statregy = GenerationType.IDENTITY)
+    @Column(name="idProfe")
+    private Long idProfe;
+    ...
+    @OneToOne(mappedBy = "elProfe")
+    private Grupo elGrupo;
+    ...
+}
+```
+Hemos indicado con este nuevo campo que el propietario de la relación es Grupo.
+
+Algunas opciones de Cascade:
+- **CascadeType.ALL**: se aplican todos los tipos de cascada.
+- **CascadeType.PERSIST**: las operaciones de guardado de las entidades propietarias se propagrán a las entidades relacionadas. Solo se aplica si las entidades se guardan con el método **persist()** en vez de **save()**. Para utilizar **save()** con seguridad, remplaza **CascadeType.PERSIST** por **CascadeType.SAVE_UPDATE**.
+- El resto de opciones, **CascadeType.MERGE**, **CascadeType.REMOVE**, **CascadeType.REFRESH** y **CascadeType.DETACH** realizan lo que su nombre indica, unir, eliminar, refrescar y sacar la unidad de persistencia.
+
+### 4.2. Relaciones uno a muchos (@OneToMany/@ManyToOne)
+#### Relación unidireccional
+La unidireccionalidad debe aparecer **solo** en la tabla propietaria. Así pues, en la clase Libro indicaremos que contiene un Autor. En la tabla Autor no se indicará nada.
+
+En el campo tipo Autor se mapea con la anotación **@ManyToOne** a la columna **idAutor**. Se indica que cualquier guardado en Libro provoca que se persista también el Autor (**CascadeType=PERSIST**). También se anota que la **FK** tendrá como nombre **FK_LIB_AUT**.
+
+#### Relación uno a muchos bidireccional
+El mapeado de la relación bidireccional nos va a permitir acceder a la información relacionada en ambas direcciones. Para ello añadiremos en Autor un conjunto (**Set**) de todos los libros que ha escrito.
+- **Tabla Libro**
+```java
+@Entity
+@Table(name="Libro")
+public class Libro implements Serializable {
+    @Id
+    @GeneratedValue(statregy = GenerationType.IDENTITY)
+    @Column(name="idLibro")
+    private Long idLibro;
+    ...
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "idAutor", foreignKey = @ForeignKey(name = "FK_LIB_AUT"))
+    private Autor elAutor;
+}
+```
+- **Tabla Autor**
+```java
+@Entity
+@Table(name="Autor")
+public class Autor {
+    @OneToMany(mappedBy = "elAutor", cascade=CascadeType.PERSIST, fetch = FetchType.LAZY)
+    private Set<Libro> losLibros;
+}
+```
+
+Aparece un nuevo marcador **fetch**, cuyo comportamiento determinará el momento en que se realiza la carga de los datos de las colecciones, y cuyos valores pueden ser:
+- **FetchType.EAGER**: Tenemos todos los datos al momento.
+- **FetchType.LAZY**: Los datos se cargan cuando hacen falta.
+
+### 4.3. Relaciones muchos a muchos (@ManyToMany)
+Dentro de las relaciones binarias, podemos encontrar dos posibilidades: relaciones que simplemente indican la relación o relaciones que, aparte de indicarla, añaden nuevos atributos a esta.
+
+Las clases **Modulo** y **Profesor** quedan como a continuación:
+- **Tabla Profesor**
+```java
+@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY)
+@JoinTable(name="Docencia",
+            joinColumns = {@JoinColumn(name = "idProfesor",
+                foreignKey = @ForeignKey(name = "FK_DOC_PROF"))},
+            inverseJoinColumns = {@JoinColumn(name = "idModulo",
+                foreignKey = @ForeignKey(name = "FK_DOC_MOD"))});
+private Set<Modulo> losModulos = new HashSet<>();
+
+public void addModulo(Modulo m) {
+    if (!this.losModulos.contains(m)) {
+        losModulos.add(m);
+    }
+    m.addProfesor(this);
+}
+```
+- **Tabla Módulo**
+```java
+@ManyToMany(cascade=CascadeType.PERSIST, fetch=FetchType.LAZY, mappedBy = "losModulos")
+private Set<Profesor> losProfesores = new HashSet<>();
+
+public void addProfesor(Profesor p) {
+    if (!this.losProfesores.contains(p)) {
+        losProfesores.add(m);
+    }
+    p.addModulo(this);
+}
+```
+
+Fíjate en lo siguiente:
+- En ambas clases, el mapeo es **@ManyToMany**, conteniendo un **Set** de objetos de la otra clase, idicando las operaciones en cascada (**cascade**) y la carga de los objetos relacionados (**fetch**).
+- En la clase propietaria (**Profesor**) se inicia la relación, enlazando con una tabla **Docencia** siguiendo la FK donde se va a enlazar (**joincolumns**) con el campo **idProfe** (**@JoinColumn**).
+- Se mapea desde la tabla **Docencia** hasta la entidad de origen **Modulo** de manera inversa, esto se consigue con **inverseJoinColumns**, enlazando desde el campo **idModulo** (**@JoinColumn**).
+- En la clase relacionada (**Modulo**), que no es la propietaria, simplemente le indicamos que la propietaria es **Profesor**, mediante **mappedBy="losModulos"**.
