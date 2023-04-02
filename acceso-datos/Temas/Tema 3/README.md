@@ -31,7 +31,7 @@ La sincronización es un ode los aspectos más delicados de las herramientas ORM
 ## 1.2. Hibernate
 Hibernate es un ***framework* ORM** para Java, que facilita el mapeo de atributos entre una base de datos relacional y el modelo de objetos de nuestra aplicación mediante **ficheros XML** o anotaciones en los **beans** de las entidades.
 
-Cuando una aplicación crea objetos, estos están almacenados en memora, con la volatilidad que esto implica. Dichos objetos se denominan transitorios o **transient**. Con Hibernate, los objetos que tenemos que persistir se "rastrean" en lo que se conoce como una sesión **(Session)**, creada a partir de una **SessionFactory**, de acuerdo con al configuración proporcionada. También se proporciona la gestión de conexiones y transacciones.
+Cuando una aplicación crea objetos, estos están almacenados en memoria, con la volatilidad que esto implica. Dichos objetos se denominan transitorios o **transient**. Con Hibernate, los objetos que tenemos que persistir se "rastrean" en lo que se conoce como una sesión **(Session)**, creada a partir de una **SessionFactory**, de acuerdo con al configuración proporcionada. También se proporciona la gestión de conexiones y transacciones.
 
 Como es lógico, los objetos volátiles podrán persistirse, pasando de unos estados a otros, como veremos más adelante, con métodos como **save()** o **persist()**. También se proporciona una interfaz **query**, para lanzar consultas en HQL (**Hibernate query language**, su versión del **OQL**).
 

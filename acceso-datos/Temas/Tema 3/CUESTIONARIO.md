@@ -1,71 +1,71 @@
-# Cuestionario - Tema 2
+# Cuestionario - Tema 3
 
-#### Pregunta 1 - La carga del driver mediante Class.forName(), independientemente del SGBD al que se conecte...
+#### Pregunta 1 - La finalidad de los ORM es...
 
-- [ ] a. Debe hacerse una vez antes de cada operación en la base de datos.
-- [X] **b. Solo con una vez basta, pero en versiones actuales de Java ya no es necesaria.**
-- [ ] c. Está depreciada.
-- [ ] d. No es necesaria, por compatibilidad de versiones antiguas de Java.
+- [X] **a. Relacionar de manera eficiente la equivalencia entre clases y tablas para posibilitar la conversión entre estas.**
+- [ ] b. Una ampliación del modelo relacional para poder representar objetos en el modelo relacional.
+- [ ] c. Documentar los cambios producidos en los datos en tiempo de ejecución.
+- [ ] d. Ayudar a los programadores a gestionar de manera eficiente la memoria de los objetos persistentes, una vez cargados de la base de datos y transformados.
 
-#### Pregunta 2 - Las referencias que utilizan los objetos se implementan en las Bases de datos relacionales como...
+#### Pregunta 2 - Hibernate es...
 
-- [ ] a. Claves primarias.
-- [X] **b. Claves ajenas.**
-- [ ] c. Claves únicas.
+- [ ] a. Un framework independiente del lenguaje de programación.
+- [ ] b. Un leguaje de modelado.
+- [X] **c. Un framework para el lenguaje de programación Java.**
 - [ ] d. Índices.
 
-#### Pregunta 3 - Mediante un driver JDBC podemos...
+#### Pregunta 3 - Las opciones de configuración de Hibernate se especifican...
 
-- [ ] a. Acceder solo a bases de datos relacionales.
-- [ ] b. Solucionar el desfase objeto-relacional.
-- [ ] c. Acceder a múltiples SGBD, aunque sea embebido.
-- [X] **d. Acceder un único SGBD.**
+- [ ] a. En los ficheros de tipo NombreClase.hbm.xml.
+- [ ] b. De manera embebida dentro de las clases.
+- [ ] c. En el fichero hibernate.reveng.xml.
+- [X] **d. En el fichero hibernate.cfg.xml.**
 
-#### Pregunta 4 - Para guardar los datos de la conexión desde nuestros programas, la mejor opción es...
+#### Pregunta 4 - Un proyecto en Hibernate deberá contener, como mínimo...
 
-- [ ] a. Programarlos directamente dentro de nuestras variables.
-- [ ] b. Los datos de conexión nunca deben estar almacenados.
-- [X] **c. Almacenarlos en un fichero de configuración, editable mediante un editor de texto.**
-- [ ] d. Preguntárselos cada vez al usuario.
+- [ ] a. Fichero de configuración y ficheros de mapeado.
+- [X] **b. Fichero de configuración, clases beans y fichero de mapeado.**
+- [ ] c. Fichero de configuración, clases POJO y anotaciones.
+- [ ] d. Fichero de configuración, fichero de ingeniería inversa y beans.
 
-#### Pregunta 5 - Indica la sentencia que es falsa:
+#### Pregunta 5 - La anotación @Transient en un atributo de una clase...
 
-- [ ] a. El ResultSet es, a efectos prácticos, una tabla con datos.
-- [ ] b. El ResultSet está fuertemente sobrecargado, con funciones de acceso a todos los tipos básicos.
-- [ ] c. El ResultSet dispone de una función de recuento de columnas.
-- [X] **d. El ResultSet, cuando se abre, dispone de un cursor que apunta a la primera fila con información.**
+- [ ] a. Permite evitar que se cree una relación y se guarden internamente los valores.
+- [X] **b. Permite evitar que se almacene en la base de datos.**
+- [ ] c. Permite generar el valor a partir de la base de datos.
+- [ ] d. Solo tiene sentido en valores numéricos.
 
-#### Pregunta 6 - Uno de los mayores problemas al acceder a los datos es...
+#### Pregunta 6 - Las anotaciones CascadeType...
 
-- [ ] a. La última columna es ResultSet.getColumnCount()-1.
-- [ ] b. La última fila es ResultSet.getRowCount()-1.
-- [ ] c. La primera fila es la 1.
-- [X] **d. La primera columna es la 1.**
+- [X] **a. Permiten copiar el comportamiento de la clase propietaria en la relacionada.**
+- [ ] b. Solo se aplican a operaciones de guardado.
+- [ ] c. Permiten copiar el comportamiento de la clase relacionada en la propietaria.
+- [ ] d. Permiten evitar borrados de la clase propietaria al borrar elementos de la relacionada.
 
-#### Pregunta 7 - Para realizar una sentencia SQL de inserción, lo más adecuado es...
+#### Pregunta 7 - En una clase tenemos un atributo mapeado con @Id, con generator=identity. ¿Cuándo se asignará el valor a dicho atributo?
 
-- [ ] a. Un executeQuery() de un Statement o PreparedStatement().
-- [ ] b. Un execute() de un Statement.
-- [ ] c. Un execute() de un PreparedStatement().
-- [X] **d. Un executeUpdate() de un Statement o PreparedStatement().**
+- [ ] a. Al crear la sesión.
+- [ ] b. Al ejecutar el constructor del objeto.
+- [ ] c. Al crear el objeto.
+- [X] **d. Al guardar el objeto.**
 
-#### Pregunta 8 - Un ResultSet puede actualizarse...
+#### Pregunta 8 - Cuando creamos una relación bidireccional...
 
-- [X] **a. Cuando se abre con la opción UPDATABLE.**
-- [ ] b. Siempre.
-- [ ] c. Nunca.
-- [ ] d. Solo cuando es UPDATABLE y SCROLLABE.
+- [ ] a. Hay que evitar a toda costa relaciones bidireccionales.
+- [X] **b. Se guarda una referencia del objeto propietario en el objeto referenciado y viceversa, solo cuando la relación es uno a uno.**
+- [ ] c. Se guarda una referencia del objeto propietario en el objeto referenciado y viceversa, solo cuando la relación es uno a M.
+- [ ] d. Guardamos colecciones de una clase dentro de la otra, pero no al revés, para evitar problemas de referencias recursivas.
 
-#### Pregunta 9 - Un ResultSet puede actualizarse...
+#### Pregunta 9 - La opción de carga Fetch.Lazy...
 
-- [ ] a. Siempre.
-- [X] **b. Menos en caso de que el tipo de consulta que ha generado dicho ResultSet tenga una agrupación de tablas.**
-- [ ] c. Nunca.
-- [ ] d. Menos en caso de que el ResultSet tenga más de una fila.
+- [X] **a. Nos permitirá evitar cargas innecesarias mientras no accedamos a los objetos relacionados.**
+- [ ] b. Solo tiene sentido en relaciones uno a uno.
+- [ ] c. Carga los objetos relacionados al cargar el objeto propietario.
+- [ ] d. Es recomendable cuando el objeto relacionado esta anotado también como @Embedded.
 
-#### Pregunta 10 - Cuando realizamos una consulta mediante un ResultSet, si queremos saber los tipos de datos que hemos seleccionado...
+#### Pregunta 10 - Mediante consultas HQL...
 
-- [ ] a. No podemos acceder a los metadatos de la conexión.
-- [X] **b. Debemos acceder a los metadatos del propio ResultSet, después de ejecutar la consulta.**
-- [ ] c. Debemos acceder a los metadatos del propio ResultSet, antes de ejecutar la consulta.
-- [ ] d. Podemos acceder a los metadatos de la conexión a partir de la base de datos.
+- [X] **a. No podemos ejecutar funciones de agrupación.**
+- [ ] b. Podemos devolver resultados de distintos tipos, pero como un array de objetos.
+- [ ] c. Solo podemos devolver todas las filas de la tabla a la vez; eso sí, convertidas en objetos.
+- [ ] d. Solo podemos devolver objetos.
