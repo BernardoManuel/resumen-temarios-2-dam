@@ -397,3 +397,94 @@ Fíjate en lo siguiente:
 - En la clase propietaria (**Profesor**) se inicia la relación, enlazando con una tabla **Docencia** siguiendo la FK donde se va a enlazar (**joincolumns**) con el campo **idProfe** (**@JoinColumn**).
 - Se mapea desde la tabla **Docencia** hasta la entidad de origen **Modulo** de manera inversa, esto se consigue con **inverseJoinColumns**, enlazando desde el campo **idModulo** (**@JoinColumn**).
 - En la clase relacionada (**Modulo**), que no es la propietaria, simplemente le indicamos que la propietaria es **Profesor**, mediante **mappedBy="losModulos"**.
+
+## 5. Consultas con HQL
+El lenguaje **HQL (Hibernate query languaje)** nació con la finalida de salvar de neuvo el modelo relacional, ya que es un superconjunto de SQL. La primera consideración es que su funcionalidad es la de recuperar objetos de la base de datos, no tablas, como hacíamos en el lenguaje SQL mediante los **ResultSet**.
+
+Las consultas con HQL se realizarán a partir de una interfaz **Query**, que será el modo donde especificaremos qué queremos recuperar. Opcionalmente podemos añadir a la consulta los parámetros necesarios para su ejecución, para evitar consultas **hard-coded**.
+
+## 5.1. Recuperación de objetos simples
+Estas consultas son las que permiten recueperar un objeto o colección de objetos desde las bases de datos.
+```java
+Query q = laSesion.createQuery("select a from Alumno a"); // Todos
+
+Query q = laSesion.createQuery("select a from Alumno a where a.idAlumno=1"); // Un alumno
+
+List<Alumno> alumnos = q.list();
+for (Alumno a : alumnos) {
+    System.out.println(a);
+}
+```
+Este segundo ejemplo permite obtener solo uno, con lo que se indica en la cláusula **where**.
+```java
+Alumno a = (Alumno)q.uniqueResult();
+Query<Alumno> q = laSesion.createQuery("select a from Alumno a where a.idAlumno=1", Alumno.class);
+Alumno a = q.uniqueResult();
+```
+
+## 5.2. Consultas mixtas
+Entendemos por consultas mixtas aquellas que no devuelven objetos enteros como tales. Estas consultas devolverán, o bien parte de objetos, o bien un objeto más algo más. La novedad es que el resultado será un array de objetos (**Object[]**), y, por lo tanto, deberemos ser muy cuidadosos con el tipo de cada celda, así como con el tamaño de dicho array, ya que estará fuertemente ligado a la propia consulta.
+
+```java
+Query q = laSesion.createQuery("select a.nombre, a.edad from Alumno a");
+List<Object[]> losAlumnos = q.list();
+for (Object[] alu : losAlumnos) {
+    System.out.println("El alumno " + alu[0] + " tiene " + alu[1] + " años.");
+}
+```
+
+## 5.3. Los múltiples Select en cascada
+Cuando realicemos una consulta a una clase que contiene objetos enlazados, habitualmente por relaciones, está consulta generará un consulta anidada por cada objeto enlazado, para cargar su contenido. Este es el comportamiento con una consulta ansiosa (**Eager**). Habrá que valorar el cargarlas en diferido o **Lazy**.
+
+## 5.4. Consultas sobre colecciones
+Vamos a consultar el nombre de los alumnos y cuántos exámenes ha realizado cada uno. Dicha inforamción está en el set de exámenes, por lo que necesitaremos manipular dicha colección:
+```java
+Query q = laSesion.createQuery("select a.nombre, size(a.losExamenes) from Alumno a");
+List<Object[]> losAlumnos = q.list();
+for (Object[] alu : losAlumnos) {
+    System.out.println("El alumno " + alu[0] + " ha hecho " + alu[1] + " examenes.");
+}
+```
+
+Como puede apreciarse, hemos aplicado la función **size()** a la colección para ver su tamaño. Podemos aplicar, por tanto:
+- **Size(colección)**: recuperar el tamaño.
+- **Colección is empty | colección is not empty**: para determinar si está vacía.
+- Pueden combinarse los operadores **in**, **all** mediante el operador **elements(colección)**.
+
+## 5.5. Consultas con parámetros. Consultas nominales
+La gestión de parámetros se realiza del mismo mod que las sentencias (**Statements**) y pueden realizarse mediante parámetros posicionales o nominales.
+
+#### Parámetros posicionales
+Para poder asignarle el valor al parámetro, Hibernate nos ofrece una amplia batería de métodos sobrecargados, **setParameter(posicion, valor)**, donde valor puede tomar desde los tipos básicos hasta Objetos.
+
+#### Parámetros nominales
+Los parámetros indican con **nombreParametro** y se asignarán con **setParameter("nombreParametro", valor)**, indicando el nombre del parámetro.
+
+#### Consultas nominales
+Fuera de la definición de la clase se creará una colección **@NamedQueries**, que contendrá un array de elementos **@NamedQuery(nombre="", definicion="")**.
+
+Para invocarlos, en vez de crear un objeto **Query**, lo crearemos mediante un **NamedQuery**, indicando el nombre de este, y asignándole parámetros, si los tuviese.
+
+## 5.6. Inserciones, actualizaciones y borrados
+Para la inserción, no se permite asignar los valores directamente, sino que solo los podemos obtener de una subconsulta:
+```hql
+insert into entidad (propiedades) select_hql
+```
+La sintaxis de update o delete es similar a la de SQL:
+```hql
+update from entidad set [atrib=valor] where condicion
+delete from entidad where condicion
+```
+Además de todo lo visto:
+- Estas instrucciones pueden contener parámetros.
+- El **where** es opcional, pero lo borrará o actualizará todo.
+- Estas consultas se ejecutan todas mediante **executeUpdate()**, que retorna un entero con el número de filas afectadas.
+
+## 6. Enlaces Web
+- [Equivalencia entre los tipos de datos básicos dentro de los SGBD y dentro de los programas Java.](https://docs.jboss.org/hibernate/orm/4.1/manual/en-US/html/ch05.html#mapping-types-basictypes)
+- [Novedades, software y manuales de Hibernate.](https://hibernate.org/orm/)
+- [Contiene los enlaces a las librerías que podemos añadir en nuestros proyectos con los gestores de dependencias más conocidos (Maven, Gradle, etc.).](https://mvnrepository.com/)
+- [En esta gigantesca base de datos, nos encontramos con muchas tablas y datos con los que poder trabajar y probar nuestras aplicaciones.](https://dev.mysql.com/doc/employee/en/)
+
+## 7. Respuestas cuestionario
+- [Cuestionario](./CUESTIONARIO.md)
