@@ -80,4 +80,4 @@ Existen distintas opciones a la hora de plantear la evaluación de la usabilidad
 ### 2.3. Experiencia de usuario (UX)
 El concepto de experiencia de UX (User Experience) hace referencia a la experiencia completa del usuario en relación a un producto o servicio. Una buena experiencia de usuario dará como resultado una percepción subjetiva positiva del usuario hacia nuestra aplicación.
 
-![ux-diagrama.png](https://i.postimg.cc/Rhr5vvWF/ux-diagrama.png)
+![ux-diagrama.png](https://i.postimg.cc/Rhr5vvWF/ux-diagrama.png?raw=true)
