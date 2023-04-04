@@ -94,3 +94,31 @@ Las pautas de diseño se encuentran en diferentes tipos de documentos que podemo
 
 ### 3.1. Estructura de la interfaz
 #### Principios de diseño
+En lo que se refiere a cómo estructurar y organizar los elementos que forman la interfaz de nuestra apliación, se deben tener presentes en todo momentos los siguientes principios de diseño:
+- Contraste
+- Jerarquía
+- Proximidad
+- Alineación
+
+#### Menús, meús contextuales y barras de herramientas
+
+
+### 3.2. Controles
+
+### 3.3. Aspecto visual
+
+### 3.4. Mensajes al usuario
+
+## 4. Enlaces Web
+
+- [10 heurísticas de usabilidad para el diseño de interfaces de usuario.](https://www.nngroup.com/articles/ten-usability-heuristics)
+- [Diseño y programación de aplicaciones Windows](https://docs.microsoft.com/es-es/windows/apps/design)
+- [Guías para la interfaz de usuario](https://developer.apple.com/design/human-interface-guidelines)
+- [Guía para la interfaz de usuario GNOME](https://developer.gnome.org/hig)
+- [Guía para la interfaz de usuario KDE](https://develop.kde.org/hig)
+- [Coolors (generador de paletas de colores)](https://coolors.co/)
+- [Herramienta para diseño de diagramas, que podemos utilizar para el diseño de prototipos](https://www.diagrams.net/)
+
+## 5. Respuestas cuestionario
+
+- [Cuestionario](./CUESTIONARIO.md)
