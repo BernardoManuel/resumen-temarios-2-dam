@@ -26,3 +26,58 @@ Las interfaces naturales de usuario se caracterizan por ofrecer al usuario un es
 
 ## 2. Usabilidad
 La usabilidad es uno de los conceptos clave dentro del proceso de diseño centrado en el usuario y debe estar presente tanto en el diseño de las posibles souciones en su posterior evaluación.
+
+Son varias las normas internacionales que incluyen recomendaciones relacionadas con la usabilidad:
+- ISO 9241-11
+- ISO/IEC 25010
+- ISO/TR 16982
+
+### 2.1. Componentes de la usabilidad
+La usabilidad de un producto o sistema se considera habitualmente formada por cinco componentes:
+
+#### Aprendizaje
+Uno de los componentes principales de la usabilidad es la facilidad de aprendizaje, determinada por el esfuerzo con el que un nuevo usuario de nuestra aplicación puede llegar a completar una tarea específica.
+
+#### Eficiencia
+El usuario, una vez ha aprendido nuestro diseño, debe ser capaz de realizar las tareas para las que se ha creado el producto lo ás rápido posible y sin impedimentos, siguiendo el proceso más sencillo.
+
+#### Recuerdo
+Si un usuario está un tiempo sin utilizar nuestro diseño, el esfuerzo de recuerdo cuando vuelva a usar el producto sea el mínimo posible. Debemos eviar que el usuario tenga que memorizar la forma en la que realizar las tareas.
+
+#### Errores
+Una parte fundamental de la usabilidad es la relacionada con los errores. La aplicación debe ser capaz de tolerar un amplio abanico de acciones realizadas por el usuario sin generar un error. En el caso en el que el error se produzca, se deberá informar adecuadamente al usuario del tipo de error y su gravedad, y proporcionar información para corregirlo.
+
+#### Satisfación
+El diseño debe conseguir que la experiencia del usuario con nuestra aplicación sea agradable y que su sensación después del uso sea positiva.
+
+La satisfación del usuario está influenciada por la apariencia visual de la interfaz, que debería ser estéticamente agradable pero minimalista.
+
+### 2.2. Evaluación de la usabilidad
+Una de las fases del proceso de diseño centrado en el usuario es la evaluación, y la usabilidad es uno de los factores clave que debemos evaluar.
+
+Podemos destacar los siguientes tres objetivos de la evaluación de la usabilidad:
+- Identificar problemas en el diseño del producto o servicio.
+- Descubrir nuevas oportunidades de mejora del diseño que no nos habíamos planteado.
+- Aprender acerca del comportamiento y las preferencias de nuestros usuarios.
+
+#### ¿Qué debemos evaluar?
+La primera pregunta que debemos responder a la hora de plantear la evaluación de la usabilidad de un diseño que vamos a evaluar. Las sesiones de evaluación consisten en plantear a un grupo de usuarios la realización de una serie de tareas realistas que podrías realizar en su trabajo diario con la aplicación.
+
+Se suelen distinguir dos tipos de métricas:
+- Cualitativas: Se basan en valoraciones subjetivas.
+- Cuantitativas: Se basan en parámetros cuantificables.
+
+#### ¿Quién participa en la evaluación?
+En las sesiones de evaluación de la usabilidad podemos distinguir las siguientes funciones:
+- **Moderador**: es el encargado de guiar a los usuarios participantes durante la sesión de evaluación.
+- **Usuarios**: los participantes en la sesión deben ser usuarios potenciales del producto o servicio que estamos diseñando.
+
+#### ¿Cómo se lleva a cabo la evaluación?
+Existen distintas opciones a la hora de plantear la evaluación de la usabilidad:
+- **Presencial**
+- **Remota**: Estas pueden ser **Moderadas** o **No moderadas**. Se distinguien porque las primeras simulan estar en sesiones presenciales utilizando algún software de comunicación.
+
+### 2.3. Experiencia de usuario (UX)
+El concepto de experiencia de UX (User Experience) hace referencia a la experiencia completa del usuario en relación a un producto o servicio. Una buena experiencia de usuario dará como resultado una percepción subjetiva positiva del usuario hacia nuestra aplicación.
+
+![Diagrama UX](https://prnt.sc/SLdOe09mfys3)
