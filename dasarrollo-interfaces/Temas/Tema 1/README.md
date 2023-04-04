@@ -109,6 +109,12 @@ Los controles son los componentes básicos con los que construimos la interfaz g
 ### 3.3. Aspecto visual
 En este apartado se muestran algunas pautas de diseño importantes relacionadas con el aspecto visual de la aplicación, concretamente relativas al color, el texto y los iconos.
 
+#### Color
+
+#### Texto
+
+#### Iconos
+
 ### 3.4. Mensajes al usuario
 
 ## 4. Enlaces Web
