@@ -82,7 +82,7 @@ El concepto de experiencia de UX (User Experience) hace referencia a la experien
 
 ![ux-diagrama.png](https://i.postimg.cc/Rhr5vvWF/ux-diagrama.png?raw=true)
 
-### 3. Pautas de diseño
+## 3. Pautas de diseño
 La interfaz de usuario de una aplicación debe ser diseñada con el usuario siempre en mente y tener como objetivo que la experiencia global de los usuarios con nuestra aplicación sea lo más satisfactoria posible.
 
 Las pautas de diseño se encuentran en diferentes tipos de documentos que podemos organizar en los niveles siguientes:
@@ -91,3 +91,6 @@ Las pautas de diseño se encuentran en diferentes tipos de documentos que podemo
 2. **Estándares corporativos**
 3. **Guías de la plataforma**
 4. **Estándares internacionales**
+
+### 3.1. Estructura de la interfaz
+#### Principios de diseño
