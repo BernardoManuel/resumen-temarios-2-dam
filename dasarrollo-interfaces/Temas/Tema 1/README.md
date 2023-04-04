@@ -23,3 +23,6 @@ Las interfaces gráficas de usuario son aquellas que utilizan imágenes y objeto
 
 #### Interfaces tipo NUI
 Las interfaces naturales de usuario se caracterizan por ofrecer al usuario un estilo de interacción mucho más directo e intuitivo que con los tipos de interfaces anteriores. Suelen carecer de dispositivo físico de entrada, y en su lugar hacen uso de habilidades naturales como el movimiento, los gestos o la voz.
+
+## 2. Usabilidad
+La usabilidad es uno de los conceptos clave dentro del proceso de diseño centrado en el usuario y debe estar presente tanto en el diseño de las posibles souciones en su posterior evaluación.
