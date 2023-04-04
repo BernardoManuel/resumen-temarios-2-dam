@@ -101,11 +101,13 @@ En lo que se refiere a cómo estructurar y organizar los elementos que forman la
 - Alineación
 
 #### Menús, meús contextuales y barras de herramientas
-
+Gran parte de las aplicaciones con interfaz gráfica de usuarios cuentan con menús y barras de herramientas para permitir al usuario acceder a las distintas funcionalidades de la aplicación.
 
 ### 3.2. Controles
+Los controles son los componentes básicos con los que construimos la interfaz gráfica de una aplicación. Algunos ejemplos de controles son los botones, las casillas de verificación o las listas de desplegables.
 
 ### 3.3. Aspecto visual
+En este apartado se muestran algunas pautas de diseño importantes relacionadas con el aspecto visual de la aplicación, concretamente relativas al color, el texto y los iconos.
 
 ### 3.4. Mensajes al usuario
 
