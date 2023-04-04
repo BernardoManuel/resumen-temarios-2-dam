@@ -81,3 +81,13 @@ Existen distintas opciones a la hora de plantear la evaluación de la usabilidad
 El concepto de experiencia de UX (User Experience) hace referencia a la experiencia completa del usuario en relación a un producto o servicio. Una buena experiencia de usuario dará como resultado una percepción subjetiva positiva del usuario hacia nuestra aplicación.
 
 ![ux-diagrama.png](https://i.postimg.cc/Rhr5vvWF/ux-diagrama.png?raw=true)
+
+### 3. Pautas de diseño
+La interfaz de usuario de una aplicación debe ser diseñada con el usuario siempre en mente y tener como objetivo que la experiencia global de los usuarios con nuestra aplicación sea lo más satisfactoria posible.
+
+Las pautas de diseño se encuentran en diferentes tipos de documentos que podemos organizar en los niveles siguientes:
+
+1. **Guías del producto**
+2. **Estándares corporativos**
+3. **Guías de la plataforma**
+4. **Estándares internacionales**
