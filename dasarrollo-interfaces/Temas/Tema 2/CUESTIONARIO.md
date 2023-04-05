@@ -1,20 +1,57 @@
 # Cuestionario - Tema 2
 
-#### Pregunta 1 - Determina el orden correcto en las fases del diseño centrado en el usuario:
+#### Pregunta 1 - Dado el fragmento de código siguiente, determina la afirmación correcta:
+```python
+from PySide6.QtWidgets import (
+    QApplication,
+    QWidget,
+    QLabel
+)
+ 
+class VentanaPrincipal(QWidget):
+    def __init__(self):
+        super().__init__()
+        QLabel("Hola mundo!", self)
+       
+ 
+app = QApplication([])
+ventana = VentanaPrincipal()
+app.exec()
+```
+- [ ] a. No se mostrará nada porque no se ejecuta el bucle de eventos de la aplicación.
+- [ ] b. Se mostrará una ventana con el texto «Hola Mundo!».
+- [X] c. No se mostrará nada porque no se ejecuta el show() del componente, pero se ejecutará la aplicación.
+- [ ] d. Se mostrará una ventana que no responde a los eventos y se tendrá que matar el proceso.
 
-- [ ] a. Analizar el contexto de uso, diseñar soluciones, detallar los requisitos y evaluar con los usuarios.
-- [ ] b. Detallar los requisitos, analizar el contexto de uso, diseñar soluciones y evaluar con los usuarios.
-- [X] c. Analizar el contexto de uso, detallar los requisitos, diseñar soluciones y evaluar con los usuarios.
-- [ ] d. Detallar los requisitos, diseñar soluciones, analizar el contexto de uso y evaluar con los usuarios.
+#### Pregunta 2 - Dado el fragmento de código siguiente, determina las afirmaciones que son correctas:
+```python
+from PySide6.QtWidgets import (
+    QApplication,
+    QWidget,
+    QLabel
+)
+ 
+class VentanaPrincipal(QWidget):
+ 
+    def __init__(self):
+        super().__init__()
+        self.etiqueta = QLabel("Hola mundo!")
+        self.etiqueta.show()
+ 
+app = QApplication([]) 
+ventana = VentanaPrincipal()
+ventana.show()
+ 
+app.exec()
+```
 
-#### Pregunta 2 - En la actualidad, el tipo de interfaz más utilizado en las aplicaciones destinadas al ámbito empresarial es:
+- [ ] a. Se mostrará una ventana con el texto «Hola mundo!».
+- [ ] b. No se ejecutará la aplicación.
+- [ ] c. No se mostrará ninguna ventana.
+- [X] d. Se mostrarán dos ventanas, una de ella con el texto «Hola mundo!».
 
-- [ ] a. Interfaz natural de usuario (NUI).
-- [X] b. Interfaz gráfica de usuario (GUI).
-- [ ] c. Interfaz empresarial de usuario (BUI)
-- [ ] d. Interfaz de línea de comandos (CLI).
-
-#### Pregunta 3 - ¿Cuáles son los componentes de la usabilidad?:
+#### Pregunta 3 - Observa la imagen siguiente y determina las afirmaciones correctas:
+![imagen pregunta 3](https://centroprofesional.universidadeuropea.es/pluginfile.php/33951/question/questiontext/34307/3/39409/DIN2_Pregunta3.png?raw=true)
 
 - [ ] a. Aprendizaje, ayuda, eficacia, errores, satisfacción.
 - [ ] b. Facilidad, recuerdo, eficacia, mensajes, satisfacción.

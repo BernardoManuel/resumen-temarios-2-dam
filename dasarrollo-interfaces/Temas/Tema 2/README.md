@@ -282,7 +282,7 @@ La ventana principal de cualquier aplicaicón, su estructura básica suele segui
 En las aplicaciones se puede ejecutar una misma funcionalidad interaccionando con diferentes interfaces de usuario, ya sea a través de menús, botones de la barra de herramientas o atajos de teclado. Aquí es donde entran en juego las QAction de Qt. Además, se les puede asignar un texto de estado, que será usado en la barra de estados.
 
 ### 4.2. Barra de menú
-Para añadir menús a QMainWindow utilizaremos el método **.addMenu()** de su barra de menús menuBar(). A este nuevo menú le pondemos agregar nuevos submenús con addMenu()m y separadores, para organizar de forma más coherente las opciones, con addSeparator().
+Para añadir menús a QMainWindow utilizaremos el método **.addMenu()** de su barra de menús menuBar(). A este nuevo menú le pondemos agregar nuevos submenús con addMenu() y separadores, para organizar de forma más coherente las opciones, con addSeparator().
 
 ```python
 from PySide6.QtWidgets import QApplication, QMainWindow
