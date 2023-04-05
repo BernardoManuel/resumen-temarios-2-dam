@@ -55,3 +55,9 @@ Vamos a hacer un listado con los componentes más habituales de PySide6 usados e
 | --- | --- | --- |
 | QCheckBox | stateChanged() | isChecked() setCheckState() |
 | QLabel |  | setText() |
+| QGroupBox |  |  |
+| QComboBox | currentIndexChanged() currentTextChanged() | addItem() setCurrentIndex() |
+| QRadioButton | toggled() | isChecked() |
+| QPushButton | clicked() | setCheckable() |
+| QTabWidget | currentChanged() tabBarClicked() | addTab(widget, label) setCurrentIndex() setCurrentWidget() |
+| QTableWidget | cellChanged() currentCellChanged() ... | clear() insertColumn() insertRow() removeColumn() removeRow() |
