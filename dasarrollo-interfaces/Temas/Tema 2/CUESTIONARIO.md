@@ -162,7 +162,7 @@ def cargar_traductor(app):
 - [ ] d. Instala un traductor en el sistema.
 
 #### Pregunta 9 - Indica las afirmaciones correctas para crear un diálogo como el siguiente:
-![DIN2-Pregunta9.png](https://i.postimg.cc/DZy3PMy9/DIN2-Pregunta9.png)
+[![DIN2-Pregunta9.png](https://i.postimg.cc/DZy3PMy9/DIN2-Pregunta9.png)](https://postimg.cc/8F3Y1wv4)
 
 - [ ] a. Creamos un QWidget al que añadimos los componentes requeridos.
 - [X] b. Creamos un QMessageBox.critical al que añadimos los botones.
