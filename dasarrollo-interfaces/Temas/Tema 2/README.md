@@ -272,3 +272,55 @@ app.exec()
 ```
 
 ## 4. Menús, barras de herramientas, barra de estado y componentes flotantes
+La ventana principal de cualquier aplicaicón, su estructura básica suele seguir un esquema parecido al siguiente:
+- Un menú, normalmente en forma de desplegable, aunque puede ser en forma de pestañas.
+- Barras de herramientas, con funcionalidad habitual en un solo clic; acceder a ellas mediante menú sería más tedioso.
+- Un componente principal, que ocupa la parte central de la aplicación.
+- Una barra de estado, que indica el estado o alguna configuración activa de la aplicación.
+
+### 4.1. QActions
+En las aplicaciones se puede ejecutar una misma funcionalidad interaccionando con diferentes interfaces de usuario, ya sea a través de menús, botones de la barra de herramientas o atajos de teclado. Aquí es donde entran en juego las QAction de Qt. Además, se les puede asignar un texto de estado, que será usado en la barra de estados.
+
+### 4.2. Barra de menú
+Para añadir menús a QMainWindow utilizaremos el método **.addMenu()** de su barra de menús menuBar(). A este nuevo menú le pondemos agregar nuevos submenús con addMenu()m y separadores, para organizar de forma más coherente las opciones, con addSeparator().
+
+```python
+from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtGui import QAction, QKeySequence
+class VentanaPrincipal(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Ventana principal con menús")
+        
+        barra_menus = self.menuBar()
+        menu = barra_menus.addMenu("&Menu")
+
+        accion = QAction("&Imprimir por consola", self)
+        accion.setShortcut(QKeySequence("Ctrl+p"))
+        accion.triggered.connect(self.imprimir_por_consola)
+        menu.addAction(accion)
+    
+    def imprimir_por_consola(self):
+        print("Acción lanzada a través del menú o del atajo")
+
+if __name__ == "__main__":
+    app = QApplication([])
+    ventana1 = VentanaPrincipal()
+    ventana1.show()
+    app.exec()
+```
+
+### 4.3. Barra de herramientas
+Para añadir la acción una barra de herramientas haremos los siguientes pasos:
+1. Creamos una barra de herramientas instanciando la clase **QToolBar**
+2. Añadimos la acción a la barra de herramientas con el método **addAction**
+3. Añadimos la barra de herramientas a la ventana principal con **addToolBar**
+
+Las opciones disponibles, que están en el módulo Qt de Qt.Core, son las siguientes:
+| Flag | Resultado |
+| --- | --- |
+| Qt.ToolButtonIconOnly | Solo muestra el icono |
+| Qt.ToolButtonTextOnly | Solo muestra el texto |
+| Qt.ToolButtonTextBesideIcon | Muestra el texto al lado del icono |
+| Qt.ToolButtonTextUnderIcon | Muestra el texto debajo del icono |
+| Qt.ToolButtonFollowStryle | Sigue la configuración del sistema |
