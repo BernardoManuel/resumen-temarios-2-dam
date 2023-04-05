@@ -452,3 +452,71 @@ if __name__ == "__main__":
     ventana1.show()
     app.exec()
 ```
+
+## 5. Diálogos y otras ventanas
+### 5.1. Diálogos
+Hay varios tipos de ventanas para mostrar o pedir información al usuario:
+#### QDialog
+Los QDialog son ventanas emergentes temporales que nos permiten comunicarnos con el usuario de la aplicación y que aparecen debido a la producción de un evento. Son ventanas modales, es decir, bloquean la interacción con el resto de la aplicación hasta que su ejecución termine, ya sea cerrándolas o introduciendo la información que se pide.
+
+```python
+from PySide6.QtWidgets import QApplication, QDialog, QMainWindow, QPushButton 
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Aplicación con diálogos")
+        boton = QPushButton("Haz clic para que el diálogo aparezca") 
+        boton.clicked.connect(self.mostrar_dialogo) 
+        self.setCentralWidget(boton)
+
+    def mostrar_dialogo (self):
+        print("Clic recibido, se mostrará el diálogo.")
+
+        ventana_dialogo = QDialog(self)
+        ventana_dialogo.setWindowTitle("Ventana de diálogo")
+        # Lanzamos su bucle de eventos
+        ventana_dialogo.exec()
+
+app = QApplication([])
+ventana_principal = MainWindow()
+ventana_principal.show()
+app.exec()
+```
+
+#### Diálogos personalizados
+Podemos utilizar QPushButton, pero en Qt hay una serie de botones predefinidos diseñados según las guías de estilo de las diferentes plataformas.
+
+Los botones predefinidos en Qt se encuentran en el módulo QDialogButtonBox como propiedades.
+
+### 5.2. QMessageBox
+Existen cuadros de diálogo ya prediseñados en Qt. Se encuentra disponibles en el módulo QMessageBox y existen cuatro tipos según el nivel de severidad de la información. Realmente, la única diferencia entre ellos es el incono que muestran
+ - Question
+ - Information
+ - Warning
+ - Critical
+
+Igual que en los QDialog, existen botones predefinidos que podemos utilizar en nuestros QMessageBox.
+
+### 5.3. Otros díalogos
+Existen otros tipos de diálogos que puedes encontrar en el módulo QtWidgets. Son estos:
+- QColorDialog
+- QFileDialog
+- QFontDialog
+- QInputDialog
+- QProgressDialog
+
+### 5.4. Otras ventanas
+En Qt, cualquier Widget sin parent es una ventana. Esto, a efectos prácticos, significa que, para mostrar una ventana nueva, solo tenemos que crear un Widget y llamar su método show(). Fíjate que incluso podríamos crear una aplicación con varios QMainWindows.
+
+## 6. Enlaces Web
+
+- [Formas de contribuir al proyecto Qt](http://qt.io/contribute/)
+- [Información sobre las diferentes licencias de Qt](https://doc-snapshots.qt.io/qt6-dev/licensing.html)
+- [Documentación de Qt para Python](https://doc.qt.io/qt-6/index.html)
+- [Documentación para C++](https://doc.qt.io/qt-6/index.html)
+- [Página de descarga de Python](https://www.python.org/downloads/)
+- [Documentación de componentes Qt6](https://doc.qt.io/qt-6/qtwidgets-module.html)
+
+## 7. Respuestas cuestionario
+
+- [Cuestionario](./CUESTIONARIO.md)
