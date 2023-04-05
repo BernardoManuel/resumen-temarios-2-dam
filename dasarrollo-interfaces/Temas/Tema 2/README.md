@@ -91,6 +91,8 @@ if __name__ == "__main__":
 En este apartado vamos a estudiar una forma más eficiente de gestionar todo esto a trabés de layouts: diseños o disposiciones que podemos aplicar a una interfaz para ordenar sus componentes. Con la combinación de estos layouts es posible definir el diseño de cualquier interfaz gráfica de usuario.
 
 ### 3.2. QVBoxLayout
+En esta disposición los elementos están en vertical. Se irán añadiendo los componentes al final de una pila de componentes, uno encima de otro.
+
 ```python
 from PySide.QtWidgets import { 
     QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton
@@ -110,6 +112,159 @@ class VentanaPrincipal(QMainWindow):
         componente_principal = QWidget()
         componente_principal.setLayout(layout_vertical)
         self.setCentralWidget(componente_principal)
+app = QApplication([])
+ventana = VentanaPrincipal()
+ventana.show()
+app.exec()
+```
+
+### 3.3. QHBoxLayout
+En este apartado nos centramos en la disposición horizontal de los componentes. Usamos un layout horizontal:
+
+```python
+from PySide.QtWidgets import { 
+    QApplication, QMainWindow, QWidget, QHBoxLayout, QPushButton
+}
+class VentanaPrincipal(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Layout horizontal")
+        
+        layout_horizontal = QHBoxLayout()
+        componente_principal = QWidget()
+
+        componente_principal.setLayout(layout_horizontal)
+        self.setCentralWidget(componente_principal)
+
+        layout_horizontal.addWidget(QPushButton("Uno"))
+        layout_horizontal.addWidget(QPushButton("Dos"))
+        layout_horizontal.addWidget(QPushButton("Tres"))
+        layout_horizontal.addWidget(QPushButton("Cuatro"))
+app = QApplication([])
+ventana = VentanaPrincipal()
+ventana.show()
+app.exec()
+```
+
+### 3.4. QHBoxLayout
+Aunque con el uso de layout verticales y horizontales podríamos conseguir casi cualquier disposición, esto puede no resultar cómodo de gestionar en algunas ocasiones.
+
+```python
+from PySide.QtWidgets import { 
+    QApplication, QMainWindow, QWidget, QGridLayout, QPushButton
+}
+class VentanaPrincipal(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Layout cuadrícula")
+        
+        layout_cuadricula = QGridLayout()
+        componente_principal = QWidget()
+        componente_principal.setLayout(layout_cuadricula)
+        self.setCentralWidget(componente_principal)
+
+        layout_cuadricula.addWidget(QPushButton("0,0"), 0, 0)
+        layout_cuadricula.addWidget(QPushButton("0,1"), 0, 1)
+        layout_cuadricula.addWidget(QPushButton("0,2"), 0, 2)
+        layout_cuadricula.addWidget(QPushButton("0,3"), 0, 3)
+        
+        layout_cuadricula.addWidget(QPushButton("1,0-3"), 1, 0, 1, 4)
+        
+        layout_cuadricula.addWidget(QPushButton("2,0-1"), 2, 0, 1, 2)
+        layout_cuadricula.addWidget(QPushButton("2,2-3"), 2, 2, 1, 2)
+app = QApplication([])
+ventana = VentanaPrincipal()
+ventana.show()
+app.exec()
+```
+
+### 3.4. QHBoxLayout
+Aunque con el uso de layout verticales y horizontales podríamos conseguir casi cualquier disposición, esto puede no resultar cómodo de gestionar en algunas ocasiones.
+
+```python
+from PySide.QtWidgets import { 
+    QApplication, 
+    QMainWindow, 
+    QWidget, 
+    QFormLayout, 
+    QLabel,
+    QLineEdit,
+    QSpinBox,
+    QDoubleSpinBox
+}
+class VentanaPrincipal(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Layout formulario")
+        
+        layout_formulario = QFormLayout()
+        componente_principal = QWidget()
+        componente_principal.setLayout(layout_cuadricula)
+        self.setCentralWidget(componente_principal)
+
+        layout_formulario.addRow(QLabel("Texto: "), QLineEdit())
+        layout_formulario.addRow(QLabel("Entero: "), QSpinBox())
+        layout_formulario.addRow(QLabel("Decimal: "), QDoubleSpinBox())
+        
+app = QApplication([])
+ventana = VentanaPrincipal()
+ventana.show()
+app.exec()
+```
+
+### 3.4. QStackedLayout
+Por último, vamos a ver un layout que permite apilar componentes, pero no verticalmente, de modo que todos son visible, sino en profundidad, de forma que solo uno de los elementos será visible. Para gestionar qué elemento es visible utilizamos setCurrentIndex o setCurrentWidget.
+
+```python
+from PySide.QtWidgets import { 
+    QApplication, 
+    QMainWindow, 
+    QWidget, 
+    QPushButton, 
+    QStackedLayout,
+    QLabel,
+    QVBoxLayout,
+    QHBoxLayout
+}
+class VentanaPrincipal(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Layout apilado")
+        
+        layout_principal = QHBoxLayout()
+        componente_principal = QWidget()
+        componente_principal.setLayout(layout_principal)
+        self.setCentralWidget(componente_principal)
+
+        self.pila = QStackedLayout()
+        self.pila.addWidget(QLabel("Capa 1"))
+        self.pila.addWidget(QLabel("Capa 2"))
+        self.pila.addWidget(QLabel("Capa 3"))
+
+        layout_botones = QVBoxLayout()
+        boton1 = QPushButton("Ver capa 1")
+        boton1.clicked.connect(self.activar_capa1)
+        boton2 = QPushButton("Ver capa 2")
+        boton2.clicked.connect(self.activar_capa2)
+        boton3 = QPushButton("Ver capa 3")
+        boton3.clicked.connect(self.activar_capa3)
+
+        layout_botones.addWidget(boton1)
+        layout_botones.addWidget(boton2)
+        layout_botones.addWidget(boton3)
+
+        layout_principal.addLayout(self.pila)
+        layout_principal.addLayout(layout_botones)
+
+        def activar_capa1(self):
+            self.pila.setCurrentIndex(0)
+
+        def activar_capa2(self):
+            self.pila.setCurrentIndex(1)
+
+        def activar_capa3(self):
+            self.pila.setCurrentIndex(2)
+        
 app = QApplication([])
 ventana = VentanaPrincipal()
 ventana.show()
