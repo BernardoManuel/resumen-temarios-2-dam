@@ -60,3 +60,32 @@ Se utiliza la erramienta *User Interface Compiler (uic)*, incluida en la instala
 ```shell
 uic -g python ventana.ui -o ventana.py
 ```
+Para poder utilizar esta clase en nuestro programa principal, lo primero que debemos hacer es la importación correspondiente.
+```python
+from ventana import Ui_MainWindow
+```
+Deberemos crear una nueva clase que herede tanto de la clase generada como de la clase del objeto principal de nuestro diseño. En el constructor de esta nueva clase, se llamará al métido setupUi para que se generen todos los objetos de la interfaz.
+```python
+class VentanaPrincipal(QMainWindow, Ui_MainWindow):
+    def __init__(self):
+        super(VentanaPrincipal, self).__init__()
+        self.setupUi(self)
+```
+
+#### Cargar el fichero UI desde Python
+Tenemos otra alternativa para utilizar el diseño realizado en Qt Designer, que consiste en cargar directamente el fichero UI desde la aplicación Python. Para ello, utilizaremos la clase QUiLoader incluida en el módulo QtUiTools.
+```python
+from PySide6.QtUiTools import QUiLoader
+```
+Esta clase ofrece el método load, que recibirá como parámetro el fichero UI y generará la ventana.
+```python
+loader = QUiLoader()
+window = loader.load("ventana.ui", None)
+window.show()
+```
+
+### 3.3. Manipulación de los objetos generados
+Podemos acceder a cualquiera de los objetos generados para modificar alguna de sus propiedades o asociar una ranura a una de sus señales. Para ello, simplemente utilizaremos el nombre que hayamos dado al objeto en Qt Designer y la misma sintaxis que vimos en la unidad anterior.
+```python
+window.cerrar_boton.setText("Close")
+```
