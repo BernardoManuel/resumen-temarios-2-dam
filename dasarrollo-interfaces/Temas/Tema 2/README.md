@@ -49,7 +49,9 @@ Al producirse un evento sobre la etiquete, la aplicación no ejecutaba ninguna f
 Un **señal** en Qt se emite cuando el usuario produce un evento. Las ranuras (**slots**) son escuchadores de señales que se ejecutarán al lanzarse la emisión de la señal a la que están conectados.
 
 ### 2.4. Principales componentes en formularios
-| Command | Description |
-| --- | --- |
-| git status | List all new or modified files |
-| git diff | Show file differences that haven't been staged |
+Vamos a hacer un listado con los componentes más habituales de PySide6 usados en formularios, junto con algunas de sus señales y funciones más útiles.
+
+| Widget | Señales | Funciones |
+| --- | --- | --- |
+| QCheckBox | stateChanged() | isChecked() setCheckState() |
+| QLabel |  | setText() |
