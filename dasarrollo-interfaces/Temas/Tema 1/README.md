@@ -106,16 +106,14 @@ Gran parte de las aplicaciones con interfaz gráfica de usuarios cuentan con men
 ### 3.2. Controles
 Los controles son los componentes básicos con los que construimos la interfaz gráfica de una aplicación. Algunos ejemplos de controles son los botones, las casillas de verificación o las listas de desplegables.
 
-### 3.3. Aspecto visual
-En este apartado se muestran algunas pautas de diseño importantes relacionadas con el aspecto visual de la aplicación, concretamente relativas al color, el texto y los iconos.
+### 3.3. Mensajes al usuario
+La mayoría de las aplicaciones necesitan mostrar distintos tipos de mensajes al usuario con diferentes propósitos, Son muy habituales los mensajes de confirmación, de error o advertencia y las notificaciones.
 
-#### Color
-
-#### Texto
-
-#### Iconos
-
-### 3.4. Mensajes al usuario
+Algunas recomendacione relacionada con los mensajes al usuario:
+- Debemos avisar al usuario antes de comenzar una acción irreversible y que podría causar una pérdida de información.
+- Hay que evitar interruptor al usuario con mensajes que no sean importantes.
+- Siempre tenemos que utilizar un lenguaje cercano al usuario, sin incluir información interna de la aplicación.
+- La forma de expresar los mensajes debe ser respetuosa con el usuario y utilizar un estilo de escritura directo y conciso.
 
 ## 4. Enlaces Web
 
