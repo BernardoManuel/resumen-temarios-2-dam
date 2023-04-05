@@ -270,3 +270,5 @@ ventana = VentanaPrincipal()
 ventana.show()
 app.exec()
 ```
+
+## 4. Menús, barras de herramientas, barra de estado y componentes flotantes
