@@ -1,4 +1,4 @@
-# Cuestionario - Tema 2
+# Cuestionario - Tema 3
 
 #### Pregunta 1 - Dado el fragmento de código siguiente, determina la afirmación correcta:
 ```python

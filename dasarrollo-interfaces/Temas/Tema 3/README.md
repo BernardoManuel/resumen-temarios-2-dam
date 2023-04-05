@@ -89,3 +89,24 @@ Podemos acceder a cualquiera de los objetos generados para modificar alguna de s
 ```python
 window.cerrar_boton.setText("Close")
 ```
+
+## 4. Funcionalidades avanzadas de la herramienta de diseño
+La principal finalidad de las herramientas de diseño asociadas a los lenguajes de marcas es permitir al usuario definir los componentes de la interfaz y la forma en la que estos se organizan.
+
+### 4.1. Definición de compañeros (buddy widgets)
+Cuando diseñamos formularios de entrada de datos, es habitual utilizar en el diseño una etiqueta para identificar cada campo del formulario, y un control de entrada de datos para que el usuario pueda proporcionar el valor.
+
+Qt ofrece la posibilidad de asociar a cada etiqueta el control de entrada de datos correspondiente como un control compañero. De esta forma, cuando el usuario utilice el acceso rápido asociado a la etiqueta el foco pasará a su compañero.
+### 4.2. Orden de tabulación
+Qt Designer ofrece la posibilidad de personalizar visualmente el orden en el que el foco se desplazará de un campo a otro con el tabulador mediante el modo *Editar orden de pestañas*.
+### 4.3. Plantillas
+Qt ofrece la posibilidad de crear plantillas de formulario propias, lo que permitirá crear un nuevo formulario a partir de una estructura básica definida por nosotros.
+
+## 5. Enlaces Web
+
+- [Formato de fichero UI de Qt Designer: contiene el esquema XML que describe el lenguaje de marcas utilizado por Qt Designer.](https://doc.qt.io/qt-6/designer-ui-file-format.html)
+- [Icon Gallery; galería con más de 400.000 iconos, la mayoría con licencia Creative Commons.](http://icongal.com/)
+
+## 6. Respuestas cuestionario
+
+- [Cuestionario](./CUESTIONARIO.md)
