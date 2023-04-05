@@ -94,7 +94,7 @@ En este apartado vamos a estudiar una forma más eficiente de gestionar todo est
 En esta disposición los elementos están en vertical. Se irán añadiendo los componentes al final de una pila de componentes, uno encima de otro.
 
 ```python
-from PySide.QtWidgets import { 
+from PySide6.QtWidgets import { 
     QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton
 }
 class VentanaPrincipal(QMainWindow):
@@ -122,7 +122,7 @@ app.exec()
 En este apartado nos centramos en la disposición horizontal de los componentes. Usamos un layout horizontal:
 
 ```python
-from PySide.QtWidgets import { 
+from PySide6.QtWidgets import { 
     QApplication, QMainWindow, QWidget, QHBoxLayout, QPushButton
 }
 class VentanaPrincipal(QMainWindow):
@@ -150,7 +150,7 @@ app.exec()
 Aunque con el uso de layout verticales y horizontales podríamos conseguir casi cualquier disposición, esto puede no resultar cómodo de gestionar en algunas ocasiones.
 
 ```python
-from PySide.QtWidgets import { 
+from PySide6.QtWidgets import { 
     QApplication, QMainWindow, QWidget, QGridLayout, QPushButton
 }
 class VentanaPrincipal(QMainWindow):
@@ -182,7 +182,7 @@ app.exec()
 Aunque con el uso de layout verticales y horizontales podríamos conseguir casi cualquier disposición, esto puede no resultar cómodo de gestionar en algunas ocasiones.
 
 ```python
-from PySide.QtWidgets import { 
+from PySide6.QtWidgets import { 
     QApplication, 
     QMainWindow, 
     QWidget, 
@@ -216,7 +216,7 @@ app.exec()
 Por último, vamos a ver un layout que permite apilar componentes, pero no verticalmente, de modo que todos son visible, sino en profundidad, de forma que solo uno de los elementos será visible. Para gestionar qué elemento es visible utilizamos setCurrentIndex o setCurrentWidget.
 
 ```python
-from PySide.QtWidgets import { 
+from PySide6.QtWidgets import { 
     QApplication, 
     QMainWindow, 
     QWidget, 
