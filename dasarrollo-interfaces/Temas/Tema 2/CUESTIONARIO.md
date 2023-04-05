@@ -53,56 +53,125 @@ app.exec()
 #### Pregunta 3 - Observa la imagen siguiente y determina las afirmaciones correctas:
 ![DIN2-Pregunta3.png](https://i.postimg.cc/KYxD0279/DIN2-Pregunta3.png)
 
-- [ ] a. Aprendizaje, ayuda, eficacia, errores, satisfacción.
-- [ ] b. Facilidad, recuerdo, eficacia, mensajes, satisfacción.
-- [ ] c. Aprendizaje, recuerdo, velocidad, errores, experiencia.
-- [X] d. Aprendizaje, recuerdo, eficacia, errores, satisfacción.
+- [ ] a. El layout principal es un QHBoxLayout que contiene un QFormLayout y un QPushButton.
+- [ ] b. Tiene un layout en forma de formulario.
+- [X] c. El layout principal es un QVBoxLayout que contiene un QFormLayout y un QPushButton.
+- [ ] d. El layout principal es un QFormBoxLayout que contiene un QVormLayout y un QPushButton.
 
-#### Pregunta 4 - ¿Cuál de las siguientes afirmaciones sobre la evaluación de la usabilidad es falsa?:
+#### Pregunta 4 - Observa la imagen siguiente y determina las afirmaciones correctas sobre la ventana:
+![DIN2-Pregunta4.png](https://i.postimg.cc/P5RXJhXC/DIN2-Pregunta4.png)
 
-- [ ] a. Se pueden evaluar métricas cuantitativas o cualitativas.
-- [X] b. Los participantes en la sesión son especialistas en usabilidad.
-- [ ] c. El moderador de la sesión debe procurar mantenerse neutral.
-- [ ] d. La sesión puede ser presencial o remota.
+Seleccione una o más de una:
+- [X] a. Tiene una QSlider.
+- [ ] b. Tiene un QSpinBox.
+- [ ] c. Tiene un QProgressBar.
+- [X] d. Tiene un QDial.
 
-#### Pregunta 5 - ¿Cuál es el número recomendado de participantes en una sesión de evaluación de la usabilidad?:
+#### Pregunta 5 - Dado el código siguiente, ¿qué fragmento de código es correcto para que la etiqueta refleje el valor del slider?
+```python
+class VentanaPrincipal(QMainWindow):
+ 
+    def __init__(self):
+        super().__init__() 
+        self.setWindowTitle("Evaluación final - pregunta 5")
+ 
+        layout_principal = QVBoxLayout()
+        widget_principal = QWidget()
+       
+        widget_principal.setLayout(layout_principal)
+ 
+        self.setCentralWidget(widget_principal)
+ 
+        slider = QSlider()
+        slider.setRange(0, 10)
+ 
+        self.etiqueta = QLabel("0:")
+ 
+        layout_principal.addWidget(slider)
+        layout_principal.addWidget(self.etiqueta)
+ 
+        slider.valueChanged.connect(self.valor_cambiado)
+ 
+app = QApplication([]) 
+ventana = VentanaPrincipal()
+ventana.show() 
+app.exec()
+```
 
-- [ ] a. Dos.
-- [X] b. Cinco
-- [ ] c. Diez
-- [ ] d. No hay límite, cuantos más mejor.
+- [ ] a. 
+```python
+def valor_cambiado(self, valor):
+    self.etiqueta.setText(valor)
+```
+- [ ] b.
+```python
+def valor_cambiado(self):
+    self.etiqueta.setText(slider.value)
+```
+- [ ] c. 
+```python
+def valor_cambiado(self):
+    self.etiqueta.setText(str(valor))
+```
+- [X] d. 
+```python
+def valor_cambiado(self, valor):
+    self.etiqueta.setText(str(valor))
+```
 
-#### Pregunta 6 - De los siguientes tipos de documentos relacionados con las pautas de diseño de interfaces, ¿cuáles son desarrollados por empresas del sector como Microsoft o Apple, o por proyectos de software libre como KDE o GNOME?
+#### Pregunta 6 - En una aplicación deseamos que una misma funcionalidad se ejecute desde una opción en la barra de tareas y una opción en la barra de menús. ¿Cómo procederemos a su implementación?
 
-- [ ] a. Estándares internacionales.
-- [ ] b. Guías de producto.
-- [ ] c. Estándares corporativos.
-- [X] d. Guías de la plataforma.
+- [ ] a. Definimos un atajo de teclado para las dos interfaces.
+- [ ] b. No se puede implementar con una sola función, necesitamos una por interfaz.
+- [X] c. Definimos una acción que añadimos al menú y a la barra de tareas. Conectamos la señal triggered a la función deseada.
+- [ ] d. Definimos una función a la que conectamos los eventos de clic del botón en el menú y los de clic del botón en la barra de tareas.
 
-#### Pregunta 7 - Los principios generales de diseño de la interfaz son:
+#### Pregunta 7 - Dado el fragmento de código siguiente, ¿cuál es la línea de código que hace que la acción se ejecute desde el menú y desde la barra de herramientas?:
+```python
+    barra_menus = self.menuBar()
+    menu = barra_menus.addMenu("&Menu")
+    
+    accion = QAction("Acción", self)
+                    
+    barra_herramientas = QToolBar("Barra de herramientas")
 
-- [ ] a. Contraste, jerarquía, proximidad y color.
-- [X] b. Contraste, jerarquía, proximidad y alineación.
-- [ ] c. Controles, jerarquía, proximidad y color.
-- [ ] d. Contraste, jerarquía, texto y color.
+    menu.addAction(accion)
+    barra_herramientas.addAction(accion)
+    self.addToolBar(barra_herramientas)
 
-#### Pregunta 8 - En un campo de un formulario el usuario debe escoger un color (y solo uno) de diez colores posibles. ¿Qué tipo de control sería el más adecuado para este campo?
+def funcion(self):
+    ...
+```
 
-- [X] a. Lista desplegable.
-- [ ] b. Botones de radio.
-- [ ] c. Casillas de verificación.
-- [ ] d. Entrada de texto.
+- [ ] a. barra_herramientas.triggered.connect(self.funcion)
+- [X] b. accion.triggered.connect(self.funcion)
+- [ ] c. Barra_menus.triggered.connect(self.funcion)
+- [ ] d. menu.triggered.connect(self.funcion)
 
-#### Pregunta 9 - Indica cuál de las siguientes afirmaciones sobre el uso del color es falsa:
+#### Pregunta 8 - ¿Para qué sirve el código siguiente?
+```python
+def cargar_traductor(app):
+    translator = QTranslator(app)
+    translations = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
+    translator.load("qt_es", translations)
+    app.installTranslator(translator)
+```
+- [ ] a. Traducirá toda la interfaz al español.
+- [ ] b. Traducirá los diálogos predefinidos a la lengua definida en el sistema.
+- [X] c. Traducirá los diálogos predefinidos al español.
+- [ ] d. Instala un traductor en el sistema.
 
-- [X] a. El conjunto de colores que utilizamos en nuestro diseño debe ser amplio y variado.
-- [ ] b. Nunca se debe referenciar un elemento de la interfaz por su color.
-- [ ] c. El significado de los colores puede variar dependiendo del origen cultural de los usuarios.
-- [ ] d. Los colores se deben utilizar para comunicar algo al usuario.
+#### Pregunta 9 - Indica las afirmaciones correctas para crear un diálogo como el siguiente:
+![DIN2-Pregunta9.png](https://i.postimg.cc/DZy3PMy9/DIN2-Pregunta9.png)
 
-#### Pregunta 10 - Indica cuál de los siguientes mensajes de error al usuario está redactado de forma correcta:
+- [ ] a. Creamos un QWidget al que añadimos los componentes requeridos.
+- [X] b. Creamos un QMessageBox.critical al que añadimos los botones.
+- [ ] c. Creamos un QMessageBox.error al que añadimos los botones.
+- [ ] d. Creamos un QMainWindow.
 
-- [ ] a. Error interno en la llamada al método. Código: 0x0012367AF
-- [X] b. Se ha producido un error y la acción no ha podido completarse con éxito. Puede volver a intentarlo más tarde.
-- [ ] c. Se ha producido un desbordamiento de la memoria interna de la aplicación y la aplicación se cerrará.
-- [ ] d. La acción que usted ha iniciado ha provocado un error fatal en la aplicación.
+#### Pregunta 10 - ¿Qué tipo de diálogo y de función utilizamos para pedir al usuario el nombre de archivo donde guardar unos cambios?
+
+- [ ] a. QInputDialog.getFileName(...)
+- [ ] b. QFileDialog.getOpenFileName(...)
+- [ ] c. QDialog.getSaveFileName(...)
+- [X] d. QFileDialog.getSaveFileName(...)
