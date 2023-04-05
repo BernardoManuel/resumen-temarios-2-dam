@@ -61,3 +61,9 @@ Vamos a hacer un listado con los componentes más habituales de PySide6 usados e
 | QPushButton | clicked() | setCheckable() |
 | QTabWidget | currentChanged() tabBarClicked() | addTab(widget, label) setCurrentIndex() setCurrentWidget() |
 | QTableWidget | cellChanged() currentCellChanged() ... | clear() insertColumn() insertRow() removeColumn() removeRow() |
+| QLineEdit | textChanged() | setText() clear() |
+| QTextEdit | textChanged() | setText() clear() |
+| QProgressBar | valueChanged() | setValue() setOrientation() setMaximum() setMinimum() |
+| QDateTimeEdit | dateChanged() dateTimeChanged() timeChanged() | setDate() setDateTime() setTime() |
+| QSlider | valueChanged() | setValue() |
+| QDial | valueChanged() | setValue() |
