@@ -67,3 +67,51 @@ Vamos a hacer un listado con los componentes más habituales de PySide6 usados e
 | QDateTimeEdit | dateChanged() dateTimeChanged() timeChanged() | setDate() setDateTime() setTime() |
 | QSlider | valueChanged() | setValue() |
 | QDial | valueChanged() | setValue() |
+
+## 3. Contenedores de componentes. Diseño
+### 3.1. Layouts
+```python
+from PySide6.QtWidgets import QApplication, QLabel, QWidget
+class Ventana(QWidget):
+    def __init__(self):
+        QWidget.__init__(self)
+        self.setWindowTitle("Ventana")
+
+        self.label1 = QLabel("Etiqueta 1", self)
+        self.label2 = QLabel("Etiqueta 2", self)
+
+        self.label2.move(0, 30)
+if __name__ == "__main__":
+    app = QApplication([])
+    ventana = Ventana()
+    ventana.show()
+    app.exec()
+```
+
+En este apartado vamos a estudiar una forma más eficiente de gestionar todo esto a trabés de layouts: diseños o disposiciones que podemos aplicar a una interfaz para ordenar sus componentes. Con la combinación de estos layouts es posible definir el diseño de cualquier interfaz gráfica de usuario.
+
+### 3.2. QVBoxLayout
+```python
+from PySide.QtWidgets import { 
+    QApplication, QMainWindow, QWidget, QVBoxLayout, QPushButton
+}
+class VentanaPrincipal(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Layout vertical")
+        
+        layout_vertical = QVBoxLayout()
+
+        layout_vertical.addWidget(QPushButton("Uno"))
+        layout_vertical.addWidget(QPushButton("Dos"))
+        layout_vertical.addWidget(QPushButton("Tres"))
+        layout_vertical.addWidget(QPushButton("Cuatro"))
+
+        componente_principal = QWidget()
+        componente_principal.setLayout(layout_vertical)
+        self.setCentralWidget(componente_principal)
+app = QApplication([])
+ventana = VentanaPrincipal()
+ventana.show()
+app.exec()
+```
