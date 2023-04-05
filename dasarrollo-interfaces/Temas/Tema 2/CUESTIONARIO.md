@@ -51,7 +51,7 @@ app.exec()
 - [X] d. Se mostrarán dos ventanas, una de ella con el texto «Hola mundo!».
 
 #### Pregunta 3 - Observa la imagen siguiente y determina las afirmaciones correctas:
-![imagen pregunta 3](https://centroprofesional.universidadeuropea.es/pluginfile.php/33951/question/questiontext/34307/3/39409/DIN2_Pregunta3.png?raw=true)
+![imagen pregunta 3](https://centroprofesional.universidadeuropea.es/pluginfile.php/33951/question/questiontext/34307/3/39409/DIN2_Pregunta3.png)
 
 - [ ] a. Aprendizaje, ayuda, eficacia, errores, satisfacción.
 - [ ] b. Facilidad, recuerdo, eficacia, mensajes, satisfacción.
