@@ -43,3 +43,20 @@ Qt Designer también permite asociar una señal de un componente a alguna de las
 
 ### 2.3. Previsualizar el resultado
 Durante el proceso de creación de nuestro formulario con Qt Designer podemos obtener una vista previa del resultado, mucho más cercana a cómo se verá realmente nuestro diseño cuando se ejecuta la aplicación.
+
+## 3. Uso de la interfaz en una aplicación
+Gran parte de las tecnologías de interfaz de usuario actuales disponen de un lenguaje de marcas para definir el diseño de las ventanas sin hacer uso de un lenguaje de programación. Y también suelen contar con una herramienta visual de diseño que facilita la tarea de definición de la interfaz y que genear de forma automática un documento en el lenguaje de marcas correspondiente.
+
+### 3.1. Formato Qt UI
+La herramienta Qt Designer almacena el diseño realiza en un formato conocido como Qt UI, asignado a los ficheros de diseño la extensión *.ui. Este formato está baso en XML y, aunque no está concebido para ser utilizado por los desarrolladores fuera de la herramienta de diseño, es posible manipularlo directamente en algún editor de texto.
+
+### 3.2. Incluir la interfaz en una aplicación
+A la hora de utilizar nuestro fichero de diseño de la interfaz desde una aplicación, se presentan dos opciones diferentes:
+- Utilizar una herramienta de generación de código que, a partir del fichero de descripción de la interfaz, genere el código correspondiente en el lenguaje de programación adecuado.
+- Cargar el fichero de descripción de la interfaz directamente desde el código de nuestra aplicación, generándose en tiempo de ejecución el código correspondiente.
+
+#### Generar código Python a partir del fichero UI
+Se utiliza la erramienta *User Interface Compiler (uic)*, incluida en la instalación de Qt. El comando siguiente generará el fichero de código Python ventana.py a partir del fichero de diseño de interfaz ventana.ui.
+```shell
+uic -g python ventana.ui -o ventana.py
+```
