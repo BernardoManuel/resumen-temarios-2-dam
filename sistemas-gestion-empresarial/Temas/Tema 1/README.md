@@ -73,9 +73,44 @@ Como resumen diremos que un CRM sirve principalmente para tres cosas:
 
 ## 3. Arquitectura de un sistema ERP
 Según la integración que incorpora un ERP, encontramos:
-| Arquitectura modular | sdgds |
-| Arquitectura indivisible | sdgsdg |
+- **Arquitectura modular**: Dentro de las ventajas propias de integración se encuentra su gran poder de ajuste y adaptación. Sus bloque funcionales están estrechamente interconectados y se pueden contratar de forma independiente.
+- **Arquitectura indivisible**: Este tipo de diseño arquitectónico permite contar con todas las funcionalidades desde el inicio.
 
+Desde una perspectiva técnica, los sistemas ERP se construyen basándose en dos elementos principales:
+- **Arquitectura cliente-servidor**: Se necesita un servidor que ofrece servicios a los clientes. Los usuarios utilizan las aplicaciones para acceder a los servicios de dicho servidor.
+- **Base de datos**: La base de datos es común a todos los módulos de la aplicación, esto permite la integración entre los diferentes departamentos o módulos del ERP. Normalmente las bases de datos que se utilizan son relacionales. A la base de datos solo se puede acceder desde el servidor ERP. nunca desde los clientes. El servidor actúa como una capa intermedia entre clientes y los datos.
+
+### 3.1. Descripción de la arquitectura de un sistema ERP libre: Odoo
+La arquitectura del sistema Odoo es cliente-servidor, esto nos permite trabajar sobre los mismos datos desde diferentes clientes. El servidor y los clientes pueden realizar el intercambio de datos mediante tres tipos de procedimientos: XML-RPC, Net-RPC o JSON.
+
+El framework de Odoo facilita varios componentes que permiten construir la aplicación siguiendo la arquitectura MVC.
+- La capa ORM hace el mapeo entre los objetos Python y la base de datos PostgreSQL. El diseñador-programador no efectúa el diseño de la base de datos, únicamente diseña clases, las cuales son utilizadas por la capa ORM de Odoo para efectuar el mapeado sobre el SGBD PostgreSQL.
+- Un sistema de flujos de trabajo o workflows.
+- Diseñadores de informes.
+- Facilidades de traducción de la aplicación a varios idiomas.
+
+### 3.2. Funcionamiento
+El servidor Odoo proporciona un acceso a la base de datos en ORM y un cliente web. El cliente se comunica con el servidor en XML-RPC y los clientes web medianmte JSON-RPC. El cliente solo tiene que mostrar lo que le envía el servidor.
+
+El acceso del cliente a los datos se hace mediante un servicio llamado WSGI, es una solución estándar para hacer servidores y clientes HTTP en Python.
+
+Por otra parte, tenemos los Business Objects. Casi todo en Odoo es un Business Object. Son persistentes gracias a ORM y los podemos encontrar estructurados en el directorio /modules.
+
+### 3.3. Resumiendo Odoo
+- Tecnología que usa:
+    - Python
+    - SQL y PL/SQL
+    - XML
+- Arquitectura de diseño y funcionamiento:
+    - MVC
+    - PostgreSQL database server
+    - Application server
+    - Open Object client web
+- Licencia:
+    - GPL
+- Tipos de cliente:
+    - Web
+    - Aplicación Desktop
 
 ## 4. Enlaces Web
 
