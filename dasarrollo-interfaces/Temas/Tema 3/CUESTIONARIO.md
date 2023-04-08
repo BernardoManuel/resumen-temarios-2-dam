@@ -1,177 +1,62 @@
 # Cuestionario - Tema 3
 
-#### Pregunta 1 - Dado el fragmento de código siguiente, determina la afirmación correcta:
-```python
-from PySide6.QtWidgets import (
-    QApplication,
-    QWidget,
-    QLabel
-)
- 
-class VentanaPrincipal(QWidget):
-    def __init__(self):
-        super().__init__()
-        QLabel("Hola mundo!", self)
-       
- 
-app = QApplication([])
-ventana = VentanaPrincipal()
-app.exec()
-```
-- [ ] a. No se mostrará nada porque no se ejecuta el bucle de eventos de la aplicación.
-- [ ] b. Se mostrará una ventana con el texto «Hola Mundo!».
-- [X] c. No se mostrará nada porque no se ejecuta el show() del componente, pero se ejecutará la aplicación.
-- [ ] d. Se mostrará una ventana que no responde a los eventos y se tendrá que matar el proceso.
+#### Pregunta 1 - ¿Cuál de las afirmaciones siguientes sobre lenguajes de marcas para la generación de interfaces no es cierta?:
+- [ ] a. Este tipo de lenguajes mejoran la separación de responsabilidades en la aplicación.
+- [ ] b. Muchos de estos lenguajes están basados en XML.
+- [ ] c. El lenguaje XAML es utilizado por la mayoría de tecnologías de interfaz de usuario de Microsoft.
+- [X] d. Aunque son fácilmente entendibles por las personas, son difíciles de manipular de forma automática por una aplicación.
 
-#### Pregunta 2 - Dado el fragmento de código siguiente, determina las afirmaciones que son correctas:
-```python
-from PySide6.QtWidgets import (
-    QApplication,
-    QWidget,
-    QLabel
-)
- 
-class VentanaPrincipal(QWidget):
- 
-    def __init__(self):
-        super().__init__()
-        self.etiqueta = QLabel("Hola mundo!")
-        self.etiqueta.show()
- 
-app = QApplication([]) 
-ventana = VentanaPrincipal()
-ventana.show()
- 
-app.exec()
-```
+#### Pregunta 2 - ¿Cuál de las siguientes no es una herramienta visual de diseño de interfaces basada en un lenguaje de marcas?:
+- [ ] a. Glade.
+- [X] b. Visual Studio Code.
+- [ ] c. JavaFX Scene Builder.
+- [ ] d. Qt Designer.
 
-- [ ] a. Se mostrará una ventana con el texto «Hola mundo!».
-- [ ] b. No se ejecutará la aplicación.
-- [ ] c. No se mostrará ninguna ventana.
-- [X] d. Se mostrarán dos ventanas, una de ella con el texto «Hola mundo!».
+#### Pregunta 3 - ¿Qué utilidad de QT Designer utilizaremos para conocer la clase asociada a un componente de nuestro formulario?:
+- [ ] a. Editor de señales/slots.
+- [X] b. Inspector de objetos.
+- [ ] c. Caja de widgets.
+- [ ] d. Navegador de recursos.
 
-#### Pregunta 3 - Observa la imagen siguiente y determina las afirmaciones correctas:
-![DIN2-Pregunta3.png](https://i.postimg.cc/KYxD0279/DIN2-Pregunta3.png)
+#### Pregunta 4 - Para poder configurar en Qt Designer el layout principal de nuestro formulario:
+- [ ] a. El formulario debe estar vacío.
+- [ ] b. El formulario debe tener al menos dos controles.
+- [X] c. El formulario debe tener al menos un control.
+- [ ] d. Hay que guardar primero el formulario.
 
-- [ ] a. El layout principal es un QHBoxLayout que contiene un QFormLayout y un QPushButton.
-- [ ] b. Tiene un layout en forma de formulario.
-- [X] c. El layout principal es un QVBoxLayout que contiene un QFormLayout y un QPushButton.
-- [ ] d. El layout principal es un QFormBoxLayout que contiene un QVormLayout y un QPushButton.
+#### Pregunta 5 - Para introducir un espacio entre los componentes de un layout, se utiliza:
+- [ ] a. El tamaño ideal (sizeHint).
+- [X] b. Los controles espaciadores.
+- [ ] c. Los tamaños mínimo y máximo.
+- [ ] d. La política de tamaño (sizePolicy).
 
-#### Pregunta 4 - Observa la imagen siguiente y determina las afirmaciones correctas sobre la ventana:
-![DIN2-Pregunta4.png](https://i.postimg.cc/P5RXJhXC/DIN2-Pregunta4.png)
+#### Pregunta 6 - ¿Qué elementos XML podemos encontrar en un archivo Qt UI?:
+- [ ] a. ui, object y slot.
+- [ ] b. ui, form y connection.
+- [ ] c. ui, widget y event.
+- [X] d. ui, layout y connection.
 
-Seleccione una o más de una:
-- [X] a. Tiene una QSlider.
-- [ ] b. Tiene un QSpinBox.
-- [ ] c. Tiene un QProgressBar.
-- [X] d. Tiene un QDial.
+#### Pregunta 7 - La clase QUiLoader, incluida en el paquete QtUiTools, se utiliza para:
+- [ ] a. Cargar directamente un fichero de recursos en una aplicación Python.
+- [ ] b. Asociar ranuras a señales.
+- [ ] c. Generar código Python a partir de un fichero Qt UI.
+- [X] d. Cargar directamente un fichero Qt UI en una aplicación Python.
 
-#### Pregunta 5 - Dado el código siguiente, ¿qué fragmento de código es correcto para que la etiqueta refleje el valor del slider?
-```python
-class VentanaPrincipal(QMainWindow):
- 
-    def __init__(self):
-        super().__init__() 
-        self.setWindowTitle("Evaluación final - pregunta 5")
- 
-        layout_principal = QVBoxLayout()
-        widget_principal = QWidget()
-       
-        widget_principal.setLayout(layout_principal)
- 
-        self.setCentralWidget(widget_principal)
- 
-        slider = QSlider()
-        slider.setRange(0, 10)
- 
-        self.etiqueta = QLabel("0:")
- 
-        layout_principal.addWidget(slider)
-        layout_principal.addWidget(self.etiqueta)
- 
-        slider.valueChanged.connect(self.valor_cambiado)
- 
-app = QApplication([]) 
-ventana = VentanaPrincipal()
-ventana.show() 
-app.exec()
-```
+#### Pregunta 8 - Cuando optamos por utilizar la herramienta User Interface Compiler (uic) para generar el código Python asociado a un fichero Qt UI:
+- [ ] a. El código Python se generará en tiempo de ejecución.
+- [X] b. Deberemos regenerar el código Python cada vez que modifiquemos el diseño en Qt Designer.
+- [ ] c. No podremos acceder desde el programa principal a los objetos incluidos en el formulario.
+- [ ] d. La aplicación será más lenta que si cargamos el fichero Qt UI directamente.
 
-- [ ] a. 
-```python
-def valor_cambiado(self, valor):
-    self.etiqueta.setText(valor)
-```
-- [ ] b.
-```python
-def valor_cambiado(self):
-    self.etiqueta.setText(slider.value)
-```
-- [ ] c. 
-```python
-def valor_cambiado(self):
-    self.etiqueta.setText(str(valor))
-```
-- [X] d. 
-```python
-def valor_cambiado(self, valor):
-    self.etiqueta.setText(str(valor))
-```
+#### Pregunta 9 - ¿Cuál de las afirmaciones siguientes sobre la funcionalidad de controles compañeros no es cierta?:
+- [ ] a. Ayudan a mejorar la productividad de los usuarios finales.
+- [ ] b. Se pueden utilizar con diferentes tipos de controles de entrada de datos (como QLineEdit, QTextEdit o QComboBox).
+- [ ] c. Para que funcione correctamente, la etiqueta debe tener definido un carácter de acceso rápido en su propiedad text.
+- [X] d. La flecha debe comenzar en el control de entrada de datos y terminar en la etiqueta.
 
-#### Pregunta 6 - En una aplicación deseamos que una misma funcionalidad se ejecute desde una opción en la barra de tareas y una opción en la barra de menús. ¿Cómo procederemos a su implementación?
+#### Pregunta 10 - Cuando utilizamos el modo de edición del orden de tabulación, el número de los controles a los que todavía no hemos asignado un orden tiene el color:
 
-- [ ] a. Definimos un atajo de teclado para las dos interfaces.
-- [ ] b. No se puede implementar con una sola función, necesitamos una por interfaz.
-- [X] c. Definimos una acción que añadimos al menú y a la barra de tareas. Conectamos la señal triggered a la función deseada.
-- [ ] d. Definimos una función a la que conectamos los eventos de clic del botón en el menú y los de clic del botón en la barra de tareas.
-
-#### Pregunta 7 - Dado el fragmento de código siguiente, ¿cuál es la línea de código que hace que la acción se ejecute desde el menú y desde la barra de herramientas?:
-```python
-    barra_menus = self.menuBar()
-    menu = barra_menus.addMenu("&Menu")
-    
-    accion = QAction("Acción", self)
-                    
-    barra_herramientas = QToolBar("Barra de herramientas")
-
-    menu.addAction(accion)
-    barra_herramientas.addAction(accion)
-    self.addToolBar(barra_herramientas)
-
-def funcion(self):
-    ...
-```
-
-- [ ] a. barra_herramientas.triggered.connect(self.funcion)
-- [X] b. accion.triggered.connect(self.funcion)
-- [ ] c. Barra_menus.triggered.connect(self.funcion)
-- [ ] d. menu.triggered.connect(self.funcion)
-
-#### Pregunta 8 - ¿Para qué sirve el código siguiente?
-```python
-def cargar_traductor(app):
-    translator = QTranslator(app)
-    translations = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
-    translator.load("qt_es", translations)
-    app.installTranslator(translator)
-```
-- [ ] a. Traducirá toda la interfaz al español.
-- [ ] b. Traducirá los diálogos predefinidos a la lengua definida en el sistema.
-- [X] c. Traducirá los diálogos predefinidos al español.
-- [ ] d. Instala un traductor en el sistema.
-
-#### Pregunta 9 - Indica las afirmaciones correctas para crear un diálogo como el siguiente:
-[![DIN2-Pregunta9.png](https://i.postimg.cc/DZy3PMy9/DIN2-Pregunta9.png)](https://postimg.cc/8F3Y1wv4)
-
-- [ ] a. Creamos un QWidget al que añadimos los componentes requeridos.
-- [X] b. Creamos un QMessageBox.critical al que añadimos los botones.
-- [ ] c. Creamos un QMessageBox.error al que añadimos los botones.
-- [ ] d. Creamos un QMainWindow.
-
-#### Pregunta 10 - ¿Qué tipo de diálogo y de función utilizamos para pedir al usuario el nombre de archivo donde guardar unos cambios?
-
-- [ ] a. QInputDialog.getFileName(...)
-- [ ] b. QFileDialog.getOpenFileName(...)
-- [ ] c. QDialog.getSaveFileName(...)
-- [X] d. QFileDialog.getSaveFileName(...)
+- [ ] a. Verde.
+- [X] b. Azul.
+- [ ] c. Rojo.
+- [ ] d. Amarillo.
