@@ -1,62 +1,61 @@
 # Cuestionario - Tema 1
 
-#### Pregunta 1 - ¿Cuál de las afirmaciones siguientes sobre lenguajes de marcas para la generación de interfaces no es cierta?:
-- [ ] a. Este tipo de lenguajes mejoran la separación de responsabilidades en la aplicación.
-- [ ] b. Muchos de estos lenguajes están basados en XML.
-- [ ] c. El lenguaje XAML es utilizado por la mayoría de tecnologías de interfaz de usuario de Microsoft.
-- [X] d. Aunque son fácilmente entendibles por las personas, son difíciles de manipular de forma automática por una aplicación.
+#### Pregunta 1 - ¿Cuáles de las siguientes características definen el macroentorno? (varias respuestas son correctas)
+Seleccione una o más de una:
+- [ ] a. Los proveedores.
+- [ ] b. Los clientes.
+- [X] c. La economía.
+- [X] d. La demografía.
 
-#### Pregunta 2 - ¿Cuál de las siguientes no es una herramienta visual de diseño de interfaces basada en un lenguaje de marcas?:
-- [ ] a. Glade.
-- [X] b. Visual Studio Code.
-- [ ] c. JavaFX Scene Builder.
-- [ ] d. Qt Designer.
+#### Pregunta 2 - ¿Cuáles de las siguientes características definen el microentorno? (varias respuestas son correctas)
+Seleccione una o más de una:
+- [X] a. Los proveedores.
+- [ ] b. Los factores económicos.
+- [ ] c. Los factores demográficos.
+- [X] d. Los clientes.
 
-#### Pregunta 3 - ¿Qué utilidad de QT Designer utilizaremos para conocer la clase asociada a un componente de nuestro formulario?:
-- [ ] a. Editor de señales/slots.
-- [X] b. Inspector de objetos.
-- [ ] c. Caja de widgets.
-- [ ] d. Navegador de recursos.
+#### Pregunta 3 - No es un objetivo de los ERP:
+- [ ] a. Eliminar operaciones innecesarias con la información.
+- [X] b. Facilitar a los clientes de la empresa la información sobre sus negocios.
+- [ ] c. Mejorar la productividad de la empresa.
+- [ ] d. Mantener la información de la empresa de forma precisa.
 
-#### Pregunta 4 - Para poder configurar en Qt Designer el layout principal de nuestro formulario:
-- [ ] a. El formulario debe estar vacío.
-- [ ] b. El formulario debe tener al menos dos controles.
-- [X] c. El formulario debe tener al menos un control.
-- [ ] d. Hay que guardar primero el formulario.
+#### Pregunta 4 - Son ventajas de un ERP: (varias respuestas son correctas)
+Seleccione una o más de una:
+- [ ] a. Tiempo de implementación.
+- [ ] b. Adquisición y adaptación del hardware.
+- [X] c. Mayor control organizacional.
+- [X] d. Información actualizada.
 
-#### Pregunta 5 - Para introducir un espacio entre los componentes de un layout, se utiliza:
-- [ ] a. El tamaño ideal (sizeHint).
-- [X] b. Los controles espaciadores.
-- [ ] c. Los tamaños mínimo y máximo.
-- [ ] d. La política de tamaño (sizePolicy).
+#### Pregunta 5 - Indica cuál de las siguientes afirmaciones es falsa en relación con un CRM:
+- [ ] a. Registra la información de los clientes/contactos.
+- [ ] b. Mejora la productividad en el trabajo.
+- [ ] c. Permite centralizar en una única base de datos todas las interacciones entre la empresa y sus clientes.
+- [X] d. Convierte en información útil todos los datos que genera una organización.
 
-#### Pregunta 6 - ¿Qué elementos XML podemos encontrar en un archivo Qt UI?:
-- [ ] a. ui, object y slot.
-- [ ] b. ui, form y connection.
-- [ ] c. ui, widget y event.
-- [X] d. ui, layout y connection.
+#### Pregunta 6 - Software de gestión empresarial por excelencia. Este programa integra y maneja múltiples tareas relacionadas con la producción y la distribución.
+- [ ] a. SRM
+- [X] b. ERP
+- [ ] c. BI
+- [ ] d. CRM
 
-#### Pregunta 7 - La clase QUiLoader, incluida en el paquete QtUiTools, se utiliza para:
-- [ ] a. Cargar directamente un fichero de recursos en una aplicación Python.
-- [ ] b. Asociar ranuras a señales.
-- [ ] c. Generar código Python a partir de un fichero Qt UI.
-- [X] d. Cargar directamente un fichero Qt UI en una aplicación Python.
+#### Pregunta 7 - Permite ampliar rápidamente el Odoo a más módulos mediante la capa ORM.
+- [ ] a. PostgreSQL
+- [X] b. Framework de Odoo
+- [ ] c. MVC
+- [ ] d. Wizard
 
-#### Pregunta 8 - Cuando optamos por utilizar la herramienta User Interface Compiler (uic) para generar el código Python asociado a un fichero Qt UI:
-- [ ] a. El código Python se generará en tiempo de ejecución.
-- [X] b. Deberemos regenerar el código Python cada vez que modifiquemos el diseño en Qt Designer.
-- [ ] c. No podremos acceder desde el programa principal a los objetos incluidos en el formulario.
-- [ ] d. La aplicación será más lenta que si cargamos el fichero Qt UI directamente.
+#### Pregunta 8 - En Odoo, a las tablas las llamamos modelos. Estos modelos son mapeados por el ORM en tablas de Postgre.
+- [X] a. Verdadero.
+- [ ] b. Falso.
 
-#### Pregunta 9 - ¿Cuál de las afirmaciones siguientes sobre la funcionalidad de controles compañeros no es cierta?:
-- [ ] a. Ayudan a mejorar la productividad de los usuarios finales.
-- [ ] b. Se pueden utilizar con diferentes tipos de controles de entrada de datos (como QLineEdit, QTextEdit o QComboBox).
-- [ ] c. Para que funcione correctamente, la etiqueta debe tener definido un carácter de acceso rápido en su propiedad text.
-- [X] d. La flecha debe comenzar en el control de entrada de datos y terminar en la etiqueta.
+#### Pregunta 9 - Los ERP normalmente utilizan bases de datos no relacionales.
+- [ ] a. Verdadero.
+- [X] b. Falso.
 
-#### Pregunta 10 - Cuando utilizamos el modo de edición del orden de tabulación, el número de los controles a los que todavía no hemos asignado un orden tiene el color:
+#### Pregunta 10 - Sistema informático compuesto por aplicaciones que las empresas utilizan para gestionar sus procesos administrativos y operativos de forma optimizada y eficiente
 
-- [ ] a. Verde.
-- [X] b. Azul.
-- [ ] c. Rojo.
-- [ ] d. Amarillo.
+- [ ] a. Enterprise Resource Planning.
+- [X] b. Sistema de Gestión Empresarial.
+- [ ] c. Business Intelligence.
+- [ ] d. Customer Relationship Management.
