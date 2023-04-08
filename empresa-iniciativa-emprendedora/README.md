@@ -1,4 +1,4 @@
-# Sistemas de gestión empresarial
+# Empresa Iniciativa Emprendedora
 
 ## Temarios
 - [Tema 2](./Temas/RESUMEN%20UNIDAD%202.pdf)
