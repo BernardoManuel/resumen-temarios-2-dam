@@ -6,3 +6,4 @@
 - [Acceso a datos (3/5)](./acceso-datos/README.md)
 - [Sistemas de gestión empresarial (0/5)](./sistemas-gestion-empresarial/README.md)
 - [Inglés (0/5)](./ingles/README.md)
+- [Empresa Iniciativa Emprendedora](./empresa-iniciativa-emprendedora/)
