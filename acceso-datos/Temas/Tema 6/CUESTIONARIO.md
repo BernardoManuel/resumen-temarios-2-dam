@@ -1,71 +1,79 @@
-# Cuestionario - Tema 3
+# Cuestionario - Tema 6
 
-#### Pregunta 1 - La finalidad de los ORM es...
+#### Pregunta 1 - ¿Qué tipo de base de datos NoSQL es MongoDB?
 
-- [X] **a. Relacionar de manera eficiente la equivalencia entre clases y tablas para posibilitar la conversión entre estas.**
-- [ ] b. Una ampliación del modelo relacional para poder representar objetos en el modelo relacional.
-- [ ] c. Documentar los cambios producidos en los datos en tiempo de ejecución.
-- [ ] d. Ayudar a los programadores a gestionar de manera eficiente la memoria de los objetos persistentes, una vez cargados de la base de datos y transformados.
+- [ ] a. Base de datos XML.
+- [ ] b. Base de datos en grafo.
+- [X] c. Base de datos documental.
+- [ ] d. Base de datos clave-valor.
+- [ ] e. Base de datos orientada a objetos
 
-#### Pregunta 2 - Hibernate es...
+#### Pregunta 2 - ¿A qué elemento del modelo relacional se podría equiparar un documento JSON en MongoDB?
+- [ ] a. Atributos.
+- [X] b. Registro.
+- [ ] c. Base de datos.
+- [ ] d. Tabla.
 
-- [ ] a. Un framework independiente del lenguaje de programación.
-- [ ] b. Un leguaje de modelado.
-- [X] **c. Un framework para el lenguaje de programación Java.**
-- [ ] d. Índices.
+#### Pregunta 3 - Si incorporamos a una colección un documento sin identificador, ¿qué tipo de dato contendrá _id?
 
-#### Pregunta 3 - Las opciones de configuración de Hibernate se especifican...
+- [ ] a. NiumberLong
+- [ ] b. NumberInt
+- [ ] c. Object
+- [ ] d. No necesita identificador, es un JSON.
+- [X] e. ObjectId
 
-- [ ] a. En los ficheros de tipo NombreClase.hbm.xml.
-- [ ] b. De manera embebida dentro de las clases.
-- [ ] c. En el fichero hibernate.reveng.xml.
-- [X] **d. En el fichero hibernate.cfg.xml.**
+#### Pregunta 4 - ¿Qué modificador utilizamos para eliminar un ítem arbitrario en un vector?
 
-#### Pregunta 4 - Un proyecto en Hibernate deberá contener, como mínimo...
+- [ ] a. $push
+- [ ] b. $inc
+- [X] c. $pull
+- [ ] d. $pop
+- [ ] e. $unset
 
-- [ ] a. Fichero de configuración y ficheros de mapeado.
-- [X] **b. Fichero de configuración, clases beans y fichero de mapeado.**
-- [ ] c. Fichero de configuración, clases POJO y anotaciones.
-- [ ] d. Fichero de configuración, fichero de ingeniería inversa y beans.
+#### Pregunta 5 - ¿Qué significa el documento de consulta {valor:{$lt:5}}?
 
-#### Pregunta 5 - La anotación @Transient en un atributo de una clase...
+- [X] a. Que el valor de la clave es menor que 5.
+- [ ] b. Que el valor de la clave es menor o igual que 5.
+- [ ] c. Que el valor de la clave es mayor que 5.
+- [ ] d. Que el valor de la clave es mayor o igual que 5.
+- [ ] e. El documento no está bien construido.
 
-- [ ] a. Permite evitar que se cree una relación y se guarden internamente los valores.
-- [X] **b. Permite evitar que se almacene en la base de datos.**
-- [ ] c. Permite generar el valor a partir de la base de datos.
-- [ ] d. Solo tiene sentido en valores numéricos.
+#### Pregunta 6 - ¿Para qué se utiliza el operador $size?
 
-#### Pregunta 6 - Las anotaciones CascadeType...
+- [ ] a. Para obtener el número de documentos de una consulta.
+- [ ] b. Para obtener el tamaño de un vector.
+- [X] c. Para filtrar documentos por el tamaño de un vector.
+- [ ] d. Para conocer el valor máximo de un vector de números.
+- [ ] e. Para obtener el número de caracteres de una clave de tipo string.
 
-- [X] **a. Permiten copiar el comportamiento de la clase propietaria en la relacionada.**
-- [ ] b. Solo se aplican a operaciones de guardado.
-- [ ] c. Permiten copiar el comportamiento de la clase relacionada en la propietaria.
-- [ ] d. Permiten evitar borrados de la clase propietaria al borrar elementos de la relacionada.
+#### Pregunta 7 - ¿Cómo accedemos a documentos incrustados o componentes de un vector dentro de una operación de filtrado? }
 
-#### Pregunta 7 - En una clase tenemos un atributo mapeado con @Id, con generator=identity. ¿Cuándo se asignará el valor a dicho atributo?
+- [ ] a. Mediante corchetes [ ]
+- [ ] b. Mediante corchetes [ ] y entrecomillado.
+- [ ] c. Mediante el operador punto «.»
+- [X] d. Mediante el operador punto «.» y entrecomillado.
+- [ ] e. Mediante llaves {
 
-- [ ] a. Al crear la sesión.
-- [ ] b. Al ejecutar el constructor del objeto.
-- [ ] c. Al crear el objeto.
-- [X] **d. Al guardar el objeto.**
+#### Pregunta 8 - ¿Qué método de la interfaz MongoDatabase de driver de MongoDB nos devuelve una lista de strings con los nombres las diferentes colecciones de la base de datos?
 
-#### Pregunta 8 - Cuando creamos una relación bidireccional...
+- [ ] a. listCollections()
+- [ ] b. getCollection()
+- [ ] c. createCollection()
+- [X] d. listCollectionNames()
+- [ ] e. drop()
 
-- [ ] a. Hay que evitar a toda costa relaciones bidireccionales.
-- [X] **b. Se guarda una referencia del objeto propietario en el objeto referenciado y viceversa, solo cuando la relación es uno a uno.**
-- [ ] c. Se guarda una referencia del objeto propietario en el objeto referenciado y viceversa, solo cuando la relación es uno a M.
-- [ ] d. Guardamos colecciones de una clase dentro de la otra, pero no al revés, para evitar problemas de referencias recursivas.
+#### Pregunta 9 - ¿Cómo definimos en una clase anotada con @Document qué campo es el identificador?
 
-#### Pregunta 9 - La opción de carga Fetch.Lazy...
+- [X] a. Mediante la anotación @Id.
+- [ ] b. Mediante la anotación @Document
+- [ ] c. Mediante la anotación @_id
+- [ ] d. Mediante la anotación @PrimaryKey
+- [ ] e. Mediante la anotación @AutoWired
 
-- [X] **a. Nos permitirá evitar cargas innecesarias mientras no accedamos a los objetos relacionados.**
-- [ ] b. Solo tiene sentido en relaciones uno a uno.
-- [ ] c. Carga los objetos relacionados al cargar el objeto propietario.
-- [ ] d. Es recomendable cuando el objeto relacionado esta anotado también como @Embedded.
+#### Pregunta 10 - ¿Desde qué componente de la arquitectura MVC de Spring realizamos las consultas a la base de datos?
 
-#### Pregunta 10 - Mediante consultas HQL...
-
-- [X] **a. No podemos ejecutar funciones de agrupación.**
-- [ ] b. Podemos devolver resultados de distintos tipos, pero como un array de objetos.
-- [ ] c. Solo podemos devolver todas las filas de la tabla a la vez; eso sí, convertidas en objetos.
-- [ ] d. Solo podemos devolver objetos.
+- [ ] a. Controller.
+- [X] b. Repository.
+- [ ] c. Service.
+- [ ] d. Serviceimpl.
+- [ ] d. Model.
