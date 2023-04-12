@@ -1,4 +1,4 @@
-# Cuestionario - Tema 5
+# Cuestionario - Tema 6
 
 #### Pregunta 1 - ¿Cuál de las afirmaciones siguientes sobre lenguajes de marcas para la generación de interfaces no es cierta?:
 - [ ] a. Este tipo de lenguajes mejoran la separación de responsabilidades en la aplicación.
