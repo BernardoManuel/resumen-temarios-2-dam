@@ -146,7 +146,7 @@ ventana.show()
 app.exec()
 ```
 
-### 3.4. QHBoxLayout
+### 3.4. QGridLayout
 Aunque con el uso de layout verticales y horizontales podríamos conseguir casi cualquier disposición, esto puede no resultar cómodo de gestionar en algunas ocasiones.
 
 ```python
