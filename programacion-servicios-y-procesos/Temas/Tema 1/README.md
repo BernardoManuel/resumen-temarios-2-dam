@@ -233,6 +233,50 @@ En líneas generales, los pasos a seguir cuando abordamos el diseño de algoritm
 3. **Implementar el algoritmo en un entorno de programación** que soporte la creación de subtareas.
 4. **Ejecutar el programa y analizar las mejoras en el rendimiento**, mejorando detalles de su funcionamiento si fuese necesario.
 
+#### Paso 1: Identificando la concurrencia
+Esta puede encontrarse en las tareas, los datos o los flujos de datos y, según el caso, determinará la estrategia de paralelización y los patrone de diseño a seguir. Distinguimos entonces:
+- **Distribución por tareas**, cuando diferentes partes del código se identifican como tareas, lo que implica una distribución de los datos.
+- **Distribución por datos**, cuando las estructuras de datos se dividen de forma que cada tarea se encarga de una parte de e tos datos.
+- **Distribución por flujo de datos**, cuando es el flujo de datos el que determina cuándo se activan unas tareas para procesarlos.
+
+En el caso de la distribución por tareas, estas características se concretan en:
+- **Flexibilidad**. El diseño del programa debe aportar flexibilidad en el número y tamaño de las tareas generadas no vinculándose a una arquitectura concreta. Además, en la medida de lo posible deberíamos dar preferencia a las tareas parametrizadas respecto a las tareas fijas.
+- **Eficiencia**. Las tareas deben tener suficiente trabajo como para compensar el coste de creación y gestión de estas, así como ser lo suficientemente independientes, minimizando con ello las dependencias entre ellas.
+- **Simplicidad**. El código debe ser legible, fácil de entender y fácil de depurar.
+
+Respecto a esta distribución en datos, las características antes mencionadas se concretan en:
+- **Flexibilidad**. El tamaño y la cantidad de fragmentos deben ser flexibles.
+- **Eficiencia**. Los fragmentos deben generar volúmenes de datos que equilibren la carga entre las diferentes tareas.
+- **Simplicidad**. Para facilitar la administración y depuración de los datos, la distribución de estos debe ser lo más simple posible.
+
+#### Paso 2: Diseño del algoritmo
+Existen diferentes patrones de diseño según el tipo de descomposición realizada y según también cómo se organicen las estructuras de datos.
+La organización de las estructuras de datos puede ser:
+- **Geométrica** (vectores y matrices), en cuyo caso podemos realizar una descomposición basada en filas
+columnas o bloques.
+- **Recursiva**, cuando tratamos con listas, árboles o grafos.
+
+Veamos los diferentes patrones:
+- **Patrón Task Parallelism**. Las tareas en que dividimos el problema se pueden realizar de forma concurrente.
+- **Patrón Divide and Conquer**. Se aplica cuando el problema original se resuelve de forma recursiva, de modo que podemos o paralelizar las hojas del árbol de recursión o el árbol de recursión completo.
+- **Patrón Geometric Decomposition**. Se aplica cuando tenemos estructuras de datos lineales y distribuimos  las tareas de modo que se encarguen de diferentes subpartes de esta descomposición.
+- **Patrón Recursive Data**. Se aplica con estructuras de datos recursivas, para el tratamiento de las cuales se aplica también el patrón de divide y vencerás.
+- **Patrón Pipeline**. Consiste en el procesamiento por etapas de los datos a tratar, de modo que las salidas de una etapa se toman como entrada en la siguiente.
+- **Patrón Event Based Coordinator**. No se trata de una secuencia de etapas, como en el caso del Pipeline, sino que puede haber ciclos entre ellas.
+
+#### Estructuras de soporte
+Para el diseño del algoritmo concurrente se pueden aplicar varios esquemas de programación, que no tienen por qué ser excluyentes entre ellos:
+- **SPMD** (Single Program, Multiple Data), donde las unidades de ejecución (de momento, en nuestro caso, procesos) ejecutan el mismo programa en paralelo, pero sobre diferentes datos.
+- **Master/Workers**, donde un proceso maestro crea un conjunto de subprocesos para que realicen las diferentes subtareas.
+- **Loop Parallelism**. Se aplica cuando tenemos bucles de cómputo intensivo, de manera que cada iteración se puede realizar en paralelo.
+- **Fork/Join**. Se aplica cuando un proceso principal crea procesos hijos y debe esperar a que estos finalicen.
+
+#### Paso 3: Implementación del algoritmo
+Para la implementación del algoritmo debemos tener en cuenta la tecnología con la que contamos: por una parte, el lenguaje de programación que dé soporte a la programación concurrente y, por otra, el hardware En líneas generales, deberemos determinar:
+- Qué unidades de ejecución (UE) tenemos disponibles: procesos o hilo
+- Qué mecanismos de sincronización ofrecen: memoria compartida, exclusión mutua, etc
+- Cómo se realiza la comunicación entre los procesos: paso de mensajes, E/S etc.
+
 ## 6. Enlaces web
 
 - [Documentación oficial de OpenJDK sobre la clase Process.](https://devdocs.io/openjdk~17/java.base/java/lang/process)
