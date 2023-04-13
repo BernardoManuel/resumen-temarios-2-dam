@@ -71,7 +71,12 @@ kill -señal [Lista de PIDs]
 Los números de señal más comunes son:
 | Número | Señal | Descripción |
 | --- | --- | --- |
-| 1 | 2 | 3 |
+| 1 | SIGHUP | Permite parar y reiniciar un servicio. |
+| 2 | SIGINT | Interrupción (equivalente a Control+C). |
+| 9 | SIGKILL | Terminación abrupta del proceso. |
+| 15 | SIGTERM | Terminación controlada del proceso. |
+| 18 | SIGCONT | Reanuda un proceso suspendido. |
+| 19 | SIGSTOP | Suspensión temporal del proceso |
 
 
 
