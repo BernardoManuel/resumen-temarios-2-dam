@@ -169,8 +169,7 @@ deberemos hacer uso del método estático **Runtime.getRuntime()**.
 | Método | Descripción |
 | --- | --- |
 | int availableProcessors()  | Devuelve el número de procesadores disponibles para la JVM. |
-| Process exec(comando) | Permite ejecutar el comando indicado. Admite diferentes firmas para indicar
-comando, argumentos o entorno. |
+| Process exec(comando) | Permite ejecutar el comando indicado. Admite diferentes firmas para indicar comando, argumentos o entorno. |
 | 9 | SIGKILL |
 | 15 | SIGTERM |
 | 18 | SIGCONT |
