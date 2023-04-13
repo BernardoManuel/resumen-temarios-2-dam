@@ -56,6 +56,25 @@ El uso de tuberías sigue la siguiente sintaxis:
 ```bash
 comando_productor | comando_consumidor
 ```
+
+### 2.2. Comunicación mediante variables de entorno y de la shell
+En **bash** podemos utilizar variables locales a la shell y variables de entorno, que definiremos mediante export. Estas variables de entorno pueden ser también utilizadas como mecanismo de comunicación entre procesos.
+
+### 2.3. Comunicación mediante señales
+Las señales son mensajes que el sistema operativo envía a un proceso en tiempo de ejecución, para informarle del suceso de un evento. Estas interrupciones son enviadas por el kernel al proceso, aunque puede ser otro proceso quien las genere. Algunas de estas señales podrán ser también interpretadas como órdenes que recibe el proceso.
+
+#### Orden kill
+Para enviar señales a un proceso utilizamos la orden **kill**, que responde a la siguiente sintaxis:
+```bash
+kill -señal [Lista de PIDs]
+```
+Los números de señal más comunes son:
+| Número | Señal | Descripción |
+| --- | --- | --- |
+| 1 | 2 | 3 |
+
+
+
 ## 5. Programación multiproceso
 
 ## 6. Enlaces web
