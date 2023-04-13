@@ -78,7 +78,103 @@ Los números de señal más comunes son:
 | 18 | SIGCONT | Reanuda un proceso suspendido. |
 | 19 | SIGSTOP | Suspensión temporal del proceso |
 
+#### killall
+Con killall podemos enviar una señal concreta a todos los procesos con el mismo nombre, en lugar de su PID.
 
+#### Captura de señales. La orden trap
+Mediante la orden **trap** podemos capturar señales y realizar ciertas acciones en respuesta a esta señal. La sintaxis de **trap** es:
+```bash
+trap 'Órdenes' [lista de señales]
+```
+
+### 2.4. Mecanismos IPC (Inter Process Comunication)
+Vamos a ver ahora algunos mecanismos pensados específicamente para la comunicación entre procesos, bien en la misma máquina o en máquinas remotas.
+
+#### Tuberías con nombre (colas de mensajes)
+Las tuberías con nombre (**named pipes**) actúan como colas FIFO. Se trata de ficheros especiales sobre los que los procesos pueden leer y escribir.
+
+Para crear un fichero que sea una tubería con nombre utilizamos la orden **mkfifo** como sigue:
+```bash
+mkfifo cola
+```
+Ahora podemos leer este fichero con un simple **cat**.
+
+Cuando realizamos esta lectura, el proceso no finaliza, sino que espera a la entrada de información en la cola. Desde otra terminal podemos comprobar si se trata de una tubería con nombre (con un test -p) y, en caso afirmativo, escribir en ella:
+```bash
+[ -p cola ] && echo “hola” > cola
+```
+Debemos tener en cuenta que se trata de un mecanismo bloqueante: cuando un proceso productor escribe en la tubería queda a la espera de que un proceso consumidor la lea Y cuando un proceso consumidor intenta leer y la cola está vacía, espera a que un proceso productor escriba en ella.
+
+#### Comunicación mediante sockets
+Los **sockets** permiten la comunicación en re procesos ituados en diferentes máquinas, y se especifican
+mediante una dirección IP y un núme o de puerto (**TCP** o **UDP**).
+
+**Bash** permite establecer conexiones con sockets mediante las pseudo rutas /dev/tcp y /dev/udp. Recordemos que estas pseudo-rutas no son icheros en disco como tal, sino que se trata de una abstracción que utiliza el si tema operativo para que se puedan realizar sobre ellos las mismas operaciones que sobre los ficheros (lecturas y escrituras).
+
+La sintaxis para estab ecer una conexión en un socket mediante bash es:
+```bash
+exec {descriptor_de_fichero}<>/dev/{protocolo}/{host}/{puerto}
+```
+Siendo el descriptor de fichero un número positivo diferente de 0, 1 y 2 (puesto que estos son utilizados para stdin, stdout y stderr).
+
+Además, podemos indicar que el socket sea b direccional (<>) o unidireccional (< o >).
+
+#### La herramienta socat
+Con la herramienta **socat** podemos establecer una comunicación bidireccional de flujo de bytes entre dos canales, ya sean tuberías, **sockets**, etc.
+
+La sintaxis básica de socat es:
+```bash
+socat [opciones] [direccion_1] [direccion_2]
+```
+Con lo que se establece un canal de comunicación entre las direcciones indicadas. Dichas direcciones pueden incluir palabras clave con valor, de la forma CLAVE:valor. Ejemplos:
+```bash
+socat -u TCP-LISTEN:6666 STDOUT
+
+socat -u STDIN TCP:127.0.0.1:6666
+```
+
+## 3. Progrmación multiproceso. Procesos en Java
+Mediante las clases **ProcessBuilder** y **Runtime**, Java nos permitirá ejecutar comandos en la terminal, generando procesos que serán gestionados mediante la clase **Process**.
+
+### 3.1. La clase ProcessBuilder
+La clase **java.lang.ProcessBuilder** nos permite lanzar cualquier ejecutable desde Java. Para ello, una vez creada la instancia **ProcessBuilder**, establecemos ciertos atributos del proceso y creamos este mediante el método **start**.
+```java
+ProcessBuilder pb = new ProcessBuilder();
+```
+
+### 3.2. La clase Process
+La clase **java.lang.Process** es una clase abstracta que encapsula la información entorno a la ejecución de un proceso.
+
+Cuando invocamos al método **start** de un **ProcessBuilder**, este nos devuelve una instancia de **Process**, con la información sobre el proceso lanzado. Esta clase puede utilizarse para realizar operaciones de entrada y salida de los procesos, comprobar si este ha finalizado, su estado de finalización, o bien enviarle una señal para cerrarlo forzosamente.
+```java
+Process p1 = pb.start();
+
+System.out.println("PID del proceso 1: " + p1.pid());
+```
+
+### 3.3. La interfaz ProcessHandle.Info
+La interfaz **ProcessHandle.Info** nos permite obtener información adicional sobre un proceso. 
+
+Para obtener dicha información únicamente deberemos acceder al método info() de la clase Process:
+```java
+ProcessHandle.Info informacion = p.info();
+```
+
+### 3.4. La clase java.lang.Runtime
+La API de Java para la gestión de procesos, además de las clases **ProcessBuilder** y **Process**, se completa con la clase **Runtime**, que encapsula el entorno de ejecución de un proceso.
+
+Dado que también es una clase abstracta, no puede ser instanciada directamente, por lo que para usarla
+deberemos hacer uso del método estático **Runtime.getRuntime()**.
+
+| Método | Descripción |
+| --- | --- |
+| int availableProcessors()  | Devuelve el número de procesadores disponibles para la JVM. |
+| Process exec(comando) | Permite ejecutar el comando indicado. Admite diferentes firmas para indicar
+comando, argumentos o entorno. |
+| 9 | SIGKILL |
+| 15 | SIGTERM |
+| 18 | SIGCONT |
+| 19 | SIGSTOP |
 
 ## 5. Programación multiproceso
 
