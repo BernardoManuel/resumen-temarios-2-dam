@@ -168,15 +168,78 @@ deberemos hacer uso del método estático **Runtime.getRuntime()**.
 
 | Método | Descripción |
 | --- | --- |
-| int availableProcessors()  | Devuelve el número de procesadores disponibles para la JVM. |
+| int availableProcessors() | Devuelve el número de procesadores disponibles para la JVM. |
 | Process exec(comando) | Permite ejecutar el comando indicado. Admite diferentes firmas para indicar comando, argumentos o entorno. |
-| 9 | SIGKILL |
-| 15 | SIGTERM |
-| 18 | SIGCONT |
-| 19 | SIGSTOP |
+| void exit() | Finaliza la máquina virtual de Java actual |
+| long freeMemory() | Devuelve la cantidad de memoria disponible en la JVM. |
+| void gc() | Permite invocar al recolector de basura de la JVM, aunque no es una buena práctica. |
+| long maxMemory() | Devuelve la cantidad máxima de memoria que puede ser usada por la JVM |
+| long totalMemory() | Devuelve la cantidad total de memoria en la JVM |
+
+## 4. Gestión de la entrada y salida de procesos en Java
+### 4.1. Gestión de la entrada y salida de procesos mediante Streams
+La clase **Process** nos ofrece varios **Streams** o flujos de bytes asociados a la entrada y salida, a los que podemos acceder mediante los siguientes métodos:
+- **OutputStream getOutputStream()**: Devuelve el flujo de salida conectado a la entrada estándar del proceso.
+- **InputStream getInputStream()**: Devuelve el flujo de entrada conectado a la salida estándar del proceso.
+- **InputStream getErrorStream()**: Devuelve el flujo de entrada conectado a la salida de error del proceso.
+
+### 4.2. Redirección con ProcessBuilder
+La clase **ProcessBuilder** nos ofrece una forma más simple de redirigir la entrada y salida de un proceso, ya sea hacia la salida estándar, hacia un fichero o hacia cualquier otra fuente o destino de datos, a través de métodos como **redirectOutput**, **redirectInput** o **redirectError**. Mediante estos métodos únicamente deberemos indicar hacia dónde redirigir la salida.
+
+Para indicar esta redirección podemos utilizar la clase **ProcessBuilder.Redirect**, que puede tomar algunos de los siguientes valores:
+- **ProcessBuilder.Redirect.PIPE**: para indicar que el subproceso de E/S se conectará al proceso Java actual a través de una tubería. Este es el comportamiento por defecto.
+- **ProcessBuilder.Redirect.INHERIT**: para indicar que el subproceso de E/S tendrá los mismos flujos de E/S que el proceso actual.
+- **ProcessBuilder.Redirect.DISCARD**: descarta la salida del subproceso.
+- Una redirección para leer de un fichero, obtenida mediante **Redirect.from(fichero)**.
+- Una redirección para escribir en un fichero, obtenida mediante **Redirect.to(fichero)**.
+- Una redirección para escribir al final de un fichero, obtenida mediante el método **Redirect.appendTo(fichero)**.
+
+### 4.3. ProcessBuilder y tuberías: StartPipeline
+La API de **ProcessBuilder** incorpora el método estático **startPipeline**, que permite crear una tubería de procesos en los que la salida de un proceso se envía a la entrada del siguiente.
+
+Este método se define del siguiente modo:
+```java
+static List<Process> startPipeline(List<ProcessBuilder> builders)
+```
+
+Como vemos, este método recibe una lista de objetos de tipo **ProcessBuilder**, instanciados ya con sus propiedades correspondientes (comandos, entorno...), y devuelve una lista de objetos de tipo **Process**, como resultado de la puesta en marcha de cada proceso.
+
+Así pues, si deseamos crear una tubería, por ejemplo, con la salida de:
+```java
+ps aux | grep root
+```
+Definiríamos la lista de builders con los dos **ProcessBuilder**:
+```java
+List builders = Arrays.asList(
+    new ProcessBuilder(“ps”, “aux”),
+    new ProcessBuilder(“grep”, “root”));
+```
+e invocaríamos a startPipeline del siguiente modo:
+```java
+List listaProcesos = ProcessBuilder.startPipeline(builders);
+```
+Dado que lo que nos interesa es la salida únicamente del último proceso ejecutado, obtendremos este mediante:
+```java
+Process ultimo = processes.get(listaProcesos.size() ­ 1);
+```
+Con el que ya podremos utilizar los métodos **getInputStream** y **getErrorStream** para obtener la salida
+de todos ellos.
 
 ## 5. Programación multiproceso
+### 5.1. Diseño e implementación de algoritmos concurrentes
+En líneas generales, los pasos a seguir cuando abordamos el diseño de algoritmos concurrentes son los siguientes:
+1. **Identificar la concurrencia en el algoritmo**, analizando las tareas que se realizan en él, así como las diferentes estructuras de datos, con la finalidad de determinar qué partes son susceptibles de paralelizar.
+2. **Diseñar el algoritmo de manera que podamos explotar la paralelización**. Para ello, distribuimos las tareas en subtareas o subprocesos y establecemos los mecanismos de comunicación y sincronización necesarios. Hay que tener en cuenta también que esta comunicación implica cierta pérdida de tiempo, por lo que es conveniente que sea mínima.
+3. **Implementar el algoritmo en un entorno de programación** que soporte la creación de subtareas.
+4. **Ejecutar el programa y analizar las mejoras en el rendimiento**, mejorando detalles de su funcionamiento si fuese necesario.
 
 ## 6. Enlaces web
 
+- [Documentación oficial de OpenJDK sobre la clase Process.](https://devdocs.io/openjdk~17/java.base/java/lang/process)
+- [Documentación oficial de OpenJDK sobre la clase ProcessBuilder.](https://devdocs.io/openjdk~17/java.base/java/lang/processbuilder)
+- [Documentación oficial de OpenJDK sobre la clase Runtime.](https://devdocs.io/openjdk~17/java.base/java/lang/runtime)
+- [Documentación oficial de OpenJDK sobre la interfaz ProcessHandle.Info](https://devdocs.io/openjdk~17/java.base/java/lang/processhandle.info)
+
 ## 7. Respuestas cuestionario
+
+- [Cuestionario](./CUESTIONARIO.md)
