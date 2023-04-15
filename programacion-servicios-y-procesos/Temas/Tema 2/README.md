@@ -216,12 +216,153 @@ En el caso contrario, en el que el productor produjese a mayor velocidad que el 
 La solución natural a este problema consistirá en que el productor espere a que el consumidor consuma los datos antes de producir nuevos datos. Del mismo modo, el consumidor deberá esperar a que los datos se hayan producido para poder consumirlos.
 
 ### 3.2. Los métodos wait(), notify() y notifyAll()
+Para permitir la coordinación entre hilos en el acceso a objetos compartidos disponemos de los métodos **wait()**, **notify()** y **notifyAll()**. Estos métodos solo pueden utilizarse dentro de un bloque de código synchronized.
+| **Método** | **Descripción** |
+| --- | ---|
+| **void wait()** | Suspende al hilo que lo invocó y libera el monitor hasta que otro hilo invoque al método **notify()** o **notifyAll()**. |
+| **void notify()** | Cambia el estado de uno de los hilos suspendidos a ejecución. Si hay varios hilos, escoge a uno de ellos. Se dice que despierta a un hilo que estaba suspendido. |
+| **void notifyAll()** | Despierta a todos los hilos suspendidos. Si estos vuelven a acceder al objeto compartido, deberemos hacerlo también de forma coordinada. |
+
+Cuando el productor genera un resultado (hace un **set**), si el objeto compartido todavía contiene un valor que no se ha consumido (por lo tanto, **disponible==true**), deberá esperar a que alguien lo consuma, por lo tanto, deberá quedar suspendido, mediante una invocación a **wait()**, hasta que alguien lea el valor y lo despierte.
+```java
+while (disponible == true) {
+    try {
+        wait();
+    } catch (InterruptedException e) {...}
+}
+```
+
+Cabe destacar que este bucle no está continuamente ejecutándose, sino que queda suspendido en el **wait()**. Cuando otro hilo realiza un **notify()**, se lanza el evento **InterruptedException**, que capturamos dentro del bucle, de forma que hace que se despierte y vuelva a comprobar si el dato está disponible. Si el dato sigue estando disponible, vuelve a esperar, y si ya no está disponible, puede continuar, estableciendo el valor del objeto compartido, indicando que hay datos disponibles y avisando a todos los posibles consumidores que estuvieran esperando:
+```java
+this.valor=val;
+this.disponible=true;
+notifyAll();
+```
+
+Cuando el consumidor tenga que consumir un valor (hacer un **get**) del objeto compartido, el método **get** tiene que asegurar que haya algún valor disponible, de modo que el hilo que lo invoque quedará suspendido en caso de que no haya datos disponibles:
+```java
+while (disponible == false) {
+    try {
+        wait();
+    } catch (InterruptedException e) {...}
+}
+```
+
+Una vez haya datos disponibles y el consumidor se haya despertado por la interrupción generada (con **notify/notifyAll**), este consumirá la información e indicará al obje o compartido que la información ya no se encuentra disponible, notificando a todos los Threads que estuvieran también a la espera:
+```java
+this.disponible=false;
+notifyAll();
+return this.valor;
+```
+
+El código completo para la clase **ObjetoCompartido** quedará pues del siguiente modo. Debéis observar que los métodos **get()** y **set()** se han definido como **synchronized**, ya que debemos garantizar que solamente acceda un hilo al contenido del objeto compartido.
+```java
+class bjetoCompartido {
+    int valor;
+    boolean disponible = false; // Inicialmente no tenemos valor
+    
+    public synchr nized int get() {
+        // Mientras no tengamos datos disponibles esperamos
+        while (disponible == false) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
+
+        // Cuando se despierte, volvemos a establecer la
+        // disponibilidad a falso, notificamos a todos
+        // los productores de la disponibilidad y
+        // devolvemos el valor.
+        this.disponible = false;
+        notifyAll();
+        return this.valor;
+    }
+
+    public synchronized void set(int vale) {
+        // Mientras quedan datos nos esperamos
+        while (disponible == true) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+            }
+        }
+
+        // Cuando se despierte, volvemos a establecer la
+        // disponibilidad a cierto, establecemos el valor
+        // generado por el productor, y notificamos a todos
+        // los consumidores de la disponibilidad.
+        this.valor = vale;
+        this.disponible = true;
+        notifyAll();
+    }
+}
+```
+
+#### wait(), notify() y notifyAll y estados
+Un hilo que se encontraba en ejecución pasa a estado **WAITING** cuando invoca al método **wait()**, ya sea un productor o un consumidor. Cuando el hilo o hilos que estaban en espera reciben la excepción **InterruptedException**, bien con un **notify()** o con un **notifyAll()**, estos vuelven al estado de ejecución, donde vuelven a comprobar la disponibilidad de los datos.
 
 ## 4. La librería java.util.concurrent
+La librería **java.util.concurrent** ofrece un conjunto muy amplio de clases e interfaces orientadas a gestionar la programación concurrente de una forma más sencilla y óptima.
 
 ### 4.1. La interfaz Callable
+La interfaz **Callable** es una versión mejorada de la interfaz **Runnable**, introducida en Java 1.5, que permite retornar un valor al finalizar su ejecución.
+
+Cuando utilizamos la interfaz **Runnable**, disponemos de un método run() que no acepta parámetros ni devuelve ningún valor. Esto no es un problema, siempre y cuando no necesitemos proporcionar ni  btener datos del Thread. En cambio, cuando hemos necesitado proporcionar valores y obtener resultados de la ejecución de un hilo, hemos optado por la comunicación mediante objetos compartidos.
+
+Por su parte, la interfaz genérica Callable proporciona el método **call()** que dev elve un valor de tipo genérico. La sintaxis general de una clase que implemente esta interfaz será la siguiente:
+```java
+public class ClaseCallable implements Callable<TipoGenerico> {
+    // Constructor
+    [public ClaseCallable(args){...}]
+
+    // Método call
+    public TipoGenerico call() throws InvalidParamaterException {
+        ...
+        return valor_retorno;
+    }
+}
+```
+#### FutureTask
+Con la anterior definición podríamos utilizar el método **call** directamente:
+```java
+ClaseCallable miCallable =n ew ClaseCallable(args);
+TipoGenerico valor = miCallable.call();
+```
+Pero con ello no estaríamos ejecutando el método de forma asíncrona. Una primera aproximación a ello sería utilizar directamente la clase **FutureTask**, introducida en Java 5, y que se puede utilizar para realizar tareas asíncronas, ya que implementa la interfaz **Runnable** y, por tanto, puede lanzarse como un hilo.
+
+La forma de hacer esto sería mediante la creación de un objeto de tipo **FutureTask**, de forma genérica, a partir del objeto creado de la clase **Callable**.
+```java
+ClaseCallable miCallable = new ClaseCallable(args);
+FutureTask<TipoGenerico> miFutureTask = new FutureTask<TipoGenerico>(miCallable)
+```
+
+Este tipo genérico será el mismo que hayamos definido para nuestra clase **Callable**. Dado que **FutureTask** implemente **Runnable**, podemos crear ahora un **Thread** a partir de esta clase y lanzarlo:
+```java
+Thread miThread = new Thread(miFutureTask);
+miThread.start();
+```
+
+Con esto el programa principal espera a que finalicen los hilos que ha generado. Una vez haya finalizado **FutureTask**, vamos a poder acceder al valor devuelto por el método **call** mediante **get**:
+```java
+TipoGenerico resultado = miFutureTask.get();
+```
 
 ### 4.2. La API ExecutorService
+**ExecutorService** es una API de Java que nos permite simplificar la ejecucióin de tareas asíncronas. Para ello nos ofrece un conjunto de hilos preparados para asignarles tareas.
+
+#### Future
+La interfaz **Future**, definida en el paquete **java.util.concurrent**, representa el resultado de una operación asíncrona. El valor retorno, del tipo genérico indicado, no lo obtendremos de forma inmediata, sino que se obtendrá en el momento en que finalice la ejecución de la tarea asíncrona. En este momento, el objeto **Future** tendrá disponible dicho valor de retorno.
+
+La interfaz Future proporcionará pues los mecanismos para saber si ya dispon del resultado, para esperar a tener resultados y para consultar dichos resultados, así como para cancelar la función asíncrona si todavía no ha terminado.
+
+#### Asignación de tareas al ExecutorService
+
+#### Finalización del servicio
+Una vez que dejemos de utilizar el servicio y que hayamos obtenido todos los resultados utilizaremos el método **shutdown** para finalizar el servicio:
+```java
+servicio.shutdown();
+```
 
 ### 4.3. Colas concurrentes: BlockingQueue
 
