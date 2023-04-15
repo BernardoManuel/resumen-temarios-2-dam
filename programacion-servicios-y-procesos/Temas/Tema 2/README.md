@@ -83,3 +83,162 @@ La clase **Thread** posee una propiedad estática de tipo enumerado que define l
 ## 2. Métodos sincronizados: synchronized
 ### 2.1. Objetos compartidos y sincronización
 El desarrollo de aplicaciones multihilo comporta la ejecución de varios hilos de forma concurrente. La forma más habitual de mantener la comunicación entre estos hilos, así como con el hilo principal, es mediante el uso de variables u objetos compartidos, a los cuales todos ellos tienen acceso.
+
+Formalmente, podríamos definir estos términos como:
+- **Variable/Objeto en conflicto**: variable u objeto que son compartidos por varios hilos de ejecución.
+- **Sección crítica**: se refiere a aquella parte del código fuente de un hilo que realiza acciones sobre una variable u objeto en conflicto.
+
+### 2.2. Sincronización mediante monitores
+Los monitores tienen la capacidad de bloquear un objeto mientras un hilo está accediendo a él, de modo que no permite el acceso por parte de otros hilos. Esto se conoce como exclusión mutua. Cuando el hilo que bloqueaba el objeto termina sus operaciones, desbloquea el objeto para que puedan acceder otros objetos. De este modo podemos sincronizar el acceso a un objeto compartido.
+
+En java, todos los objetos tienen asociado un monitor, por lo que pueden sincronizarse Para acceder a este mon tor se utiliza la palabra reservada **synchronized**, que podemos emplear de dos formas:
+
+- Para declarar métodos como **synchronized** en el objeto en conflicto, de modo que se entra en el monitor cuando se acceda a él, asegurando así una exclusión mutua.
+- Para declarar solamente una sección de código como **synchronized**, de modo que entramos en el monitor sobre el objeto compartido dentro de dicha sección, asegurando así el acceso exclusivo a este.
+
+#### Métodos sincronizados
+Para sincronizar un método utilizamos la palabra reservada **synchronized** en su declaración:
+```java
+class Compartido {
+    private dato_compartido;
+
+    [modificador] synchronized tipoRetorno NombreMetodo(lista_argumentos){
+    // Acceso al dato compartido
+    }
+}
+```
+De este modo, cuando el método **NombreMetodo** es invocado, el hilo que lo invocó entra en el monitor del objeto, quedando este bloqueado. En este momento, ningún otro hilo que intente acceder al objeto compartido ya sea a través de este método sincronizado u otros también sincronizados, podrá hacerlo, garantizando así la exclusión mutua.
+
+#### Bloques synchronized
+Además de poder especificar un método en el objeto compartido como synchronized, podemos definir únicamente un bloque de código, del siguiente modo:
+```java
+synchronized(objeto_en conflicto){
+ // Acceso al objeto
+ // (Sección crítica)
+}
+```
+
+#### Syncronized y estados
+En el apartado anterior vimos el ciclo de vida de un hilo, con los diferentes estados que este puede tomar. En él existía el estado **bloqueado**, al que se accedía mediante la espera/bloqueo de un monitor.
+
+Cuando un hilo intenta acceder a un método o bloque de código sincronizado y el objeto al que va a acceder está bloqueado por otro hilo, el hilo pasa a un estado bloqueado, pasando a formar parte de una cola de hilos bloqueados a la espera de que se desbloquee el monitor Esta cola tendrá una estructura **FIFO (First In First Out)**, para garantizar la ejecución de todos los hilos.
+
+## 3. Coordinación de Threads
+### 3.1. El modelo productor-consumidor
+El problema del modelo productor-consumidor es un problema clásico de la sincronización y supone un patrón común a diversos tipos de aplicaciones. El planteamiento inicial de este caso es el siguiente: disponemos de dos hilos, donde uno de ellos produce datos y el otro los consume. El problema se produce cuando el consumidor y el productor no realizan estas tareas de forma coordinada. 
+
+Como ejemplo veamos el siguiente programa, en el que dispondremos de un objeto compartido en el que una clase **productora** escribe valores que son leídos por una clase **consumidora**.
+
+#### Objeto compartido
+La siguiente clase ObjetoCompartido tendrá un atributo entero, que guardará un valor, y un **booleano**, que indica la disponibilidad de este. También implementa un método **get**, que devuelve el valor que contiene el objeto y establece a falso la disponibilidad de este, puesto que ha sido consumido. El método **set** establece este valor e indica que está disponible.
+```java
+class ObjetoCompartido {
+    int valor;
+    boolean disponible = false; // Inicialmente no tenemos valor
+
+    int get() {
+        if (this.disponible) {
+            this disponible = false
+            return this.valor;
+        } else {
+            return -1;
+        }
+    }
+
+    void set(int vale) {
+        this.disponible = true;
+        this.valor = vale;
+    }
+}
+```
+#### Clase productora
+Por su parte, las clases **Productor** y **Consumidor** serán dos clases que implementen la interfaz **Runnable** y se inicializarán con un objeto compartido (de la clase **ObjetoCompartido**). Ambas clases en su método **run()** accederán a dicho objeto compartido, de modo que el **Productor** escriba (**produzca**) valores en él y el **Consumidor** lea (**consuma**) dichos valores.
+```java
+class Productor implements Runnable {
+    // Referencia a un objeto compartido
+    ObjetoCompartido compartido;
+
+    Productor(ObjetoCompartido compartido) {
+        this.compartido = compartido;
+    }
+
+    @Override
+    public void run() {
+        for (int y = 0; y < 5; y++) {
+            System.out.println("El productor produce: " + y);
+            this.compartido.set(y);
+
+            try {
+                Thread.currentThread().sleep(500);
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+}
+```
+#### Clase consumidor
+```java
+class Consumidor implements Runnable {
+    // Referencia a un objeto compartido
+    private ObjetoCompartido compartido;
+    Consumidor(ObjetoCompartido compartido) {
+        this.compartido = compartido;
+    }
+
+    @Override
+    public void run() {
+        for (int y = 0; y < 5; y++) {
+            System.out.println("El consumidor consume: " + this.compartido.get());
+            try {
+                Thread.currentThread(sleep(100));
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+}
+```
+Finalmente disponemos de una clase principal, ModeloProductorConsumidor que creará un hilo a partir de cada una de estas clases y los lanzará:
+```java
+public lass ModeloProdu torConsumidor {
+    public static void main(String[] args) {
+        ObjetoCompartido compartido = new ObjetoCompartido();
+        Thread p = new Thread(new Productor(compartido));
+        Thread c = new Thread(new Consumidor(compartido));
+        p.start();
+        c start();
+    }
+}
+```
+En el caso contrario, en el que el productor produjese a mayor velocidad que el consumidor, y dado que en nuestro objeto compartido solamente cabe un objeto, habría valores que se perderían, puesto que se generaría el siguiente valor antes de que fuese leído.
+
+La solución natural a este problema consistirá en que el productor espere a que el consumidor consuma los datos antes de producir nuevos datos. Del mismo modo, el consumidor deberá esperar a que los datos se hayan producido para poder consumirlos.
+
+### 3.2. Los métodos wait(), notify() y notifyAll()
+
+## 4. La librería java.util.concurrent
+
+### 4.1. La interfaz Callable
+
+### 4.2. La API ExecutorService
+
+### 4.3. Colas concurrentes: BlockingQueue
+
+## 5. Enlaces Web
+
+- [Referencia a la documentación de OpenJDK sobre la clase Thread.](hhttps://cr.openjdk.java.net/~iris/se/17/latestSpec/api/java.base/java/lang/Thread.html)
+- [Referencia a la documentación de OpenJDK sobre la interfaz Runnable.](https://cr.openjdk.java.net/~iris/se/17/latestSpec/api/java.base/java/lang/Runnable.html)
+- [Documentación oficial de Oracle sobre las interrupciones a threads.](https://docs.oracle.com/javase/tutorial/essential/concurrency/interrupt.html)
+- [Artículo en la wiki de OpenJDK sobre sincronización.](https://wiki.openjdk.java.net/display/HotSpot/Synchronization)
+- [Documentación oficial de OpenJDK sobre el paquete java.util.concurrent.](https://cr.openjdk.java.net/~iris/se/17/latestSpec/api/java.base/java/util/concurrent/package-summary.html)
+- [Documentación oficial de OpenJDK sobre la interfaz Executor.](https://cr.openjdk.java.net/~iris/se/17/latestSpec/api/java.base/java/util/concurrent/Executor.html)
+- [Documentación oficial de OpenJDK sobre la clase Executors.](https://cr.openjdk.java.net/~iris/se/17/latestSpec/api/java.base/java/util/concurrent/Executors.html)
+- [Documentación oficial de OpenJDK sobre la clase Future.](https://cr.openjdk.java.net/~iris/se/17/latestSpec/api/java.base/java/util/concurrent/Future.html)
+- [Documentación oficial de OpenJDK sobre la interfaz BlockingQueue.](https://cr.openjdk.java.net/~iris/se/17/latestSpec/api/java.base/java/util/concurrent/BlockingQueue.html)
+- [Documentación oficial de OpenJDK sobre la clase ArrayBlockingQueue.](https://cr.openjdk.java.net/~iris/se/17/latestSpec/api/java.base/java/util/concurrent/ArrayBlockingQueue.html)
+- [Documentación oficial de OpenJDK sobre la clase LinkdedBlockingDeque.](https://cr.openjdk.java.net/~iris/se/17/latestSpec/api/java.base/java/util/concurrent/LinkedBlockingDeque.html)
+
+## 6. Respuestas cuestionario
+
+- [Cuestionario](./CUESTIONARIO.md)
