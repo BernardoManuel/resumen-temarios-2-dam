@@ -69,3 +69,7 @@ JAX-RS es una API Java de alto nivel que proporciona soporte para servicios REST
 | **Target.request().get()** |
 | :--- |
 | Enviamos la petición al servidor, obteniendo una respuesta de tipo **Response**. |
+
+| **Response** |
+| :--- |
+| Es la respuesta obtenida desde el servidor.<br/><ul><li>test</li></ul> |
