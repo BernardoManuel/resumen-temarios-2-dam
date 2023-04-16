@@ -138,7 +138,11 @@ Centrándonos en la informática, veamos los elementos más destacados:
 | **Autenticación y no repudio** | Consiste en verificar que emisor/receptor son realmente quienes dicen que son, y que alguien pueda verificar que el mensaje recibido es de un emisor de manera única. Esto se consigue mediante certificados y firmas digitales. |
 
 ### 4.2. Funciones de resumen
-
+Las técnicas de resumen (Message Digest o Función Hash) generan un código de la misma longitud a partir de una entrada, de manera que es imposible generar la entrada a partir de resumen. Sus usos más extendidos son:
+| **Usos** | **Descripción** |
+| :--- | :--- |
+| **Comprobación de la integridad de los archivos** | Al descargar archivos de la red, estos pueden corromperse (a veces a propósito). Algunas páginas incorporan junto al archivo el resumen, de manera que al concluir la descarga podemos verificar si se ha corrompido |
+| **Almacenaje de las contraseñas** | En ningún SGBD se guardan as contraseñas almacenadas en claro. Normalmente se calcula el resumen y se almacena Cuando hay que comprobar una contraseña, se calcula el resumen y se compara con el valor almacenado |
 
 ### 4.3. Cifrado simétrico vs asimétrico
 
