@@ -45,7 +45,7 @@ Veamos los métodos más relevantes de la clase URL:
 
 | --- | --- |
 | --- | --- |
-| URL(String url) URL(String protocolo, String host, int port, String recurso) | xd |
+| URL(String url) <br/> URL(String protocolo, String host, int port, String recurso) | xd |
 
 ```java
 URL(String url)
