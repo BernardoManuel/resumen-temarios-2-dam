@@ -181,10 +181,44 @@ La firma digital es el proceso inverso en cuanto al uso de claves (también de m
 cumple el principio de No repudio.
 
 #### Cipher
+Para la realización del cifrado simétrico en Java disponemos de la clase **Cipher**, dentro del paquete **JCA (Java Cryptography Architecture)**. Algunos de los algoritmos son AES, DES o 3DES.
 
+Para realizar un cifrado, hay unos pasos previos a seguir, y el mecanismo variará también si encriptamos unos datos pequeños o datos más grandes, en cuyo caso deberemos trabajar en bloques, del mismo modo que hicimos en el cálculo de resúmenes. Las claves de cifrado/descifrado las generaremos en nuestro programa, pero podemos cargarlas desde ficheros externos.
+
+Primero crearemos una instancia de la clase Cipher:
+```java
+Cipher cipher = Cipher.getInstance("AES");
+```
+En principio indicamos solo el algoritmo, pero el constructor presenta sobrecarga, mostrando como posibilidades el modo de operación y el relleno.
+
+Necesitaremos también una clave para realizar la encriptación. Hay muchas maneras de obtenerlas, mediante generadores (concretos o aleatorios) certificados. Aquí la generamos a partir de una contraseña:
+```java
+SecretKey clave = new SecretKeySpec(pass.getBytes(), "AES");
+```
+A continuaciión deberemos iniciar el cifrado, pudiendo ser de varios modos, los más comunes en modo encriptar/desencriptar.
+```java
+if (encript) {
+    cipher.init(Cipher.ENCRYPT_MODE, clave);
+} else {
+    cipher.init(Cipher.DECRYPT_MODE, clave);
+}
+```
+y por último realizamos la encriptación/desencriptación:
+```java
+out = cipher.doFinal(input);
+```
 #### Cifrado asimétrico
+Para la realización del cifrado asimétrico necesitaremos un par de claves, la pública y la privada. El cifrado mediante estas claves es inverso, lo que se cifra con una sola puede descifrase con la otra. Para las claves podemos optar por dos posibilidades: generarlas nosotros en nuesto programa o generarlas mediante herramientas externas y cargarlas en un fichero.
 
+Para crearlas usamos **OpenSSL**, software libre y de amplio uso:
+```bash
+openssl genrsa -out private_key.pem
 
+openssl pkcs8 -topk8 -inform PEM -outform DER -in private_key.pem -out private_key.der -nocrypt
+
+openssl resa -in private_key.pem -pbout -outform DER -out public_key.der
+```
+Estos dos ficheros **private_key.der** y **public_key.der** contiene las claves privada y pública que Java puede cargar. Veamos como podemos cargar dichas claves en un programa Java. Básicamente en cargar los ficheros generados anteriormente y crear la clave con al codificación **PKCS8** o **X509**.
 ### 4.4. Comunicación segura con SSL
 
 
