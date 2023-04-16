@@ -219,6 +219,47 @@ openssl pkcs8 -topk8 -inform PEM -outform DER -in private_key.pem -out private_k
 openssl resa -in private_key.pem -pbout -outform DER -out public_key.der
 ```
 Estos dos ficheros **private_key.der** y **public_key.der** contiene las claves privada y pública que Java puede cargar. Veamos como podemos cargar dichas claves en un programa Java. Básicamente en cargar los ficheros generados anteriormente y crear la clave con al codificación **PKCS8** o **X509**.
+
+- **Clave privada**
+```java
+File f = new File(filename);
+fis = new FileInputStream(f);
+DataInputStream dis = new DataInputStream(fis);
+byte[] keyBytes = new byte[(int)f.length()];
+dis.readFully(keyBytes);
+dis.close();
+PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
+KeyFactory kf = KeyFactory.getInstance(asimALG);
+PrivateKey privateKey = kf.generatePrivate(spec);
+```
+
+- **Clave pública**
+```java
+File f = new File(filename);
+FileInputStream fis = new FileInputStream(f);
+DataInputStream dis = new DataInputStream(fis);
+byte[] keyBytes = new byte[(int)f.length()];
+dis.readFully(keyBytes);
+dis.close();
+X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
+KeyFactory kf = KeyFactory.getInstance(asimALG);
+PublicKey res = kf.generatePublic(spec);
+```
+
+Si quiséramos generarlas mediante código, el mecanismo es muy sencillo:
+```java
+// Se crea un generador de claves, con el alg ritmo DSA
+KeyPairGenerator keyPairGen = KeyPairGenerator.getIn tance(“DSA”);
+// Iniciamos con 2048 bits
+keyPairGen.initialize(2048);
+// Las generamos
+KeyPair pair = keyPairGen.generateKeyPair();
+// Recogemos la clave privada
+PrivateKey privKey = pair.getPrivate();
+// Recogemos la clav pública
+PublicKey publicKey = pair.getPublic();
+```
+
 ### 4.4. Comunicación segura con SSL
 
 
