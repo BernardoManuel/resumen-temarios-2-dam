@@ -127,7 +127,15 @@ El **socket** nos servirá para conectar un cliente a un servidor. Tiene muchos 
 
 ## 4. Sockets seguros. Criptografía
 ### 4.1. Aspectos de seguridad informática
+Hoy en día, la seguridad es un aspecto vital en nuestras aplicaciones informáticas, siendo la criptografía uno de los aspectos en los que más se ha incidido en los últimos años. Criptografía significa ocultar la grafía, es decir, ocultar aquello que se quiere transmitir.
 
+Centrándonos en la informática, veamos los elementos más destacados:
+
+| **Elementos** | **Descripción** |
+| :--- | :--- |
+| **Integridad** | Saber que los datos no se han corrompido y/o que nadie los ha manipulado durante su trayecto por el canal de comunicación. Esto se consigue mediante funciones de resumen. |
+| **Confidencialidad** | Asegurarnos de que los datos no pueden ser interpretados por ningún otro elemento que no sean el emisor o el receptor. Esto se consigue cifrando/encriptando el mensaje. Veremos que existen técnicas de cifrado con claves simétricas o asimétricas. |
+| **Autenticación y no repudio** | Consiste en verificar que emisor/receptor son realmente quienes dicen que son, y que alguien pueda verificar que el mensaje recibido es de un emisor de manera única. Esto se consigue mediante certificados y firmas digitales. |
 
 ### 4.2. Funciones de resumen
 
