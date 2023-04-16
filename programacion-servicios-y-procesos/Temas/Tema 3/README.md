@@ -44,8 +44,8 @@ Esta clase nos sirve para referenciar un Localizador Universal de Recurso. Este 
 Veamos los métodos más relevantes de la clase URL:
 
 | --- | --- |
-| URL(String url)
-URL(String protocolo, String host, int port, String recurso) | xd |
+| --- | --- |
+| URL(String url) URL(String protocolo, String host, int port, String recurso) | xd |
 
 ```java
 URL(String url)
