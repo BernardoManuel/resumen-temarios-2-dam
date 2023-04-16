@@ -73,3 +73,19 @@ JAX-RS es una API Java de alto nivel que proporciona soporte para servicios REST
 | **Response** |
 | :--- |
 | Es la respuesta obtenida desde el servidor.<br/><ul><li>Estado de la petición: **getStatus()** con el código http habitual.</li><li>Tipo de datos devueltos: **getMediaType**. Habitualmente serán JSON.</li></ul>**Response.readEntity(Class)**: nos permite recuperar los datos de la respuesta parseados a la clase indicada. |
+
+| **Target.request().get(class)** |
+| :--- |
+| Nos permite acceder directamente a los datos devueltos del servidor, pero en este caso no tenemos el objeto Response. Se utiliza para comprobar en qué estado ha quedado la petición. |
+
+## 3. Sockets: ¿UDP o TCP?
+Como se indicó en el primer apartado, nuestras aplicaciones están situadas en la capa de aplicación, ofreciendo sus utilidades a los usuarios. Dichas aplicaciones utilizan por debajo toda la pila TCP/IP y las aplicaciones intercambiarán **mensajes**. Por debajo, en la capa de transporte, habrá que decidir qué protocolo hemos de utilizar, y aquí nos surge el gran debate, que intentaremos clarificar.
+
+| **UDP** | **TCP** |
+| --- | --- |
+| La unidad de envío es el **datagrama**. | La unidad de envío es el **paquete**. |
+| No orientado a la conexión.<br/>No confiable.<br/>Se envía y puede llegar o no. | Orientado a la conexión y fiable. Si un paquete no llega, se reenvía. Si llegan desordenados, se reordenan. |
+| La comunicación es símplex: un solo sentido. | Comunicación full dúplex. |
+| Permite difusiones multicast y broadcast. | Solo son unicast (punto a punto). |
+| Muy rápido (ya que no controla casi nada). | Lento (control de errores y de congestión). |
+| Usos:<ul><li>Protocolos de difusión: DHCP.</li><li>Streaming de vídeo/audio.</li><li>Servicios de respuesta rápida</li></ul> | Usos:<ul><li>Web, correo.</li><li>Cualquier servicio que implique seguridad.</li></ul> |
