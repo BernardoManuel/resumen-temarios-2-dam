@@ -8,4 +8,4 @@
 - [Inglés (0/5)](./ingles/README.md)
 - [Empresa Iniciativa Emprendedora](./empresa-iniciativa-emprendedora/)
 
-![29%](https://progress-bar.dev/29)
+![(10/34)](https://progress-bar.dev/29)
