@@ -351,12 +351,27 @@ TipoGenerico resultado = miFutureTask.get();
 ### 4.2. La API ExecutorService
 **ExecutorService** es una API de Java que nos permite simplificar la ejecucióin de tareas asíncronas. Para ello nos ofrece un conjunto de hilos preparados para asignarles tareas.
 
+La forma más sencilla para crear un **ExecutorService** es utilzando la clase **Executors**, la cual proporciona varios métodos de factorio y utilidades para la creación de múltiplces API de ejecución asíncrona.
+
+Por ejemplo, el método de factoria **newFixedThreadPool** crea un servicio de ejecución asíncrono con un conjunto de **Threads** de longitud fija. Para crear un servicio de este tipo que ponga a nuestra disposición hasta 10 hilos de ejecución hacíamos:
+```java
+ExecutorService servicio = Executors.newFixedThreadPool(10);
+```
+La forma de trabajar con esta API es relativamente simple, ya que solamente requiere de instancias de objetos de tipo **Runnable** o **Callable** y ella se encarga del resto de tareas.
+
+Así pues, una vez dispongamos del servicio **ExecutorService** instanciado, tenemos a nuestra disposición diferentes métodos para asignarles tareas.
+
 #### Future
 La interfaz **Future**, definida en el paquete **java.util.concurrent**, representa el resultado de una operación asíncrona. El valor retorno, del tipo genérico indicado, no lo obtendremos de forma inmediata, sino que se obtendrá en el momento en que finalice la ejecución de la tarea asíncrona. En este momento, el objeto **Future** tendrá disponible dicho valor de retorno.
 
 La interfaz Future proporcionará pues los mecanismos para saber si ya dispon del resultado, para esperar a tener resultados y para consultar dichos resultados, así como para cancelar la función asíncrona si todavía no ha terminado.
 
 #### Asignación de tareas al ExecutorService
+Ahora que ya conocemos la interfaz **Future**, vamos a examinar diferentes métodos para asignar tareas en el **ExecutorService**.
+- **void execute()**: Métodos heredado de la interfaz **Executor**, que simplemente ejecuta la tarea indicada pero sin la posibilidad de obtener su resultado o estado.
+- **Future<T> submit()**: Envía una tarea, bien de tipo **Callable** o **Runnable** al servicio, retornando un tipo **Future** genérico **T**.
+- **Future<T> invokeAny()**: Asigna una colección de areas al servicio y devuelve el resultado de cualquiera de ellas.
+- **List <Future<T>> invokeAll()**: Asigna una colección de tareas al servicio, ejecutándolas todas, y devuelve una lista de Futures con los resultados. 
 
 #### Finalización del servicio
 Una vez que dejemos de utilizar el servicio y que hayamos obtenido todos los resultados utilizaremos el método **shutdown** para finalizar el servicio:
@@ -365,6 +380,23 @@ servicio.shutdown();
 ```
 
 ### 4.3. Colas concurrentes: BlockingQueue
+La principal caracterísitica de las colas es que tienen una estructura **FIFO (First In - First Out)**.
+
+En Java este comportamiento lo ofrece la interfaz **Queue**, que posee varias clases que la implementan, como **ArrayQueue**, **ArrayDeque** o ****AbstractQueue**, entre otras.
+
+Por otra parte, la interfaz **BlockingQueue** ofrece un comportamiento similar, con la diferencia de que además este comportambiento ofrece mecanismos de acceso seguros en operaciones concurrentes (**thread-safe**), lo que nos será de gran utilidad a la hora de abordar problemas de sincronización, como el de los productores-consumidores. Mediante esta interfaz, los hilso productores deberán esperar a producir si la cola está llena, y los consumidores esperar a consumir mientras la cola esté vacía.
+
+Esta interfaz aporta dos métodos a las colas: **put** y **take**, que serían los equivalentes a **add** y **remove** pero con la particularidad de que las operaciones se realizan de forma segura.
+
+| **Clase** | **Descripción** |
+| --- | --- |
+| **ArrayBlockingQueue** | Implementa una cola mediante un array, por lo que tendrá una longitud fija. Las operaciones de **put** y **take** aseguraránn que no se sobreescriban las entradas. |
+| **LinkedBlockingQueue** | Implementa una cola mediante una lista enlazadam donde cada elemente de la lista es un nuevo nodo, con lo que en principio podría crecer indefinidamente. Su consturctor admite un entero para especificar el número de elementos máximo que puede almacenar. |
+| **PriorityBlockingQueue** | Implementa una cola mediante un **heap** binario basado en un array, lo que permite consumir en un orden específico. |
+| **DelayQueue** | Implementa un cola que contiene elementos que implementan la interfaz **Delayed**. Los objetos que implementan esta interfaz requieren de un retraso (**delay**) para operar sobre ellos. Esta colas son útiles, por ejemplo, cuando un consumidor únicamente puede consumir elementos después de un tiempo.  |
+| **LinkedTransferQueue** | Incluye el método **transfer**, que permite a un productor esperar a que se consuma su ítem, de modo que los consumidores puedan manejar el flujo de mensajes producidos. |
+| **SynchronousQueue** | Contiene como mucho un elemento, de modo que representa a una forma sencilla de intercambiar datos entre dos hilos. |
+| **ConcurrentLinkedQueue** | Se trata de una cola no bloqueante, apta para la programación de sistemas operativos. |
 
 ## 5. Enlaces Web
 
