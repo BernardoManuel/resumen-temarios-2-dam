@@ -261,8 +261,23 @@ PublicKey publicKey = pair.getPublic();
 ```
 
 ### 4.4. Comunicación segura con SSL
+El cifrado simétrico tiene la ventaja de que es muy rápido, pero la desventaja es que, si alguno de los dos participantes pierde su clave, quedan los dos expuestos. El asimétrico es más seguro, pero también más lento.
 
+Al final, la solución que se toma está balanceada en cuanto a seguridad/rendimiento.
 
+Java ofrece las clases **SSLSocket** y **SSLServerSocket** (y dos clases factoría para cada uno) para la creación de sockets seguros. Estas clases heredan de Socket y ServerSocket, respectivamente, por lo que todo lo que podíamos hacer con los originales (no seguros) lo podemos hacer con estos seguros. En nuestros programas no seguros solo tendremos que cambiar la creación de la conexión, y a partir de ahí, el código queda igual.
+
+Se utilizará el cifrado asimétrico para establecer un inicio de sesión, también conocida como el **handshake** (choque de manos o presentación). Ahí se genera una clave de sesión que se utilizará de manera simétrica para el resto de la comunicación.
+
+```java
+// En el servidor
+SSLServerSocketFactory sssf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
+SSLServerSocket sss = (SSLServerSocket) = sssf.createServerSocket(puerto);
+
+//En el cliente
+SSLSocketFactory ssf = (SSLSocketFactory) SSLSocketFactory.getDefault();
+SSLSocket ss = (SSLSocket) ssf.createSocket(Host, Puerto);
+```
 
 ## 5. Enlaces Web
 
