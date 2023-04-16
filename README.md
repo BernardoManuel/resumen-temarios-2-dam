@@ -7,3 +7,5 @@
 - [Sistemas de gestión empresarial (1/6)](./sistemas-gestion-empresarial/README.md)
 - [Inglés (0/5)](./ingles/README.md)
 - [Empresa Iniciativa Emprendedora](./empresa-iniciativa-emprendedora/)
+
+![29%](https://progress-bar.dev/50)
