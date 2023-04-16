@@ -89,3 +89,73 @@ Como se indicó en el primer apartado, nuestras aplicaciones están situadas en 
 | Permite difusiones multicast y broadcast. | Solo son unicast (punto a punto). |
 | Muy rápido (ya que no controla casi nada). | Lento (control de errores y de congestión). |
 | Usos:<ul><li>Protocolos de difusión: DHCP.</li><li>Streaming de vídeo/audio.</li><li>Servicios de respuesta rápida</li></ul> | Usos:<ul><li>Web, correo.</li><li>Cualquier servicio que implique seguridad.</li></ul> |
+
+### 3.1. Transmisión mediante UDP
+| **Clase** | **Descipción** |
+| :--- | :--- |
+| **DatagramSocket** | Es el equivalente al buzón o punto de entrega. Se encarga del envío y de la recepción de los datos. |
+| **DatagramPacket** | Es el contenido que queremos enviar/recibir; es decir, el propio sobre con la carta. |
+
+Dependiendo de si queremos enviar o recibir, deberemos proceder de un modo u otro.
+
+| **Emisor** | **DescipcReceptorión** |
+| :--- | :--- |
+| Creamos un **DatagramSocket.** | Creamos un **DatagramSocket**, enlazado a un puerto de escucha (**bind**). Puede hacerse en el propio constructor. |
+| Creamos un **DatagramPacket** con la siguiente información:<ul><li>Tamaño del datagrama.</li><li>IP – Puerto del receptor.</li><li>Datos.</li></ul> | Creamos un DatagramPacket con:<ul><li>Tamaño del datagrama.<li></ul> |
+| **datagramSocket.send(datagramPacket)** | **datagramSocket.receive(datagramPacket)** |
+| Cerramos el **datagramSocket**. | Cerramos el **datagramSocket**. |
+
+Uno de los detalles más importantes en el que debes fijarte es que el contenido del **DatagramPacket** son **bytes**. Debes convertir todo lo que quieras mandar a un array de bytes. En el caso de los String es fácil, debido a que ya incorpora dichos métodos, pero apra mandar objetos deberás tenerlo en cuenta.
+
+### 3.2. Transmisión mediante TCP
+Su mayor uso se debe a la necesidad de conexión en la mayoría de las aplicaciones y, sobretodo, a las confirmacioens de que lo que enviamos ha llegado a su destino de manera adecuada.
+
+El mecanismo que ofrece Java para abstraer todo el proceso de comunicaciones mediante TCP son las clases **Socket** y **ServerSocket**. Como puede intuirse uno pertenecerá al lado del cliente y otro al lado del servidor.
+
+#### ServerSocket
+- **ServerSocket(int puerto)**: crea un servidor escuchando en el puerto indicado. 
+- **ServerSocket(int puerto, int tamCola)**: añade la opción de controlar el número de clientes en espera de ser aceptados.
+- **ServerSocket(int puerto, int tamCola, IpAddress)**: añade la opción de seleccionar algunas de las IP del servidor.
+
+Mediante el **ServerSocket** no podemos comunicarnos con nadie. Es un servidor escuchando en un puerto a la espera de que alguien se conecte. El método más importante es:
+- **Socket ServerSocket.accept()**: este es un método que bloque al servidor, hasta que alguien intenta conectarse. Se activa cuando un cliente se conecta al servidor, devolviendo un socket. Este socket estará enlazado a un puerto asignado aleatoriamente en el servidor. Si queremos establecer un temporizador para que el servidor se desbloquee si no ha recibido una petición dentro de ese periodo de tiempo utilizaremos **setSoTimeout(int temporizador)**. Si vence dicho tiempo, saltará la excepción **java.net.SocketTimeoutException**.
+
+#### Socket
+El **socket** nos servirá para conectar un cliente a un servidor. Tiene muchos constructores, pero aquí indicaremos el más habitual:
+- **Socket(String host, int puerto)**
+- **Socket(InetAddress host, int puerto)**: Se conectan al servidor indicado por el host, bien mediante un objeto InetAddress creado previamente, bien mediante una cadena de texto indicando el nombre de host, o bien mediante una cadena de texto con la IP del servidor.
+
+## 4. Sockets seguros. Criptografía
+### 4.1. Aspectos de seguridad informática
+
+
+### 4.2. Funciones de resumen
+
+
+### 4.3. Cifrado simétrico vs asimétrico
+
+#### Cipher
+
+#### Cifrado asimétrico
+
+
+### 4.4. Comunicación segura con SSL
+
+
+
+## 5. Enlaces Web
+
+- [Documentación de las clases y métodos que forman parte del ecosistema de las comunicaciones de Java.](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/package-summary.html)
+- [Posibles tipos devueltos por un servidor.](https://javaee.github.io/javaee-spec/javadocs/javax/ws/rs/core/MediaType.html)
+- [Documentación completa de la clase DatagramPacket.](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/DatagramPacket.html)
+- [Documentación completa de la clase DatagramSocket.](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/DatagramSocket.html)
+- [Tutorial de Oracle sobre el uso de Sockets.](https://docs.oracle.com/javase/tutorial/networking/sockets/index.html)
+- [Documentación sobre la clase ServerSocket.](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/ServerSocket.html)
+- [Documentación completa sobre la clase Socket.](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/Socket.html)
+- [Documentación oficial de la clase Cipher, que nos sirve para el cifrado simétrico.](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/javax/crypto/Cipher.html)
+- [Tutorial sobre cómo utilizar claves generadas mediante el software libre openssl en tus programas Java.](https://www.javacodegeeks.com/2020/04/encrypt-with-openssl-decrypt-with-java-using-openssl-rsa-public-private-keys.html)
+- [Kit de herramientas de funciones y generación de claves relacionadas con criptografía y las comunicaciones seguras.](https://www.openssl.org/)
+
+## 6. Respuestas cuestionario
+
+- [Cuestionario](./CUESTIONARIO.md)
