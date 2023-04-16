@@ -144,6 +144,23 @@ Las técnicas de resumen (Message Digest o Función Hash) generan un código de 
 | **Comprobación de la integridad de los archivos** | Al descargar archivos de la red, estos pueden corromperse (a veces a propósito). Algunas páginas incorporan junto al archivo el resumen, de manera que al concluir la descarga podemos verificar si se ha corrompido |
 | **Almacenaje de las contraseñas** | En ningún SGBD se guardan as contraseñas almacenadas en claro. Normalmente se calcula el resumen y se almacena Cuando hay que comprobar una contraseña, se calcula el resumen y se compara con el valor almacenado |
 
+La clase Java que permite calcular esúmenes es **MessageDigest**, de la manera que vemos a continuación:
+1. Primero necesitaremos crear una instancia de la clase, indicando el algoritmo, que habitualmente será **MD5**, **SHA-1**, **SHA-256** o **SHA-512**:
+```java
+MessageDigest md = MessageDigest.getInstance(“MD5”);
+```
+2. Después procederemos a calcular el resumen, de un conjunto de bytes. Aquí cambia el proceso, dependiendo de si es un bloque pequeño o más grande, en cuyo caso trabajaremos por bloques:
+```java
+byte[] resumen = md.digest(textoClaro.getBytes());
+
+int bytesLeidos;
+while(llenar_buffer_con_bytes_leidos) {
+    md.update(buffer,0,bytesLeidos);
+}
+byte[] resumen = md.digest();
+```
+3. Finalmente, terminado el resumen con la función digest(), lo convertimos a Hexadecimal en un String. Podemos utilizar cualquier función propia o la función DatatypeConverter.printHexBinary(resumen), de la librería javax.xml.bind.
+
 ### 4.3. Cifrado simétrico vs asimétrico
 
 #### Cipher
