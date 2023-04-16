@@ -164,6 +164,21 @@ byte[] resumen = md.digest();
 3. Finalmente, terminado el resumen con la función digest(), lo convertimos a Hexadecimal en un String. Podemos utilizar cualquier función propia o la función DatatypeConverter.printHexBinary(resumen), de la librería javax.xml.bind.
 
 ### 4.3. Cifrado simétrico vs asimétrico
+El cifrado es la técnica que permite convertir un contenido en claro o legible en un contenido no entendible. En todas las técnicas de cifrado aparecen dos conceptos: algoritmo y clave.
+- **La técnica**: desplazar letras.
+- **La clave**: el número de posiciones que se aplica.
+
+Existen dos tipos de algoritmos: los de **clave simétrica** y **asimétrica**. En la encriptación simétrica se  utiliza la misma clave para encriptar y desencriptar, mientras que en la asimétrica son claves diferentes, generadas a la vez.
+
+Estas claves asimétricas se denominan también claves públicas y privadas, y el funcionamiento es el siguiente (de manera simplificada):
+1. Un servidor S crea un par de claves, una pública y otra privada. La privada solo la tiene él, y la pública la pone a disposición de todos los clientes que quieran comunicarse con él.
+2. Cuando un cliente quiere comunicarse con S, utiliza la clave pública de S para encriptar el contenido. ¿Qué nos garantiza esto? Que como el mensaje ha sido encriptado con la clave pública de S, solo quien esté en disposición de la clave privada de S puede descifrarlo, y ese no es otro que S. Se cumple el principio de integridad.
+
+La firma digital es el proceso inverso en cuanto al uso de claves (también de manera simplificada):
+1. El servidor S emite un texto firmado con su clave privada.
+2. Todos pueden leerlo, ya que todos tienen la clave pública de S.
+3. ¿Quién ha escrito ese mensaje? Es obvio que S, ya que es el único que dispone de su clave privada. Se
+cumple el principio de No repudio.
 
 #### Cipher
 
