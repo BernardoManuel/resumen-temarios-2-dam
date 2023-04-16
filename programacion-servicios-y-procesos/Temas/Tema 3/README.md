@@ -72,4 +72,4 @@ JAX-RS es una API Java de alto nivel que proporciona soporte para servicios REST
 
 | **Response** |
 | :--- |
-| Es la respuesta obtenida desde el servidor.<br/><ul><li>Estado de la petición: **getStatus()** con el código http habitual.</li><li>Tipo de datos devueltos: **getMediaType**. Habitualmente serán JSON.</li></ul><br/>**Response.readEntity(Class)**: nos permite recuperar los datos de la respuesta parseados a la clase indicada. |
+| Es la respuesta obtenida desde el servidor.<br/><ul><li>Estado de la petición: **getStatus()** con el código http habitual.</li><li>Tipo de datos devueltos: **getMediaType**. Habitualmente serán JSON.</li></ul>**Response.readEntity(Class)**: nos permite recuperar los datos de la respuesta parseados a la clase indicada. |
