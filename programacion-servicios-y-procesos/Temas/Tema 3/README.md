@@ -45,8 +45,5 @@ Veamos los métodos más relevantes de la clase URL:
 | **Método** | **Descripción** |
 | --- | --- |
 | **URL(String url)**<br/>**URL(String protocolo, String host, int port, String recurso)** | Crea una URL, bien indicando todos los detalles en el primer constructor, bien separando los elementos en el segundo. |
-
-```java
-URL(String url)
-URL(String protocolo, String host, int port, String recurso)
-```
+| **public URLConnection openConnection()** | Devuelve un objeto URLConnection que representa una conexión abierta a la URL anterior. |
+| **public InputStream openStream()** | Devuelve un InputStream para leer desde una conexión de esa URL. |
