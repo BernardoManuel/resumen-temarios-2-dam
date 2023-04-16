@@ -63,9 +63,9 @@ JAX-RS es una API Java de alto nivel que proporciona soporte para servicios REST
 | Es la clase base, que nos permite crear de manera rápida un cliente de una API para consumir la respuesta. Crearemos una instancia de esta clase mediante el método estático **ClientBuilder.newClient()** |
 
 | **WebTarget** |
-| --- |
+| :--- |
 | Es la web objetivo de la consulta que vamos a realizar. Se indica mediante el método **target(String URI)** de la clase **Client**. |
 
 | **Target.request().get()** |
-| --- |
+| :--- |
 | Enviamos la petición al servidor, obteniendo una respuesta de tipo **Response**. |
