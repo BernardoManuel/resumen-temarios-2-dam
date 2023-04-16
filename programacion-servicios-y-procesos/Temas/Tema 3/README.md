@@ -151,8 +151,10 @@ MessageDigest md = MessageDigest.getInstance(“MD5”);
 ```
 2. Después procederemos a calcular el resumen, de un conjunto de bytes. Aquí cambia el proceso, dependiendo de si es un bloque pequeño o más grande, en cuyo caso trabajaremos por bloques:
 ```java
+// Opción con bloque pequeño
 byte[] resumen = md.digest(textoClaro.getBytes());
 
+// Opción con bloque grande
 int bytesLeidos;
 while(llenar_buffer_con_bytes_leidos) {
     md.update(buffer,0,bytesLeidos);
