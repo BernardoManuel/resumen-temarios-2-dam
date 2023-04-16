@@ -47,3 +47,17 @@ Veamos los métodos más relevantes de la clase URL:
 | **URL(String url)**<br/>**URL(String protocolo, String host, int port, String recurso)** | Crea una URL, bien indicando todos los detalles en el primer constructor, bien separando los elementos en el segundo. |
 | **public URLConnection openConnection()** | Devuelve un objeto URLConnection que representa una conexión abierta a la URL anterior. |
 | **public InputStream openStream()** | Devuelve un InputStream para leer desde una conexión de esa URL. |
+
+### 2.3. LA clase URLConnection
+Mediante el objeto URL podemos establecer el recurso que queremos y algunos argumentos en la petición REQUEST. Dichas propiedades son estáticas independientemente de que esté conectado o no. Para especificar más detalles y controlar la recepción de los datos necesitaremos **URLConnection**, y más aún, otra clase heredera de esta última que es **HTTPUrlConnection**.
+- El objeto **URLConnection** se creará a partir del objeto URL invocando al método **openConnection()**
+- Podemos obtener los datos de la cabecera, bien uno a uno mediante métodos **getHeaderField(String nombreCampo)**.
+- Obtener todos los campos de un **Map** con **getHeaderFiels()**
+- Acceder a la respuesta obteniendo un stream de entrada mediante **getInputStream()**. Debemos tener mucho cuidado aquí con la manera de leer del stream, ya que el origen del tipo de datos dependerá del valor del atributo **content-type**.
+
+### 2.4. JAX-RS Client
+JAX-RS es una API Java de alto nivel que proporciona soporte para servicios REST. En este apartado nos vamos a centrar en la implementación de la parte cliente.
+
+| **Client** |
+| --- |
+| Es la clase base, |
