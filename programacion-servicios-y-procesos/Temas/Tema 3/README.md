@@ -42,6 +42,7 @@ El conjunto de clases del paquete **java.net** agrupa todo lo necesario para rea
 Esta clase nos sirve para referenciar un Localizador Universal de Recurso. Este recurso puede ser desde una página web, un fichero, un documento o una petición a alguna API REST.
 
 Veamos los métodos más relevantes de la clase URL:
+| **Método** | **Descripción** |
 | --- | --- |
 | **URL(String url)**<br/>**URL(String protocolo, String host, int port, String recurso)** | Crea una URL, bien indicando todos los detalles en el primer constructor, bien separando los elementos en el segundo. |
 
