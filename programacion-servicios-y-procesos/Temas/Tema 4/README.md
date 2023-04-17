@@ -34,3 +34,35 @@ Habitualmente, en la mayoría de los protocolos cliente servidor es el cliente q
 En caso de que sea el servidor quien inicie la contienda sin pedirlo el cliente, estamos ante lo que se conoce como una **notificación push**. Estas botificaciones han tenido un gran auge con la aparición de los SMS, y más tarde con las aplicaciones de mensaje ía instantánea, como **WhatsApp** o **Telegram**. Cuando hay algún mensaje para nosotros, es el servidor el que o bien directamente nos indica que tenemos un nuevo mensaje, o bien nos lo manda a nuestra aplicación.
 
 Para emular las notificaciones **push** con las peticiones clásicas, por ejemplo, en el correo electrónico, basta con programar algún hilo temporizador que, cada 5 o 10 minutos, pregunte al servidor si hay correo nuevo; es lo que se conoce como **polling**.
+
+## 2. Modelo cliente-servidor
+### 2.1. Paradigma cliente-servidor
+En el mundo de las comunicaciones entre equipos, el modelo de comunicación más utilizado es el modelo cliente-servidor, ya que ofrece una gran flexibilidad, interoperabilidad y estabilidad para acceder a los recursos de forma centralizada. El término modelo cliente-servidor se acuñó por primera vez en los años ochenta para explicar un sencillo paradigma: un equipo cliente requiere un servicio de un equipo servidor.
+
+Desde el punto de vista funcional, se puede definir el modelo cliente-servidor como una arquitectura distribuida que permite a los usuarios finales obtener acceso a los recursos de forma transparente en entornos multiplataforma. Normalmente, los recursos que suele ofrecer el servidor son datos, pero también puede permitir acceso a dispositivos hardware (discos de red, impresoras), tiempo de procesamiento, ejecución de tareas, etc.
+
+#### Cliente
+Es el proceso que permite interactuar con el usuario, realizar las peticiones, enviarlas al servidor y mostrar los datos al cliente. En definitiva, se comporta como la interfaz (**front-end**) que utiliza el usuario para interactuar con el servidor. Sus funciones serán:
+- Interactuar con el usuario.
+- Procesar las peticiones para ver si son válidas y evitar peticiones maliciosas al servidor.
+- Recibir los resultados del servidor.
+- Formatear y mostrar los resultados.
+
+#### Servidor
+Es el proceso encargado de recibir y procesar las peticiones de los clientes para permitir el acceso a algún recurso (**back-end**). Las funciones del servidor son:
+- Aceptar las peticiones de los clientes.
+- Procesa las peticiones.
+- Formatear y enviar el resultado a los clientes.
+- Procesar la lógica de la aplicación y realizar validaciones de datos.
+- Asegurar la consistencia de la información.
+- Evitar que las peticiones de los clientes interfieran entre sí.
+- Mantener la seguridad del sistema.
+
+La idea es tratar al servidor como una entidad que realiza un determinado conjunto de tareas y que las ofrece como servicio a los clientes. La forma más habitual de utilizar el modelo cliente-servidor es mediante a utilización de equipos a través de interfaces gráficas; mientras que la administración de datos y su seguridad e integridad se dejan a cargo del servidor.
+
+### 2.2. Modelos cliente-servidor según la función
+Según las funciones que realizan los equipos dentro de la estructura, existen diferentes clasificaciones. En el modelo cliente-servidor, como hemos visto es el cliente el que inicia la comunicación y formula una petición y el servidor es quien atiende y sirve la petición.
+
+Puede ocurrir que para resolver su tarea el servidor deba recurrir a otro servidor, como es el caso de los servidores DNS. Si un servidor no posee la información de un dominio, recurre al servidor DNS de dicho dominio para la consulta. Entonces el servidor, como es quien realiza una petición, invierte su rol y pasa a ser un cliente.
+
+A veces, simplemente los clientes se conectan entre ellos, ofreciéndose mutuamente los servicios los unos a los otros. Este tipo de organización se denomina **redes entre iguales** o **peer to peer (p2p)**. Este tipo de redes se generalizó con la aparición de ciertos protocolos de compartición de información como eMule o BitTorrent. Estas redes están habitualmente relacionadas con la piratería por la compartición de archivos sin permiso, pero muchas distribuciones Linux las utilizan para la descarga de sus imágenes.
