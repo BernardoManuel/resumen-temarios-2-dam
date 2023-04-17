@@ -66,3 +66,34 @@ Según las funciones que realizan los equipos dentro de la estructura, existen d
 Puede ocurrir que para resolver su tarea el servidor deba recurrir a otro servidor, como es el caso de los servidores DNS. Si un servidor no posee la información de un dominio, recurre al servidor DNS de dicho dominio para la consulta. Entonces el servidor, como es quien realiza una petición, invierte su rol y pasa a ser un cliente.
 
 A veces, simplemente los clientes se conectan entre ellos, ofreciéndose mutuamente los servicios los unos a los otros. Este tipo de organización se denomina **redes entre iguales** o **peer to peer (p2p)**. Este tipo de redes se generalizó con la aparición de ciertos protocolos de compartición de información como eMule o BitTorrent. Estas redes están habitualmente relacionadas con la piratería por la compartición de archivos sin permiso, pero muchas distribuciones Linux las utilizan para la descarga de sus imágenes.
+
+Las redes/servicios en las que ninguno de los equipos que las forman realiza tareas de gestión se denominan **redes descentralizadas**. Si no están correctamente implementadas, pueden caer en la anarquía; por ello suelen aparecer servidores que se encargan de “poner orden” dentro de la maraña de equipos, dando pie a los **modelos híbridos** o **p2p centralizados**. Estos servidores no almacenan ningún tipo de información, sino que almacenan metainformación para su funcionamiento.
+
+Hay que indicar que los servidores pueden estar centralizados o distribuidos entre distintas máquinas a los largo de la red. La distribución de los servicios se utiliza por varios motivos: replicación de la información, proximidad, tolerancia a fallos, escalabilidad y mucho otros factores.
+
+Hoy en día, con el uso de los contenedores y los servidores virtualizados, prácticamente la totalidad de los servidores están replicados.
+
+Este tipo de servicios van asociados a un **balanceo de carga**, que es un servicio que se encarga de asignar la tarea a aquel servidor que menos carga de trabajao tenga, o menos tiempo de respuesta necesite, etc.
+
+### 2.3. Programación cliente-servidor
+En este apartado vamos a ver el algoritmo que tenemos que aplicar a nuestros clientes y servidores, una vez establecido el protocolo a utilizar. Considerad que dicho algoritmo no tiene en cuenta el propio servicio del servidor, sino solo como deben actuar tanto el cliente como el servidor.
+
+#### Cliente
+La lógica del cliente es muy simple. Una vez establecida la conexión, la parte del cliente que se comunica con el usuario le solicita que petición quiere hacer, con su interfaz de usuario. La petición se envía al servidor y se recibe la respuesta. Todo esto mientras el usuario no decida salir.
+
+#### Servidor
+Básicamente, el servidor acaba cuando el cliente en su petición decide acabar ya que la variable que controla el bucle (semi) infinito se activará según lo de ida el cliente.
+
+Otro concepto importante es la finalización del servidor: **nunca**. Los servicios están pensados para ejecutarse de manera infinita, con las lógicas paradas de mantenimiento, escalado (añadir más servicios) y actualizaciones. Por eso es muy importante que lo protejamos frente a peticiones incorrectas o errores en la atención a los clientes, y que un error en la petición de un cliente no afecte al funcionamiento general del servidor.
+
+#### Desarrollo de la aplicación
+Es importante en el desarrollo tanto de cliente como del servidor, que nos organicemos como programadores. Hay que tener en cuenta que hemos de desarrollar dos rogramas, y que dichos programas serán ejecutados muy probablemente en máquinas distintas. 
+
+Así pues, la recomendación es que, dado que Java nos ofrece la posibilidad de separar bloques del programa en paquetes podemos gestionarlo como sigue:
+1. Un paquete con las clases de utilidad y configuraciones comunes de cliente y servidor (textos, números de puertos temporizadores).
+2. Un paquete con el programa del cliente.
+3. Un paquete con el programa del servidor.
+
+¿Qué ocurre después de probarlo y testearlo? Que si empaquetamos el programa, tenemos todo el código junto. Así pues, es preferible refactorizar nuestro proyecto en dos programas distintos, para empaquetar solo lo necesario.
+
+Finalmente, se recomienda probar la ejecución no solo como dos programas distintos, sino en dos máquinas distintas, e incluso con distinto sistema operativo, para asegurarnos la portabilidad.
