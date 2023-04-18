@@ -238,3 +238,15 @@ Algunos inconvenientes pueden ser:
 - Falta de visión global de la aplicación.
 - Comunicación entre servicios más lenta que dentro del mismo proceso.
 - Dificultad en la detección de errores y en la correcc ón Cuando para recibir un resultado se encadenan varias peticiones entre microservicios y algo falla puede ser difícil detectar en qué eslabón de la cadena se ha producido el error. Y más aún corregirlo si, por ejemplo, se han utilizado tecnologías distintas.
+
+## 5. Enlaces Web
+
+- [Protocolo completo de http, original.](https://datatracker.ietf.org/doc/html/rfc2616)
+- [Página oficial con los productos que ofrece dicho protocolo.](https://bittorrent.com/es)
+- [Página con completa información acerca de los JSON Web Tokens](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/net/DatagramPacket.html)
+- [Documentación de la librería io.jsonwebtoken para la creación y validación de JWT.](https://github.com/jwtk/jjwt)
+- [Framework ligero para la creación de aplicaciones web para Java y Kotlin.](https://sparkjava.com/)
+
+## 6. Respuestas cuestionario
+
+- [Cuestionario](./CUESTIONARIO.md)
